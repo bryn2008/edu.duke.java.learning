@@ -3,32 +3,24 @@ package course2.week2;
 import edu.duke.*;
 
 public class StoringAllGenes {
-	
+
 	public static void main (String [] args){
 		
 		StoringAllGenes myObj = new StoringAllGenes();
+		myObj.testFindAllGenes();
 		myObj.testStorageFinder();
-		//myObj.testFindAllGenes();
-		
 	}
 
 /****************************************************************************************************************************************/	
 
 	//This method creates and returns a StorageResource containing the genes found
 	
-	//needs work!!!!!!!!! needs to store the genes rather than printing them
-	
 	public void storeAll(String dna){
 		
 		StorageResource sr = new StorageResource();
 		
-		
-		
-		//HOW TO ADD GENES TO THE SR
-		
-		
 		int start = 0;
-		int countGenes = 0;
+		//int countGenes = 0;
 		while(true){
 			//find the start codon index
 			int tag = dna.indexOf("atg", start);
@@ -41,21 +33,20 @@ public class StoringAllGenes {
 			int end = findStopIndex(dna, tag+3);
 			//if the length of the dna is not equal to the end the print the dna strand
 			if(end != dna.length()){
-				System.out.println(countGenes+" "+dna.substring(tag,end+3));
+				//System.out.println(countGenes+" "+dna.substring(tag,end+3));
 				sr.add(dna.substring(tag,end+3));
 				//sr = dna.substring(tag,end+3);
 				start = end+3;
-				countGenes +=1;
+				//countGenes +=1;
 			}
 			else{
 				start = start + 3;
 			}
 		}
 		
-		System.out.println(sr);
-		
-		testStorageResource(sr);
-		
+		//System.out.println(sr);
+		//calls the method to test the Storage Resource
+		printGenes(sr);
 	}
 	
 /****************************************************************************************************************************************/
@@ -64,22 +55,16 @@ public class StoringAllGenes {
 	
 	public void testStorageFinder(){
 		FileResource fr = new FileResource("data/dna/brca1line.fa");
-		System.out.println(fr);	//shows the file resource chosen
+		//System.out.println(fr);	//shows the file resource chosen
 		String dna = fr.asString();
-		System.out.println(dna);
+		//System.out.println(dna);
 		//Note: This will print noting out if the line of text is too long
 		
-		//calls the cgRatio method
-		float ratioOfCG = cgRatio(dna);
-		//Show the ratio of 
-		System.out.println("The cgRatio is: " + ratioOfCG);
+		//Change any file input to lower case
+		dna = dna.toLowerCase();
 		
 		//calls the method to storeALL
 		storeAll(dna);
-		
-		
-		//not sure about calling this method yet???
-		//printGenes(dna);
 	}
 	
 /****************************************************************************************************************************************/
@@ -103,7 +88,7 @@ public class StoringAllGenes {
 			start = pos+1;
 		}
 		//1804 matches
-		System.out.println("The no. of times c appears is: " + countc);
+		//System.out.println("The no. of times c appears is: " + countc);
 		
 		start = 0;
 		
@@ -116,11 +101,11 @@ public class StoringAllGenes {
 			start = pos+1;
 		}
 		//1903 matches
-		System.out.println("The no. of times g appears is: " + countg);
+		//System.out.println("The no. of times g appears is: " + countg);
 		
 		int countcg = countc + countg ;
 		
-		System.out.println("The total no. of times a and g appears is: " + countcg);
+		//System.out.println("The total no. of times a and g appears is: " + countcg);
 		
 		return ((float) countcg/dna.length());
 
@@ -131,34 +116,24 @@ public class StoringAllGenes {
 	//This method prints all the genes in the StorageResource which are over 60 chars in length (and the number) and also those which have a C-G-ratio higher than 0.35 (and the number)
 	
 	public void printGenes(StorageResource sr){
+		int noOfGenes = 0;
 		for(String gene : sr.data()){
 			if(gene.length() > 60){
-				System.out.println(gene.length()+"\t"+gene);
+				//System.out.println(gene.length()+"\t"+gene);
+				noOfGenes++;
 			}
 		}
+		System.out.println("The no of genes above 60 characters in length is: "+noOfGenes);
 		
-//		int start = 0;
-//		while(true){
-//			//find the start codon index
-//			int tag = dna.indexOf("atg", start);
-//			//There is no start codon index or none remaining
-//			if(tag == -1){
-//				//System.out.println("Can not find a start codon");
-//				break;
-//			}
-//			//find the stop index of the codon 
-//			int end = findStopIndex(dna, tag+3);
-//			//if the length of the dna is not equal to the end the print the dna strand
-//			if(end != dna.length()){
-//				System.out.println(dna.substring(tag,end+3));
-//				start = end+3;
-//			}
-//			//else ????
-//			else{
-//				start = start + 3;
-//			}
-//		}
-		
+		//reset the number of genes count for the number of genes with a a cgRatio above .035
+		noOfGenes = 0;
+		for(String gene : sr.data()){
+			if(cgRatio(gene)>0.35){
+				//System.out.println(cgRatio(gene)+"\t"+gene);
+				noOfGenes++;
+			}
+		}
+		System.out.println("The no of genes with a cgRatio above 0.35 is: "+noOfGenes);
 	}
 	
 	
@@ -170,7 +145,7 @@ public class StoringAllGenes {
 		int noOfGenes = 0;
 		for(String gene : sr.data()){
 			if(gene.length() > 60){
-				System.out.println(gene.length()+"\t"+gene);
+				//System.out.println(gene.length()+"\t"+gene);
 				noOfGenes++;
 			}
 		}
@@ -178,7 +153,7 @@ public class StoringAllGenes {
 		noOfGenes = 0;
 		for(String gene : sr.data()){
 			if(cgRatio(gene)>0.35){
-				System.out.println(cgRatio(gene)+"\t"+gene);
+				//System.out.println(cgRatio(gene)+"\t"+gene);
 				noOfGenes++;
 			}
 		}
@@ -217,6 +192,7 @@ public class StoringAllGenes {
 	//This method search the dna for dna strings while there is remaining dna to search	
 	
 	public void printAllGenes(String dna){
+		
 		int start = 0;
 		int countGenes = 0;
 		while(true){
@@ -231,7 +207,7 @@ public class StoringAllGenes {
 			int end = findStopIndex(dna, tag+3);
 			//if the length of the dna is not equal to the end the print the dna strand
 			if(end != dna.length()){
-				System.out.println(countGenes+" "+dna.substring(tag,end+3));
+				//System.out.println(countGenes+" "+dna.substring(tag,end+3));
 				start = end+3;
 				countGenes +=1;
 			}
@@ -239,6 +215,7 @@ public class StoringAllGenes {
 				start = start + 3;
 			}
 		}
+		System.out.println("The number of genes in this file is: "+countGenes);
 	}
 	
 /****************************************************************************************************************************************/
@@ -252,7 +229,7 @@ public class StoringAllGenes {
 		//System.out.println(dna);	//Note: This will print noting out if the line of text is too long
 		//calls the method to print all the genes in the DNA string
 		
-		System.out.println(dna.length());
+		//System.out.println(dna.length());
 		printAllGenes(dna);
 	}
 
