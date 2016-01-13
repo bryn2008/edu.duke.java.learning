@@ -51,7 +51,6 @@ public class FindingAllGenes {
 				System.out.println(dna.substring(tag,end+3));
 				start = end+3;
 			}
-			//else ????
 			else{
 				start = start + 3;
 			}

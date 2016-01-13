@@ -1,4 +1,6 @@
-package course2.week2; 
+package course2.week2;
+
+import edu.duke.FileResource;
 
 /**
  * Finds a protein within a strand of DNA represented as a string of c,g,t,a letters.
@@ -8,15 +10,14 @@ package course2.week2;
  * @author Duke Software Team 
  */
 
-//import edu.duke.*;
-//import java.io.*;
+//Modified to use a file reader to read in the dna
 
 public class TagFinder {
 
 	public static void main (String [] args){
 		
 		TagFinder myObj = new TagFinder();
-		myObj.testing();
+		myObj.testStorageFinder();
 	}
 	
 	
@@ -71,7 +72,7 @@ public class TagFinder {
         }
     }
     
-    public void testing() {
+    public void testing(String dnaIn) {
 
     	//String a = "cccatggggtttaaataataataggagagagagagagagttt";
         //String p = "atggggtttaaataataatag";
@@ -82,9 +83,10 @@ public class TagFinder {
         //String a = "acatgataacctaag"; // Should return nothing
         //String p = "";
         
-        String a = "AAATGCCCTAACTAGATTGAAACC"; // Should return atgttttaa
+        //String a = "AAATGCCCTAACTAGATTGAAACC"; // Should return atgttttaa
         String p = "ATGCCCTAACTAGATTGA";
         
+    	String a = dnaIn.toLowerCase();
         
         String ap = p.toLowerCase();
         
@@ -106,5 +108,13 @@ public class TagFinder {
             
             //This method is incorporated
     }
+        
+    	public void testStorageFinder(){
+    		FileResource fr = new FileResource(/*"data/dna/brca1line.fa"*/);
+    		System.out.println(fr);	//shows the file resource chosen
+    		String dnaIn = fr.asString();
+    		System.out.println("The input dna is: "+dnaIn);
+    		testing(dnaIn);
+    	}
     
 }
