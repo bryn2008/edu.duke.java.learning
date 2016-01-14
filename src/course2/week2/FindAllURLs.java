@@ -33,92 +33,41 @@ public class FindAllURLs {
         //Create an StorageResource to store the URL addresses
         StorageResource sr = new StorageResource();
         
-        int noOflinks = 0;
-        for (String urlAddress : ur.lines()){
-        	if(urlAddress.contains("href=")){
-        		System.out.println("Line: " + urlAddress);
-        		String adres = makeURLaddress(urlAddress);
-        		//System.out.println("Returned: " + adres);
-        		//sr.add(adres);
-        		sr.add(urlAddress);
-        		noOflinks++;
+        for (String line : ur.lines()){
+        	if(line.contains("href=\"http")){
+        		//System.out.println("Line: " + line);
+        		String url = makeURLaddress(line);
+        		//1.Print all the URLs
+        		System.out.println(" >> " + url);
+        		sr.add(url);
         	}	
         }
-        System.out.println("The number of links found: " + noOflinks);
-        //processURLs(sr);
+        //System.out.println("The number of URLs found: " + noOflinks);
+        processURLs(sr);
 	}
 	
 /****************************************************************************************************************************************/    
-	//First strings
-	
-	// Start of URL is  13																					 End of URL is 91
-	//Line: <li> <a href="http://www.informationweek.com/hardware/desktop/turings-universal-machine-voted-top-brit/240151643">
-	
-	// Start of URL is  7																 End of URL is 77	
-	//Line: 		href="http://online.wsj.com/article/SB10001424053111903480904576512250915629460.html">
-	
-	// Start of URL is  13																			 End of URL is 88	
-	//Line: <li> <a href="http://www.newscientist.com/article/dn20791-robot-mission-impossible-wins-video-prize.html">
-	
-	
-	
-	//Line: <li> "IKEA"<a href="https://www.youtube.com/watch?feature=player_embedded&v=MOXQo7nURs0">"ExperienceThePowerOfA-bookbook"
 	
     public String makeURLaddress(String urlAddress){
     	
-    	int urlRef = urlAddress.indexOf("href=");
+    	int urlRef = urlAddress.indexOf("href=\"http")+6;
     	
     	//Find the start of the hyper link
-    	int startOfAddress = urlAddress.substring(0, urlAddress.length()).indexOf("\"");
-    	System.out.println("Start of URL >> "+startOfAddress);
+    	int endOfurl = urlAddress.substring(urlRef).indexOf("\"");
+    	//System.out.println("End of URL >> "+(urlRef+endOfurl));
+    	    	
+    	String url = urlAddress.substring(urlRef, (urlRef+endOfurl));
     	
-    	//find the end of the hyper link
-    	int endOfAddress = urlAddress.substring((startOfAddress+urlRef)).indexOf("\"");
-    	System.out.println("End of URL >>"+endOfAddress);
-    	
-    	//Concatenates the hyper link from the start to the end of the string
-    	String answer = urlAddress.substring(startOfAddress, endOfAddress + urlAddress.substring(0, urlRef).length() + urlAddress.substring(0, startOfAddress).length() +1);
-    	System.out.println("Url Address is >> " + answer);
-    	
-    	return answer;
+    	//System.out.println(">>"+url);
+    	return url;
     	
     }
-    
-    //bug	
-	
-	//Line: <li> "IKEA"<a href="https://www.youtube.com/watch?feature=player_embedded&v=MOXQo7nURs0">"ExperienceThePowerOfA-bookbook"
-	//Start of URL >> 5
-	//End of URL >>0
-	//Url Address is >> "IKEA"<a href="    
     
 /****************************************************************************************************************************************/   
 	
 	public void processURLs(StorageResource sr){       
         
-		int noOflinks = sr.size();
-        int numOfhttp = 0;
-        for (String httpsAdres : sr.data()){
-        	if(httpsAdres.contains("http"))
-        		numOfhttp++;
-        		//System.out.println("Line: " + httpsAdres);
-        }
-        System.out.println("The number of http address are: " + numOfhttp);
-        
-        int numOfwww = 0;
-        for (String httpsAdres : sr.data()){
-        	if(httpsAdres.contains("www."))
-        		numOfwww++;
-        		//System.out.println("Line: " + httpsAdres);
-        }
-        System.out.println("The number of www. address are: " + numOfwww);
-        
-        System.out.println("The number of lines that contain href= >> " + noOflinks);
-        
-        //The number of links in total
-        //System.out.println(" >> " + sr.data());
-        System.out.println("The number of url address are: " + sr.size());
-        
-        //The number of links that are https
+		//The number of secure links found
         int numOfhttps = 0;
         for (String httpsAdres : sr.data()){
         	if(httpsAdres.contains("https"))
@@ -137,14 +86,14 @@ public class FindAllURLs {
         System.out.println("The number of addresses containing .com are: " + numOfcoms);
         
         //The number of links that end with ".com" or ".com/"
-        
-        //int numOfends = 0;
-        
-        // string.length().subsring(-4) == .com or .com/
-        
-        
-        
-        
+        int numOfcomsEnds = 0;
+        for (String urlAdd : sr.data()){
+        	if(urlAdd.endsWith(".com") || urlAdd.endsWith(".com/"))
+        		numOfcomsEnds++;
+        		//System.out.println("Line: " + comAdres);
+        }
+        System.out.println("The number of addresses ending in .com or .com/ are: " + numOfcomsEnds);
+                
         //The total number that "." appears in all the links
         int numOfDots = 0;
         char dot = '.';

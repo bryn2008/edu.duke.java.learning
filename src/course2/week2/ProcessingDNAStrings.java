@@ -81,7 +81,7 @@ public class ProcessingDNAStrings {
 
 	//find the number of ctg codons in the dna
 		
-	private void countCTGgenes(String dna) {
+	public void countCTGgenes(String dna) {
 		
 		int start = 0;
 		int ctgTagCount = 0;
