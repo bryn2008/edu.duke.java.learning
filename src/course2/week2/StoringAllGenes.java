@@ -7,10 +7,15 @@ public class StoringAllGenes {
 	public static void main (String [] args){
 		
 		StoringAllGenes myObj = new StoringAllGenes();
-		myObj.testFindAllGenes();
+		//myObj.testFindAllGenes();
 		myObj.testStorageFinder();
 	}
 
+	
+	//How many times does the codon CTG appear in a strand of DNA?
+	
+	//What is the length of the longest gene in a collection of genes (that is, the longest String in a StorageResource of strings)?
+	
 /****************************************************************************************************************************************/	
 
 	//This method creates and returns a StorageResource containing the genes found
@@ -54,7 +59,7 @@ public class StoringAllGenes {
 	//This method reads in the large string of DNA and calls storeAll to find and store all the genes in this large string of DNA
 	
 	public void testStorageFinder(){
-		FileResource fr = new FileResource("data/dna/brca1line.fa");
+		FileResource fr = new FileResource(/*"data/dna/brca1line.fa"*/);
 		//System.out.println(fr);	//shows the file resource chosen
 		String dna = fr.asString();
 		//System.out.println(dna);
@@ -63,8 +68,12 @@ public class StoringAllGenes {
 		//Change any file input to lower case
 		dna = dna.toLowerCase();
 		
-		//calls the method to storeALL
+		//Calls the method to count the genes
+		printAllGenes(dna);
+		
+		//Calls the method to storeALL
 		storeAll(dna);
+
 	}
 	
 /****************************************************************************************************************************************/
