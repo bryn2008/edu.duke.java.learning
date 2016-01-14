@@ -24,9 +24,9 @@ public class FindAllURLs {
 	public void findURLs(){
 		
     	//Get the html via Met Office proxy
-    	System.setProperty("http.proxyHost", "webproxy.metoffice.gov.uk" );
-        System.setProperty("http.proxyPort", "8080");
-        URLResource ur = new URLResource("http://www.dukelearntoprogram.com/course2/data/manylinks.html");
+    	//System.setProperty("http.proxyHost", "webproxy.metoffice.gov.uk" );
+        //System.setProperty("http.proxyPort", "8080");
+        URLResource ur = new URLResource("http://www.dukelearntoprogram.com/course2/data/newyorktimes.html");
 		
 		//FileResource fr = new FileResource("html/TheNewYorkTimes.html");
         
@@ -67,6 +67,10 @@ public class FindAllURLs {
 	
 	public void processURLs(StorageResource sr){       
         
+		//number of URL in the web site
+		//336 is incorrect in the quiz
+		System.out.println("The number of URLs found is: "+sr.size());
+		
 		//The number of secure links found
         int numOfhttps = 0;
         for (String httpsAdres : sr.data()){
@@ -74,6 +78,7 @@ public class FindAllURLs {
         		numOfhttps++;
         		//System.out.println("Line: " + httpsAdres);
         }
+        //3 and is also the answer in the quiz
         System.out.println("The number of https address are: " + numOfhttps);
         
         //The number of links that have ".com" in them
@@ -83,6 +88,7 @@ public class FindAllURLs {
         		numOfcoms++;
         		//System.out.println("Line: " + comAdres);
         }
+        //335 is incorrect in the quiz
         System.out.println("The number of addresses containing .com are: " + numOfcoms);
         
         //The number of links that end with ".com" or ".com/"
@@ -92,6 +98,7 @@ public class FindAllURLs {
         		numOfcomsEnds++;
         		//System.out.println("Line: " + comAdres);
         }
+        //15 and is also the answer in the quiz
         System.out.println("The number of addresses ending in .com or .com/ are: " + numOfcomsEnds);
                 
         //The total number that "." appears in all the links
@@ -107,6 +114,8 @@ public class FindAllURLs {
 	        	}
         	}	
         }
+        
+        //943 is incorrect in the quiz
         System.out.println("The number of "+"\"."+"\" in total is: " + numOfDots);
         
 	}
