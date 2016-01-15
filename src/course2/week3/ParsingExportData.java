@@ -46,10 +46,10 @@ public class ParsingExportData {
 				System.out.println(country+": "+export+": "+value);
 			}
 			//Else if there is no "exportOfInterest" just write down the "Country"
-			else{
+/*			else{
 				String country = record.get("Country");
 				System.out.println(country + ": Not found");
-			}
+			}*/
 		}
 	}
 	
@@ -107,17 +107,33 @@ public class ParsingExportData {
 	
 /********************************************************************************************************/	
 	
+/*	public void countryName(CSVParser parser, String counrty) {
+		//for each row in the CSV File
+		for (CSVRecord record : parser) {
+			//Check if it contains exportOfInterest
+			if (record.get("Country").equals(counrty)){
+				//If so, write down the "Country" from that row and the "Exports" and the "Value (dollars)"
+				String country = record.get("Country");
+				String export = record.get("Exports");
+				String value = record.get("Value (dollars)");
+				System.out.println(country+": "+export+": "+value);
+			}
+		}
+	}*/
+	
+/********************************************************************************************************/	
+	
 	public void tester() {
-		//FileResource fr = new FileResource("resources/course2/week3/exports/exportdata.csv");
-		FileResource fr = new FileResource("resources/course2/week3/exports/exports_small.csv");
+		FileResource fr = new FileResource("resources/course2/week3/exports/exportdata.csv");
+		//FileResource fr = new FileResource("resources/course2/week3/exports/exports_small.csv");
 		CSVParser parser = fr.getCSVParser();
 		
-		System.out.println("Who imports coffee?");
-		listExporters(parser, "coffee");
+/*		System.out.println("Who imports coffee?");
+		listExporters(parser, "coffee");*/
 		
-		System.out.println("Info for Germany");
+		System.out.println("Info for Nauru");
 		parser =fr.getCSVParser();	//>> to use the parser with another metod it needs to be reset
-		countryInfo(parser, "Germany");
+		countryInfo(parser, "Nauru");
 		
 		System.out.println("Which countrys export gold and dimonds?");
 		parser =fr.getCSVParser();	//>> to use the parser with another metod it needs to be reset
@@ -129,7 +145,9 @@ public class ParsingExportData {
 		
 		System.out.println("Which Countrys are big exporters with export values over $999,999,999");
 		parser =fr.getCSVParser();	//>> to use the parser with another metod it needs to be reset
-		bigExporters(parser, "$999,999,999");
+		bigExporters(parser, "$999,999,999,999");
+		
+		//countryName(parser, "Germany");
 	}
 	
 /********************************************************************************************************/
