@@ -1,22 +1,20 @@
-package course2.week3.resources;
+package course2.week3;
 
-/**
- * Find the highest (hottest) temperature in a file of CSV weather data.
- * 
- * @author Duke Software Team 
- */
+import java.io.File;
 
-import edu.duke.*;
-import org.apache.commons.csv.*;
-import java.io.*;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 
-public class CSVMax {
-	
+import edu.duke.DirectoryResource;
+import edu.duke.FileResource;
+
+public class ParsingWeatherData {
+
+
 	public static void main (String [] args){
 		
-		CSVMax myObj = new CSVMax();
+		ParsingWeatherData myObj = new ParsingWeatherData();
 		myObj.testHottestInManyDays();
-		
 	}
 	
 /********************************************************************************************************/	
@@ -70,19 +68,20 @@ public class CSVMax {
 	
 /********************************************************************************************************/
 	
-	public void testHottestInManyDays () {
-		CSVRecord largest = HottestInManyDays();
-		System.out.println("hottest temperature was " + largest.get("TemperatureF") +
-				   " at " + largest.get("DateUTC"));
-	}
-	
-/********************************************************************************************************/
-	
 	public void testHottestInDay () {
 		FileResource fr = new FileResource("resources/course2/week3/data/2015/weather-2015-01-02.csv");
 		CSVRecord largest = hottestHourInFile(fr.getCSVParser());
 		System.out.println("hottest temperature was " + largest.get("TemperatureF") +
 				   " at " + largest.get("TimeEST"));
+	}	
+/********************************************************************************************************/
+	
+	public void testHottestInManyDays () {
+		CSVRecord largest = HottestInManyDays();
+		System.out.println("hottest temperature was " + largest.get("TemperatureF") +
+				   " at " + largest.get("DateUTC"));
 	}
-
+		
+/********************************************************************************************************/
+	
 }
