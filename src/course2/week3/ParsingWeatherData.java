@@ -43,8 +43,9 @@ public class ParsingWeatherData {
 		for (File f : dr.selectedFiles()){
 			FileResource fr = new FileResource(f);
 
-			
-			//use an if statement to determine the file with the coldest temp
+			//Determine the file?????
+			//
+			//use an if statement to determine the file with the coldest temperature
 			
 			
 			//use method to get smallest in file
@@ -53,7 +54,7 @@ public class ParsingWeatherData {
 			
 			
 		} 
-		//The largest so far is the answer
+		//The largest so far is the answer 
 		return lowestSoFar;
 	}
 		
@@ -162,8 +163,15 @@ public class ParsingWeatherData {
 	//number 2 in the assignment
 	public void testFileWithColdestTemperature () {
 		CSVRecord coldest = fileWithColdestTemperature();
-		System.out.println("coldest temperature was " + coldest.get("TemperatureF") +
-				   " at " + coldest.get("DateUTC"));
+		
+		System.out.println("Coldest day was in file weather " + coldest.get("DateUTC") + ".csv" );
+		
+		System.out.println("Coldest temperature on that day was " + coldest.get("TemperatureF"));
+		
+		
+		//get file name???
+		
+		System.out.println(" >> "  );
 	}
 	
 /********************************************************************************************************/
