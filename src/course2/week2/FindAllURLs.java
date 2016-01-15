@@ -24,12 +24,10 @@ public class FindAllURLs {
 	public void findURLs(){
 		
     	//Get the html via Met Office proxy
-    	//System.setProperty("http.proxyHost", "webproxy.metoffice.gov.uk" );
-        //System.setProperty("http.proxyPort", "8080");
-        URLResource ur = new URLResource("http://www.dukelearntoprogram.com/course2/data/newyorktimes.html");
+    	System.setProperty("http.proxyHost", "webproxy.metoffice.gov.uk" );
+        System.setProperty("http.proxyPort", "8080");
+    	URLResource ur = new URLResource("http://www.dukelearntoprogram.com/course2/data/newyorktimes.html");
 		
-		//FileResource fr = new FileResource("html/TheNewYorkTimes.html");
-        
         //Create an StorageResource to store the URL addresses
         StorageResource sr = new StorageResource();
         

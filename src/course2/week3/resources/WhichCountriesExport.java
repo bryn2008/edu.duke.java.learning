@@ -20,17 +20,20 @@ public class WhichCountriesExport {
 	
 	public void listExporters(CSVParser parser, String exportOfInterest) {
 		//for each row in the CSV File
-
+		for (CSVRecord record : parser) {
 			//Look at the "Exports" column
-
+			String exports = record.get("Exports");
 			//Check if it contains exportOfInterest
-
-				//If so, write down the "Country" from that row
-
+			if (exports.contains(exportOfInterest)){
+				//If so, write down the "Country" from that row			
+				String country = record.get("Country");
+				System.out.println(country);
+			}
+		}
 	}
-
+	
 	public void whoExportsCoffee() {
-		FileResource fr = new FileResource();
+		FileResource fr = new FileResource("resources/course2/week3/exports/exports_small.csv");
 		CSVParser parser = fr.getCSVParser();
 		listExporters(parser, "coffee");
 	}
