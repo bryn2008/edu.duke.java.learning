@@ -1,6 +1,9 @@
 package course2.week3;
 
-import java.io.File;
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -14,9 +17,141 @@ public class ParsingWeatherData {
 	public static void main (String [] args){
 		
 		ParsingWeatherData myObj = new ParsingWeatherData();
-		//myObj.testHottestInManyDays();
-		//myObj.testColdestInDay();
-		myObj.testFileWithColdestTemperature();
+		//myObj.testHottestInManyDays();			//Start of assignment
+		//myObj.testColdestInDay();					//number 1 in the assignment
+		//myObj.testFileWithColdestTemperature();	//number 2 in the assignment
+		//myObj.testLowestHumidityInFile();			//number 3 in the assignment
+		//myObj.testLowestHumidityInManyFile();		//number 4 in the assignment
+		myObj.testAverageTemperatureInFile();		//number 5 in the assignment
+	}
+
+/********************************************************************************************************/
+	//Number 5 in the assignment
+	public void testAverageTemperatureInFile() {
+		
+		FileResource fr = new FileResource("resources/course2/week3/data/2015/weather-2015-01-01.csv");
+		CSVParser parser = fr.getCSVParser();
+		CSVRecord lowestTemperature = averageTemperatureInFile(parser);
+		System.out.println("Average Temperature in file is " + lowestTemperature.get("TemperatureF"));
+	}	
+	
+/********************************************************************************************************/
+	
+	public CSVRecord averageTemperatureInFile(CSVParser parser) {
+		
+		ArrayList <Double> al = new ArrayList();
+		
+		//start with largestSoFar as nothing
+		CSVRecord averageTemperature = null;
+		//For each row (currentRow) in the CSV File
+		for(CSVRecord currentRow : parser){
+			//If largestSoFar is nothing
+			
+			
+			double currentTemp = Double.parseDouble(currentRow.get("TemperatureF"));
+			al.add(currentTemp);
+		}
+		System.out.println(al);
+			
+		
+		double pi = 3.14159;
+		//The average temperature is the returned
+		return averageTemperature;
+	}
+	
+/********************************************************************************************************/
+	//Number 4 in the assignment
+	public void testLowestHumidityInManyFile() {
+		
+		CSVRecord lowestHumidity = lowestHumidityInManyFiles();
+		System.out.println("Lowest Humidity at " + lowestHumidity.get("Humidity") +
+				   " at " + lowestHumidity.get("DateUTC"));
+	}
+	
+/********************************************************************************************************/
+	
+	public CSVRecord lowestHumidityInManyFiles () {
+		CSVRecord lowestHumidity = null;
+		DirectoryResource dr = new DirectoryResource();
+		//iterate over files
+		for (File f : dr.selectedFiles()){
+			FileResource fr = new FileResource(f);
+			//use method to get the file with the lowest humidity
+			CSVRecord currentRow = lowestHumidityInFile(fr.getCSVParser());
+			lowestHumidity = getLowestHumidityOfTwo(currentRow, lowestHumidity);
+		}
+		//The largest so far is the answer
+		return lowestHumidity;
+	}
+	
+/********************************************************************************************************/
+	
+	public CSVRecord getLowestHumidityOfTwo(CSVRecord currentRow, CSVRecord lowHum) {
+		if(lowHum == null){
+			lowHum = currentRow;
+		}
+		//Otherwise
+		else{
+			double currentHumidity = Double.parseDouble(currentRow.get("Humidity"));
+			double lowestHumidity = Double.parseDouble(lowHum.get("Humidity"));
+				//Check if currentRow's temperature > largestSoFar
+				if(currentHumidity < lowestHumidity){
+					//If so update largestSoFar to currentRow
+					lowHum = currentRow; 
+				}
+		}
+		return lowHum;
+	}
+	
+/********************************************************************************************************/
+	
+	public CSVRecord lowestHumidityInFile(CSVParser parser) {
+		//start with largestSoFar as nothing
+		CSVRecord lowestHumidity = null;
+		//For each row (currentRow) in the CSV File
+		for(CSVRecord currentRow : parser){
+			//If largestSoFar is nothing
+			lowestHumidity = getLowestOfTwo(currentRow, lowestHumidity);
+		}
+		//The largestSoFar is the answer
+		return lowestHumidity;
+	}
+	
+/********************************************************************************************************/
+	
+	public CSVRecord getLowestOfTwo(CSVRecord currentRow, CSVRecord lowHum) {
+		
+		String bug = "N/A";
+		//Checks the value of the integer lowHum is not empty
+		if(lowHum == null){
+			lowHum = currentRow;
+		}
+		
+		//check if the currentRow is a string
+		else if(currentRow.get("Humidity") == bug){
+			//lowHum = lowHum; //Do nothing
+		}
+		
+		//Otherwise
+		else{
+			double currentHumidity = Double.parseDouble(currentRow.get("Humidity"));
+			double lowestHumidity = Double.parseDouble(lowHum.get("Humidity"));
+				//Check if currentRow's humidity < lowestHumidity
+				if(currentHumidity < lowestHumidity){
+					lowHum = currentRow;
+			}
+		}
+		return lowHum;
+	}
+	
+/********************************************************************************************************/
+	//Number 3 in the assignment
+	public void testLowestHumidityInFile() {
+		FileResource fr = new FileResource("resources/course2/week3/data/2014/weather-2014-01-20.csv");
+		CSVParser parser = fr.getCSVParser();
+		CSVRecord csv = lowestHumidityInFile(parser);
+		
+		System.out.println("Lowest Humidity was " + csv.get("Humidity") + " at " + csv.get("DateUTC"));
 	}
 	
 /********************************************************************************************************/	
@@ -36,28 +171,43 @@ public class ParsingWeatherData {
 
 /********************************************************************************************************/
 	
-	public CSVRecord fileWithColdestTemperature () {
+	public CSVRecord fileWithColdestTemperature (Path path) {
+		
+		//set the file resource to the path
+		String filePath = path.toString();
+		FileResource fr = new FileResource(filePath);
+		//String fileName = "the file with the lowest temp!!";
+		CSVRecord lowestSoFar = null;
+		//use method to get smallest in file
+		CSVRecord currentRow = coldestHourInFile(fr.getCSVParser());
+		lowestSoFar = getSmallestOfTwo(currentRow, lowestSoFar);
+		//The largest so far is the answer 
+		return lowestSoFar;
+	}
+	
+/********************************************************************************************************/
+	
+	public String theFileNameWithColdestTemperature() {
+		
+		String filePath = null;
 		CSVRecord lowestSoFar = null;
 		DirectoryResource dr = new DirectoryResource();
 		//iterate over files
 		for (File f : dr.selectedFiles()){
 			FileResource fr = new FileResource(f);
-
-			//Determine the file?????
-			//
-			//use an if statement to determine the file with the coldest temperature
-			
-			
+			String fileName = f.getName();
 			//use method to get smallest in file
 			CSVRecord currentRow = coldestHourInFile(fr.getCSVParser());
 			lowestSoFar = getSmallestOfTwo(currentRow, lowestSoFar);
-			
-			
-		} 
+			//if file contains lowest temperature then set the file name to the file path
+			if(currentRow == lowestSoFar){
+				filePath = fileName;
+			}
+		}
 		//The largest so far is the answer 
-		return lowestSoFar;
+		return filePath;
 	}
-		
+			
 /********************************************************************************************************/
 	
 	public CSVRecord getSmallestOfTwo(CSVRecord currentRow, CSVRecord lowestSoFar) {
@@ -162,16 +312,35 @@ public class ParsingWeatherData {
 	
 	//number 2 in the assignment
 	public void testFileWithColdestTemperature () {
-		CSVRecord coldest = fileWithColdestTemperature();
+
+		//Call the method to find the files name with the coldest day
+		String filePath = theFileNameWithColdestTemperature();
 		
-		System.out.println("Coldest day was in file weather " + coldest.get("DateUTC") + ".csv" );
+		//The coldest day was in file:
+		System.out.println("Coldest day was in file "+filePath);
 		
+		Path path = Paths.get("resources/course2/week3/nc_weather/2014", filePath);
+		
+		//Result is "resources\course2\week3\nc_weather\2014\" + filePath
+		//System.out.println(path); 
+		
+		//Return the CSV record
+		CSVRecord coldest = fileWithColdestTemperature(path);
+		
+		//This method works
 		System.out.println("Coldest temperature on that day was " + coldest.get("TemperatureF"));
 		
+		//This method needs the name of the file to print all of the temperatures
+		System.out.println("All the Temperatures on the coldest day were: ");
+		String theFilePath = path.toString();
+		FileResource fr = new FileResource(theFilePath);
+		CSVParser parser = fr.getCSVParser();
+		for (CSVRecord record : parser){
+			System.out.print(record.get("DateUTC") + " ");
+			System.out.print(record.get("TimeEST") + " ");
+			System.out.println(record.get("TemperatureF"));
+		}
 		
-		//get file name???
-		
-		System.out.println(" >> "  );
 	}
 	
 /********************************************************************************************************/
