@@ -17,46 +17,96 @@ public class ParsingWeatherData {
 	public static void main (String [] args){
 		
 		ParsingWeatherData myObj = new ParsingWeatherData();
-		//myObj.testHottestInManyDays();			//Start of assignment
-		//myObj.testColdestInDay();					//number 1 in the assignment
-		//myObj.testFileWithColdestTemperature();	//number 2 in the assignment
-		//myObj.testLowestHumidityInFile();			//number 3 in the assignment
-		//myObj.testLowestHumidityInManyFile();		//number 4 in the assignment
-		myObj.testAverageTemperatureInFile();		//number 5 in the assignment
+		//myObj.testHottestInManyDays();							//Start of assignment
+		//myObj.testColdestInDay();									//number 1 in the assignment
+		//myObj.testFileWithColdestTemperature();					//number 2 in the assignment
+		//myObj.testLowestHumidityInFile();							//number 3 in the assignment
+		//myObj.testLowestHumidityInManyFile();						//number 4 in the assignment
+		//myObj.testAverageTemperatureInFile();						//number 5 in the assignment
+		//myObj.testAverageTemperatureWithHighHumidityInFile();		//number 6 in the assignment
+		myObj.quiz();												//Answers for the quiz
 	}
-
+	
 /********************************************************************************************************/
-	//Number 5 in the assignment
-	public void testAverageTemperatureInFile() {
+	//Answers for the quiz
+	public void quiz() {
 		
-		FileResource fr = new FileResource("resources/course2/week3/data/2015/weather-2015-01-01.csv");
+		//Question 1
+		//testLowestHumidityInFile();
+		//Question 2
+		//testLowestHumidityInManyFile();	
+		//Question 3
+		//testAverageTemperatureInFile();
+		//Question 4
+		//testAverageTemperatureWithHighHumidityInFile();
+		//Question 5
+		testFileWithColdestTemperature();
+	}		
+/********************************************************************************************************/
+	//Number 6 in the assignment
+	public void testAverageTemperatureWithHighHumidityInFile() {
+		
+		FileResource fr = new FileResource("resources/course2/week3/nc_weather_QUIZ/nc_weather/2013/weather-2013-09-02.csv");
 		CSVParser parser = fr.getCSVParser();
-		CSVRecord lowestTemperature = averageTemperatureInFile(parser);
-		System.out.println("Average Temperature in file is " + lowestTemperature.get("TemperatureF"));
+		double averageTemperature = averageTemperatureWithHighHumidityInFile(parser);
+		System.out.println("Average Temp when high Humidity is " + averageTemperature);
 	}	
 	
 /********************************************************************************************************/
 	
-	public CSVRecord averageTemperatureInFile(CSVParser parser) {
+	public double averageTemperatureWithHighHumidityInFile(CSVParser parser) {
 		
-		ArrayList <Double> al = new ArrayList();
+		int value = 80;
+		double aveTemp = 0.0000000;
+		ArrayList<Double> al = new ArrayList<Double>();
 		
-		//start with largestSoFar as nothing
-		CSVRecord averageTemperature = null;
+		for(CSVRecord currentRow : parser){
+			double currentHumidity = Double.parseDouble(currentRow.get("Humidity"));
+			if(currentHumidity >= value){
+				double currentTemp = Double.parseDouble(currentRow.get("TemperatureF"));
+				al.add(currentTemp);
+				double total = 0;
+				for(Double d : al){
+					total += d;
+				}
+				double average = total / al.size();
+				aveTemp = average;
+			}
+		}
+	return aveTemp;
+	}
+	
+/********************************************************************************************************/
+	//Number 5 in the assignment
+	public void testAverageTemperatureInFile() {
+		
+		FileResource fr = new FileResource("resources/course2/week3/nc_weather_QUIZ/nc_weather/2013/weather-2013-08-10.csv");
+		CSVParser parser = fr.getCSVParser();
+		double averageTemperature = averageTemperatureInFile(parser);
+		System.out.println("Average Temperature in file is " + averageTemperature);
+	}	
+	
+/********************************************************************************************************/
+	
+	public double averageTemperatureInFile(CSVParser parser) {
+		
+		ArrayList<Double> al = new ArrayList<Double>();
 		//For each row (currentRow) in the CSV File
 		for(CSVRecord currentRow : parser){
-			//If largestSoFar is nothing
-			
-			
 			double currentTemp = Double.parseDouble(currentRow.get("TemperatureF"));
 			al.add(currentTemp);
 		}
-		System.out.println(al);
-			
-		
-		double pi = 3.14159;
+		//List of temperatures
+		//System.out.println(al);
+		//For loop to find the average
+		double total = 0;
+		for(Double d : al){
+			total += d;
+		}
+		double average = total / al.size();
+		//System.out.println("The average temperature is > "+average);
 		//The average temperature is the returned
-		return averageTemperature;
+		return average;
 	}
 	
 /********************************************************************************************************/
@@ -128,7 +178,8 @@ public class ParsingWeatherData {
 		}
 		
 		//check if the currentRow is a string
-		else if(currentRow.get("Humidity") == bug){
+		else if(currentRow.get("Humidity").equals(bug)){
+			//System.out.println("bug found and excluded!");
 			//lowHum = lowHum; //Do nothing
 		}
 		
@@ -147,7 +198,7 @@ public class ParsingWeatherData {
 /********************************************************************************************************/
 	//Number 3 in the assignment
 	public void testLowestHumidityInFile() {
-		FileResource fr = new FileResource("resources/course2/week3/data/2014/weather-2014-01-20.csv");
+		FileResource fr = new FileResource("resources/course2/week3/nc_weather_QUIZ/nc_weather/2014/weather-2014-07-22.csv");
 		CSVParser parser = fr.getCSVParser();
 		CSVRecord csv = lowestHumidityInFile(parser);
 		
@@ -302,10 +353,9 @@ public class ParsingWeatherData {
 /********************************************************************************************************/
 	//number 1 in the assignment
 	public void testColdestInDay () {
-		FileResource fr = new FileResource("resources/course2/week3/data/2015/weather-2015-01-01.csv");
+		FileResource fr = new FileResource("resources/course2/week3/nc_weather_QUIZ/nc_weather/2014/weather-2014-05-01.csv");
 		CSVRecord coldest = coldestHourInFile(fr.getCSVParser());
-		System.out.println("coldest temperature was " + coldest.get("TemperatureF") +
-				   " at " + coldest.get("TimeEST"));
+		System.out.println("coldest temperature was " + coldest.get("TemperatureF") /*+ " at " + coldest.get("TimeEST")*/);
 	}
 		
 /********************************************************************************************************/
@@ -319,7 +369,7 @@ public class ParsingWeatherData {
 		//The coldest day was in file:
 		System.out.println("Coldest day was in file "+filePath);
 		
-		Path path = Paths.get("resources/course2/week3/nc_weather/2014", filePath);
+		Path path = Paths.get("resources/course2/week3/nc_weather/2013", filePath);
 		
 		//Result is "resources\course2\week3\nc_weather\2014\" + filePath
 		//System.out.println(path); 

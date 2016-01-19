@@ -1,7 +1,7 @@
 TimeEST,TemperatureF,Dew PointF,Humidity,Sea Level PressureIn,VisibilityMPH,Wind Direction,Wind SpeedMPH,Gust SpeedMPH,PrecipitationIn,Events,Conditions,WindDirDegrees,DateUTC
 12:51 AM,36,24.1,62,29.91,10,SW,5.8,-,N/A,,Clear,230,20/01/2014 05:51
 1:51 AM,33.1,24.1,70,29.89,10,SW,9.2,-,N/A,,Clear,230,20/01/2014 06:51
-2:51 AM,34,25,70,29.89,10,SW,9.2,-,N/A,,Clear,230,20/01/2014 07:51
+2:51 AM,34,25,N/A,29.89,10,SW,9.2,-,N/A,,Clear,230,20/01/2014 07:51
 3:51 AM,35.1,25,67,29.89,10,WSW,6.9,-,N/A,,Clear,240,20/01/2014 08:51
 4:51 AM,33.1,25,67,29.88,10,SW,6.9,-,N/A,,Clear,220,20/01/2014 09:51
 5:51 AM,32,25,75,29.88,10,SW,9.2,-,N/A,,Clear,230,20/01/2014 10:51

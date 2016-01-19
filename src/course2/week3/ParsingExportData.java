@@ -12,6 +12,7 @@ public class ParsingExportData {
 		
 		ParsingExportData myObj = new ParsingExportData();
 		myObj.tester();
+		//myObj.quizAnswers();
 	}
 	
 /********************************************************************************************************/
@@ -128,26 +129,57 @@ public class ParsingExportData {
 		//FileResource fr = new FileResource("resources/course2/week3/exports/exports_small.csv");
 		CSVParser parser = fr.getCSVParser();
 		
-/*		System.out.println("Who imports coffee?");
-		listExporters(parser, "coffee");*/
+		System.out.println("Who imports coffee?");
+		listExporters(parser, "coffee");
 		
+		System.out.println(" ");
 		System.out.println("Info for Nauru");
-		parser =fr.getCSVParser();	//>> to use the parser with another metod it needs to be reset
+		parser =fr.getCSVParser();	//>> to use the parser with another method it needs to be reset
 		countryInfo(parser, "Nauru");
 		
-		System.out.println("Which countrys export gold and dimonds?");
-		parser =fr.getCSVParser();	//>> to use the parser with another metod it needs to be reset
-		listExportersTwoProducts(parser, "gold", "diamonds");
+		System.out.println(" ");
+		System.out.println("Which Country's export fish and nuts?");
+		parser =fr.getCSVParser();	//>> to use the parser with another method it needs to be reset
+		listExportersTwoProducts(parser, "fish", "nuts");
 		
-		System.out.println("How many Countrys export gold?");
-		parser =fr.getCSVParser();	//>> to use the parser with another metod it needs to be reset
-		numberOfExports(parser, "gold");
+		System.out.println(" ");
+		System.out.println("How many Country's export sugar?");
+		parser =fr.getCSVParser();	//>> to use the parser with another method it needs to be reset
+		numberOfExports(parser, "sugar");
 		
-		System.out.println("Which Countrys are big exporters with export values over $999,999,999");
-		parser =fr.getCSVParser();	//>> to use the parser with another metod it needs to be reset
+		System.out.println(" ");
+		System.out.println("Which Country's are big exporters with export values over $999,999,999");
+		parser =fr.getCSVParser();	//>> to use the parser with another method it needs to be reset
 		bigExporters(parser, "$999,999,999,999");
 		
 		//countryName(parser, "Germany");
+	
+	}
+		
+/********************************************************************************************************/	
+	
+	public void quizAnswers() {
+		
+		FileResource fr = new FileResource("resources/course2/week3/exports_QUIZ/exportdata.csv");
+		CSVParser parser = fr.getCSVParser();
+		
+		//Quiz question 1
+		System.out.println("Which countrys export cotton and flowers?");
+		listExportersTwoProducts(parser, "cotton", "flowers");
+		
+		//Quiz question 2
+		System.out.println(" ");
+		System.out.println("How many Country's export cocoa?");
+		parser =fr.getCSVParser();	//>> to use the parser with another method it needs to be reset
+		numberOfExports(parser, "cocoa");
+		
+		//Quiz question 3
+		System.out.println(" ");
+		System.out.println("Which Country's are big exporters with export values over $999,999,999,999");
+		parser =fr.getCSVParser();	//>> to use the parser with another method it needs to be reset
+		bigExporters(parser, "$999,999,999,999");
+		
+		
 	}
 	
 /********************************************************************************************************/
