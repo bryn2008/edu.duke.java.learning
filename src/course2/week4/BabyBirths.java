@@ -169,6 +169,19 @@ public class BabyBirths {
 /*************************************************************************************************************************************************/
 	
 	public void testGetRank () {
+		
+		//look back at all the programs created over course 2
+		
+		//use the 7 step approach
+		
+		//the method should ask for the name mason
+		
+		//the method should check the gender of mason is "M"
+		
+		//the method should ask for the numOfBirts to set the ranking
+		
+		//Re-read the assignment and look at the videos again
+		
 		FileResource fr = new FileResource("resources/course2/week4/us_babynames/us_babynames_test/yob2012short.csv");
 		getRank(fr);
 	}
