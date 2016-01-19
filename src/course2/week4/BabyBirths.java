@@ -16,11 +16,13 @@ public class BabyBirths {
 	public static void main (String [] args){
 		
 		BabyBirths myObj = new BabyBirths();
+		//myObj.testReadOneFile();
 		//myObj.printNames();
 		//myObj.printNamesOfNumBornLessThanAHundred();
 		//myObj.testTotalBirths();
 		//myObj.testUniqueNames();
 		myObj.testGetRank();
+		
 	}
 	
 /*************************************************************************************************************************************************/ 
@@ -141,54 +143,41 @@ public class BabyBirths {
 /*************************************************************************************************************************************************/
 	
 	public void getRank (FileResource fr) {
-		
-//		int year = 0;
-//		String name = null;
-//		String gender = null;	//F for female and M for male
-//		
-//		for(CSVRecord rec : fr.getCSVParser(false)) {
-//			
-//			
-//		}
-		
-		
-		
-		
-		
-//        if (???????? == -1) {
-//            //System.out.println("There is not a start codon.");
-//            return "";
-//        }
-		
-		
-		
-		/*int totalBirths = 0;
-		int totalBoys = 0;
-		int totalGirls = 0;
-		for (CSVRecord rec : fr.getCSVParser(false)) {
+
+		CSVParser parser = fr.getCSVParser(false);
+		for (CSVRecord rec : parser){
 			int numBorn = Integer.parseInt(rec.get(2));
-			totalBirths += numBorn;
-			if(rec.get(1).equals("M")){
-				totalBoys += numBorn;
-			}
-			else{
-				totalGirls += numBorn;
-			}
+						
+			System.out.print(numBorn + " ");
+			
+			String name = rec.get(0);
+			String gender =rec.get(1);
+			
+			
+			//Print all the names and genders
+			System.out.print(name + " ");
+			System.out.println(gender + " ");
+			
+			//	itterate through the numborn to fin rank???
+			
+			
+			//use this to get the rank of a name 
+			//int rankNum = 0;
 		}
-		System.out.println("total births = " + totalBirths);
-		System.out.println("total girls = " + totalGirls);
-		System.out.println("total boys = " + totalBoys);*/
 	}
 	
 /*************************************************************************************************************************************************/
 	
 	public void testGetRank () {
+		FileResource fr = new FileResource("resources/course2/week4/us_babynames/us_babynames_test/yob2012short.csv");
+		getRank(fr);
+	}
+	
+/*************************************************************************************************************************************************/
+	
+	public void testReadOneFile () {
 		
 		//Assignment test files
-		//FileResource fr = new FileResource("resources/course2/week4/us_babynames/us_babynames_test/yob2012short.csv");
-		
-		//getRank(fr);
-		
 		int year = 2012;
 		readOneFile (year);
 		
@@ -197,19 +186,22 @@ public class BabyBirths {
 /*************************************************************************************************************************************************/
 	
 	public void readOneFile (int year){
+		
 		String fname = "data/yob" + year + ".csv";
 		FileResource fr = new FileResource(fname);
 		CSVParser parser = fr.getCSVParser(false);
 		for (CSVRecord rec : parser){
 			String name = rec.get(0);
 			String gender =rec.get(1);
-			
+			String getbirths =rec.get(2);
+			//2. Use valueOf method of Integer class. This method is static.
+			String str = getbirths;
+			Integer numOfBirths = Integer.valueOf(str);
+			System.out.print(numOfBirths+ " ");
 			//Print all the names and genders
+			System.out.print(name + " ");
 			System.out.print(gender + " ");
-			System.out.println(name);
-			
-			//use this to get the rank of a name 
-			
+			System.out.println(getbirths + " ");
 		}
 	}
 	
