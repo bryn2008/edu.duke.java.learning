@@ -1,4 +1,5 @@
 package course2.week4;
+import java.io.File;
 /**
  * Print out the names for which 100 or fewer babies were born in a chosen CSV file of baby name data.
  * Asignment
@@ -21,9 +22,15 @@ public class BabyBirths {
 		//myObj.printNamesOfNumBornLessThanAHundred();
 		//myObj.testTotalBirths();
 		//myObj.testUniqueNames();
-		myObj.testGetRank();
-		
+		//myObj.testGetRank();
+		//myObj.testGetName();
+		//myObj.testWhatIsNameInYear();
+		myObj.testYearOfHighestRank();
 	}
+	
+	//look back at all the programs created over course 2
+		//use the 7 step approach
+			//Re-read the assignment and look at the videos again
 	
 /*************************************************************************************************************************************************/ 
 	
@@ -142,80 +149,180 @@ public class BabyBirths {
 	
 /*************************************************************************************************************************************************/
 	//method 2
-	public void getRank (FileResource fr) {
+	public int getRank (FileResource fr, String gender,String name) {
 		
 		int temp = 0;
 		int rank = -1;
+		
 		CSVParser parser = fr.getCSVParser(false);
 		for (CSVRecord rec : parser){
+			//To improve code, I could calculate the rank via the amount of numBorn
+			//int numBorn = Integer.parseInt(rec.get(2));
 			//Can call a method here to set the name in the if loop
-			String name = rec.get(0);
-			String gender =rec.get(1);
-			if (gender.equals("M")){
+			String currnetName = rec.get(0);
+			String currentGender =rec.get(1);
+			if (currentGender.equals(gender)){
 				//then for loop through the numBorn for the highest
 				temp++;
-				if (name.equals("Ethan")){
+				if (currnetName.equals(name)){
 					rank=temp;
 				}
 			}
 		}
-		System.out.println("The rank of Mason is: " + rank);
+		//System.out.println("The rank of " + name + " is: " + rank);
+		return rank;
 	}
 	
 /*************************************************************************************************************************************************/
 	
 	public void testGetRank () {
-		
-		//look back at all the programs created over course 2
-		
-		//use the 7 step approach
-		
-		//the method should ask for the name mason
-		
-		//the method should check the gender of mason is "M"
-		
-		//the method should ask for the numOfBirts to set the ranking
-		
-		//Re-read the assignment and look at the videos again
-		
 		FileResource fr = new FileResource("resources/course2/week4/us_babynames/us_babynames_test/yob2012short.csv");
-		getRank(fr);
+		String gender = "M";
+		String name = "Mason";
+		getRank(fr, gender, name);
 	}
 	
 /*************************************************************************************************************************************************/
 	//method 3
-	public void getName() {
+	public String getName(FileResource fr, int rankNumber, String gender) {
 		
+/*	
+ 	* Write the method named getName that has three parameters: 
+ 	* an integer named year, an integer named rank, and a string named gender (F for female and M for male). 
+ 	* This method returns the name of the person in the file at this rank, for the given gender, where rank 1 is the name with the largest number of births. 
+ 	* If the rank does not exist in the file, then “NO NAME” is returned.
+*/		
+		String name = "NO NAME";
+		int currentRank = 0;
+		CSVParser parser = fr.getCSVParser(false);
+		for (CSVRecord rec : parser){
+			String currentGender =rec.get(1);
+			String currentName = rec.get(0);
+			if (currentGender.equals(gender)){
+				//get the rank based on the position of the record in the table
+				currentRank++;
+				//System.out.println("currentRank: " + currentRank + ". numBorn: "+ numBorn);
+					//if "rankNo" or 3rd, the assign the name
+					if (currentRank == rankNumber){
+						name = currentName;
+						//System.out.println("currentName: " + currentName);
+					}
+			}	
+		}
+		//System.out.println("");
+		//System.out.println("The " + gender + " name at Rank No: " + rankNumber + " is: "+ name);
+		return name;
 	}
 	
 /*************************************************************************************************************************************************/	
 	
 	public void testGetName() {
-		getName();
+		FileResource fr = new FileResource("resources/course2/week4/us_babynames/us_babynames_test/yob2012short.csv");
+		int rankNumber = 4;
+		String gender = "M";
+		getName(fr, rankNumber, gender);
 	}
 	
 /*************************************************************************************************************************************************/
 	//method 4
-	public void whatIsNameInYear() {
+	public void whatIsNameInYear(String name, int year, int newYear, String gender) {
 		
+/*	
+ 	* What would your name be if you were born in a different year? 
+ 	* Write the void method named whatIsNameInYear that has four parameters: 
+ 	* a string name, an integer named year representing the year that name was born, an integer named newYear and a string named gender (F for female and M for male). 
+ 	* This method determines what name would have been named if they were born in a different year, based on the same popularity. 
+ 	* That is, you should determine the rank of name in the year they were born, and then print the name born in newYear that is at the same rank and same gender. 
+ 	* For example, using the files "yob2012short.csv" and "yob2014short.csv", notice that in 2012 Isabella is the third most popular girl's name.
+ 	* he given gender, where rank 1 is the name with the largest number of births. 
+ 	* 
+*/	
+		//System.out.println(name+" "+year+" "+newYear+" "+gender);
+		//System.out.println(" ");
+		String fname = "resources/course2/week4/us_babynames/us_babynames_test/yob" + year + "short.csv";
+		FileResource fr = new FileResource(fname);
+		int rankNumber = getRank(fr, gender, name);
+		//System.out.println(">>"+rankNumber);
+		String newfname = "resources/course2/week4/us_babynames/us_babynames_test/yob" + newYear + "short.csv";
+		FileResource newFr = new FileResource(newfname);
+		String newName = getName(newFr, rankNumber, gender);
+		//System.out.println(">>"+newName);
+		System.out.println(name+" born in "+year+" would be "+newName+" in "+newYear);	
 	}
 	
 /*************************************************************************************************************************************************/
 	
 	public void testWhatIsNameInYear() {
-		whatIsNameInYear();
+		String name = "Isabella";
+		int year = 2012;
+		int newYear = 2014;
+		String gender = "F";
+		whatIsNameInYear(name, year, newYear, gender);
 	}	
 	
 /*************************************************************************************************************************************************/
 	//method 5
-	public void yearOfHighestRank() {
+	public int yearOfHighestRank(String name, String gender) {
 		
+/*	
+ 	* Write the method yearOfHighestRank that has two parameters: 
+ 	* a string name, and a string named gender (F for female and M for male). 
+ 	* This method selects a range of files to process and returns an integer, the year with the highest rank for the name and gender. 
+ 	* If the name and gender are not in any of the selected files, it should return -1. 
+ 	* For example, calling yearOfHighestRank with name Mason and gender ‘M’ and selecting the three test files above results in returning the year 2012. 
+ 	* That is because Mason was ranked the 2nd most popular name in 2012, ranked 4th in 2013 and ranked 3rd in 2014. 
+ 	* His highest ranking was in 2012.
+ 	* 
+*/	
+		int highestRankingYear = 0;
+		
+		if (name.equals(null)||gender.equals(null)){
+			highestRankingYear = -1;
+		}
+		else{
+			
+			
+			
+			
+			
+			
+		}
+		
+/*		CSVRecord lowestHumidity = null;
+		DirectoryResource dr = new DirectoryResource();
+		//iterate over files
+		for (File f : dr.selectedFiles()){
+			FileResource fr = new FileResource(f);
+			//use method to get the file with the lowest humidity
+			CSVRecord currentRow = lowestHumidityInFile(fr.getCSVParser());
+			lowestHumidity = getLowestHumidityOfTwo(currentRow, lowestHumidity);
+		}
+		//The largest so far is the answer
+		return lowestHumidity;*/
+		
+		
+//		String fname = "resources/course2/week4/us_babynames/us_babynames_test/yob" + year + "short.csv";
+//		FileResource fr = new FileResource(fname);
+//		int rankNumber = getRank(fr, gender, name);
+//		//System.out.println(">>"+rankNumber);
+//		String newfname = "resources/course2/week4/us_babynames/us_babynames_test/yob" + newYear + "short.csv";
+//		FileResource newFr = new FileResource(newfname);
+//		String newName = getName(newFr, rankNumber, gender);
+//		//System.out.println(">>"+newName);
+//		System.out.println(name+" born in "+year+" would be "+newName+" in "+newYear);	
+//		
+		return highestRankingYear;
 	}	
 	
 /*************************************************************************************************************************************************/
 	
 	public void testYearOfHighestRank() {
-		yearOfHighestRank();
+		String name = "Mason";
+		String gender = null;
+		int highestRankingYear = 0;
+		highestRankingYear = yearOfHighestRank(name, gender);
+		//should retirn 2012 witht the three test files
+		System.out.println(name + " was ranked heighest in "+highestRankingYear);
 	}	
 	
 /*************************************************************************************************************************************************/
