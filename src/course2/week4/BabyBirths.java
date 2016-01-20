@@ -9,8 +9,6 @@ package course2.week4;
  */
 
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,7 +20,6 @@ public class BabyBirths {
 	public static void main (String [] args){
 		
 		BabyBirths myObj = new BabyBirths();
-		//myObj.testReadOneFile();
 		//myObj.printNames();
 		//myObj.printNamesOfNumBornLessThanAHundred();
 		//myObj.testTotalBirths();
@@ -441,38 +438,6 @@ public class BabyBirths {
 		int totalNumOfBirths = getTotalBithsRankedHigher(year, name, gender);
 		System.out.println("The total number of births ranked higher than "+name+" is "+ totalNumOfBirths +".");
 	}	
-	
-/*************************************************************************************************************************************************/
-	
-	public void testReadOneFile () {
-		
-		//Assignment test files
-		int year = 2012;
-		readOneFile (year);
-		
-	}
-	
-/*************************************************************************************************************************************************/
-	
-	public void readOneFile (int year){
-		
-		String fname = "data/yob" + year + ".csv";
-		FileResource fr = new FileResource(fname);
-		CSVParser parser = fr.getCSVParser(false);
-		for (CSVRecord rec : parser){
-			String name = rec.get(0);
-			String gender =rec.get(1);
-			String getbirths =rec.get(2);
-			//2. Use valueOf method of Integer class. This method is static.
-			String str = getbirths;
-			Integer numOfBirths = Integer.valueOf(str);
-			System.out.print(numOfBirths+ " ");
-			//Print all the names and genders
-			System.out.print(name + " ");
-			System.out.print(gender + " ");
-			System.out.println(getbirths + " ");
-		}
-	}
 	
 /*************************************************************************************************************************************************/
 
