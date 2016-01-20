@@ -1,5 +1,5 @@
 package course2.week4;
-import java.io.File;
+
 /**
  * Print out the names for which 100 or fewer babies were born in a chosen CSV file of baby name data.
  * Asignment
@@ -7,6 +7,11 @@ import java.io.File;
  * 
  * @author Bryn Lloyd
  */
+
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import edu.duke.*;
@@ -25,7 +30,9 @@ public class BabyBirths {
 		//myObj.testGetRank();
 		//myObj.testGetName();
 		//myObj.testWhatIsNameInYear();
-		myObj.testYearOfHighestRank();
+		//myObj.testYearOfHighestRank();
+		//myObj.testGetAverageRank();
+		myObj.testGetTotalBithsRankedHigher();
 	}
 	
 	//look back at all the programs created over course 2
@@ -239,11 +246,11 @@ public class BabyBirths {
 */	
 		//System.out.println(name+" "+year+" "+newYear+" "+gender);
 		//System.out.println(" ");
-		String fname = "resources/course2/week4/us_babynames/us_babynames_test/yob" + year + "short.csv";
+		String fname = "us_babynames_test/yob" + year + "short.csv";
 		FileResource fr = new FileResource(fname);
 		int rankNumber = getRank(fr, gender, name);
 		//System.out.println(">>"+rankNumber);
-		String newfname = "resources/course2/week4/us_babynames/us_babynames_test/yob" + newYear + "short.csv";
+		String newfname = "us_babynames_test/yob" + newYear + "short.csv";
 		FileResource newFr = new FileResource(newfname);
 		String newName = getName(newFr, rankNumber, gender);
 		//System.out.println(">>"+newName);
@@ -274,43 +281,42 @@ public class BabyBirths {
  	* His highest ranking was in 2012.
  	* 
 */	
+		//set the highest ranking year to zero
 		int highestRankingYear = 0;
-		
-		if (name.equals(null)||gender.equals(null)){
-			highestRankingYear = -1;
-		}
-		else{
-			
-			
-			
-			
-			
-			
-		}
-		
-/*		CSVRecord lowestHumidity = null;
+		//set the rank -1
+		int rank = -1;
+		//Use a boolean to check if it is the first pass
+		boolean firstPass = true;
 		DirectoryResource dr = new DirectoryResource();
 		//iterate over files
 		for (File f : dr.selectedFiles()){
 			FileResource fr = new FileResource(f);
-			//use method to get the file with the lowest humidity
-			CSVRecord currentRow = lowestHumidityInFile(fr.getCSVParser());
-			lowestHumidity = getLowestHumidityOfTwo(currentRow, lowestHumidity);
+			//A check to see if both the name and gender are in the file
+			if (name.equals(null) || gender.equals(null)){
+				return -1;
+			}
+			//If both the name and gender are in the file then do this...
+			else
+			{
+				int currentRank = getRank (fr, gender, name);
+				//Get the year from the file name and use the substring method to determine the year
+				String yearOfFile = f.getName().substring(3, 7);
+				//A check to show the rank of the name in each year
+				//System.out.println("The current rank for "+ name + " is " + currentRank + " in " + yearOfFile);
+				//A check to make sure there is a value in the rank when checking the first file
+				if (firstPass) {
+					rank = currentRank;
+					firstPass = false;
+				}
+				//Compares the two ranks to see if the current rank is higher than the previously set rank
+				if (currentRank <= rank ){
+					rank = currentRank;
+					int currentYearOfFile = Integer.parseInt(yearOfFile);
+					highestRankingYear = currentYearOfFile;		
+				}
+			}
 		}
-		//The largest so far is the answer
-		return lowestHumidity;*/
-		
-		
-//		String fname = "resources/course2/week4/us_babynames/us_babynames_test/yob" + year + "short.csv";
-//		FileResource fr = new FileResource(fname);
-//		int rankNumber = getRank(fr, gender, name);
-//		//System.out.println(">>"+rankNumber);
-//		String newfname = "resources/course2/week4/us_babynames/us_babynames_test/yob" + newYear + "short.csv";
-//		FileResource newFr = new FileResource(newfname);
-//		String newName = getName(newFr, rankNumber, gender);
-//		//System.out.println(">>"+newName);
-//		System.out.println(name+" born in "+year+" would be "+newName+" in "+newYear);	
-//		
+		//Returns the year with the highest rank
 		return highestRankingYear;
 	}	
 	
@@ -318,35 +324,122 @@ public class BabyBirths {
 	
 	public void testYearOfHighestRank() {
 		String name = "Mason";
-		String gender = null;
-		int highestRankingYear = 0;
-		highestRankingYear = yearOfHighestRank(name, gender);
-		//should retirn 2012 witht the three test files
-		System.out.println(name + " was ranked heighest in "+highestRankingYear);
+		String gender = "M";
+		int highestRankingYear = yearOfHighestRank(name, gender);
+		//should return 2012 with the three test files selected under the test conditions
+		System.out.println(name + " was ranked heighest in "+highestRankingYear+".");
 	}	
 	
 /*************************************************************************************************************************************************/
 	//method 6
-	public void getAverageRank() {
+	public double getAverageRank(String name, String gender) {
 		
-	}	
+/*	
+ 	* Write the method getAverageRank that has two parameters: 
+ 	* a string name, and a string named gender (F for female and M for male). 
+ 	* This method selects a range of files to process and returns a double representing the average rank of the name and gender over the selected files. 
+ 	* It should return -1.0 if the name is not ranked in any of the selected files. 
+ 	* For example calling getAverageRank with name Mason and gender ‘M’ and selecting the three test files above results in returning 3.0, as he is rank 2 in the year 2012, rank 4 in 2013 and rank 3 in 2014. As another example, calling getAverageRank with name Jacob and gender ‘M’ and selecting the three test files above results in returning 2.66.
+ 	* 
+*/	
+		//set the highest ranking year to zero
+		double averageRank = 0;
+		//set the rank -1
+		//int rank = -1;
+		//Use a boolean to check if it is the first pass
+		boolean firstPass = true;
+		//Use an Array List for the average
+		ArrayList<Double> al = new ArrayList<Double>();
+		DirectoryResource dr = new DirectoryResource();
+		//iterate over files
+		for (File f : dr.selectedFiles()){
+			FileResource fr = new FileResource(f);
+			//A check to see if both the name and gender are in the file
+			if (name.equals(null) || gender.equals(null)){
+				return -1.0;
+			}
+			//If both the name and gender are in the file then do this...
+			else
+			{
+				int currentRank = getRank (fr, gender, name);
+				//Get the year from the file name and use the substring method to determine the year
+				//String yearOfFile = f.getName().substring(3, 7);
+				//A check to show the rank of the name in each year
+				//System.out.println("The current rank for "+ name + " is " + currentRank + " in " + yearOfFile);
+				//A check to make sure there is a value in the rank when checking the first file
+				//System.out.println(">>"+ rank+ " "+ currentRank );
+				//Set the rank to a double
+				double currentRankDouble = currentRank;
+				//add the current rank to the array list
+				al.add(currentRankDouble);
+				//if first pass
+				if (firstPass) {
+					//rank = currentRank;
+					firstPass = false;
+				}
+				//System.out.println(">>"+ rank);
+			}
+		}
+		//Get the average rank from the array list
+		//System.out.println(">>"+ al+al.size());
+		int sum = 0;
+		for (Double i : al){
+		    sum += i;
+		}
+		//Average number in the array list
+		averageRank = sum/al.size();
+		//Returns the year with the highest rank
+		return averageRank;
+	}		
 	
 /*************************************************************************************************************************************************/
 	
 	public void testGetAverageRank() {
-		getAverageRank();
+		String name = "Jacob";
+		String gender = "M";
+		Double averageRank = getAverageRank(name, gender);
+		//should return 2012 with the three test files selected under the test conditions
+		System.out.println(name + " has an average rank of "+averageRank+".");
 	}	
 	
 /*************************************************************************************************************************************************/
 	//method 7
-	public void getTotalBithsRankedHigher() {
+	public int getTotalBithsRankedHigher(int year, String name, String gender) {
 		
+		//String fname = "data/yob" + year + ".csv";
+		String fname = "us_babynames_test/yob" + year + "short.csv";
+		FileResource fr = new FileResource(fname);
+		int numOfBirthsTotal = 0;
+		//Get the rank of the input name
+		int rankOfName = getRank (fr, gender, name);
+		//System.out.println(" >> "+ rankOfName);
+		CSVParser parser = fr.getCSVParser(false);
+		for (CSVRecord rec : parser){
+			String currentName =rec.get(0);
+			String currentGender =rec.get(1);
+			int currentNumOfBirths = Integer.parseInt(rec.get(2));
+			int currentRank = getRank (fr, currentGender, currentName);
+			if (currentGender.equals(gender)){
+				//get the details of all the current names
+				//System.out.println(" current name:  "+ currentName+" current num of births:  "+ currentNumOfBirths+" current gender "+ currentGender+" current rank:  "+ currentRank);	
+				if (currentRank < rankOfName){
+					//System.out.println("The current rank is: "+ currentRank);
+					numOfBirthsTotal += currentNumOfBirths; 
+				}
+			}
+		}
+	//System.out.println(" >> "+ numOfBirthsTotal);
+	return numOfBirthsTotal;
 	}	
 	
 /*************************************************************************************************************************************************/
 	
 	public void testGetTotalBithsRankedHigher() {
-		getTotalBithsRankedHigher();
+		int year = 2012;
+		String name = "Ethan";
+		String gender = "M";
+		int totalNumOfBirths = getTotalBithsRankedHigher(year, name, gender);
+		System.out.println("The total number of births ranked higher than "+name+" is "+ totalNumOfBirths +".");
 	}	
 	
 /*************************************************************************************************************************************************/
