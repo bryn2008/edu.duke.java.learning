@@ -20,68 +20,120 @@ public class BabyBirthsQuizAnswers {
 	public static void main (String [] args){
 		
 		BabyBirthsQuizAnswers myObj = new BabyBirthsQuizAnswers();
+/*		//Question 1
+		System.out.println("Question 1");
 		myObj.testUniqueNames();
-		//myObj.testGetRank();
-		//myObj.testGetName();
-		//myObj.testWhatIsNameInYear();
-		//myObj.testYearOfHighestRank();
-		//myObj.testGetAverageRank();
-		//myObj.testGetTotalBithsRankedHigher();
+		//Question 2
+		System.out.println("Question 2");
+		myObj.testUniqueNamesAlt();
+		//Question 3
+		System.out.println("Question 3");
+		myObj.testGetRank();
+		//Question 4
+		System.out.println("Question 4");
+		myObj.testGetRankAlt();
+		//Question 5
+		System.out.println("Question 5");
+		myObj.testGetName();
+		//Question 6
+		System.out.println("Question 6");
+		myObj.testGetNameAlt();
+		//Question 7
+		System.out.println("Question 7");
+		myObj.testWhatIsNameInYear();
+		//Question 8
+		System.out.println("Question 8");
+		myObj.testWhatIsNameInYearAlt();
+		//Question 9
+		System.out.println("Question 9");
+		myObj.testYearOfHighestRank();
+		//Question 10
+		System.out.println("Question 10");
+		myObj.testYearOfHighestRankAlt();
+		//Question 11
+		System.out.println("Question 11");
+		myObj.testGetAverageRank();
+		//Question 12
+		System.out.println("Question 12");
+		myObj.testGetAverageRankAlt();
+*/		//Question 13
+		System.out.println("Question 13");
+		myObj.testGetTotalBithsRankedHigher();
+/*		//Question 14
+		System.out.println("Question 14");
+		myObj.testGetTotalBithsRankedHigherAlt();
+*/		
 	}
 		
 /*************************************************************************************************************************************************/
 	//method 1
 	public void uniqueNames (FileResource fr) {
-		int totalBirths = 0;
-		int totalBoys = 0;
-		int totalGirls = 0;
+		//int totalBirths = 0;
+		//int totalBoys = 0;
+		//int totalGirls = 0;
 		Set<String> boysNames = new HashSet<String>();
 		Set<String> girlsNames = new HashSet<String>();
 		int totalNumOfNames = 0;
 		for (CSVRecord rec : fr.getCSVParser(false)) {
-			int numBorn = Integer.parseInt(rec.get(2));
+			//int numBorn = Integer.parseInt(rec.get(2));
 			String numName = rec.get(0);
-			totalBirths += numBorn;
+			//totalBirths += numBorn;
 			if(rec.get(1).equals("M")){
-				totalBoys += numBorn;
+				//totalBoys += numBorn;
 				boysNames.add(numName);
 			}
 			else{
-				totalGirls += numBorn;
+				//totalGirls += numBorn;
 				girlsNames.add(numName);
 			}
 		}
 		totalNumOfNames = boysNames.size()+girlsNames.size();
-		System.out.println("total births = " + totalBirths);
-		System.out.println("total girls = " + totalGirls);
-		System.out.println("total boys = " + totalBoys);
-		System.out.println("total number of unique girls names = " + girlsNames.size());
-		System.out.println("the girls names are = " + girlsNames);
-		System.out.println("total number of unique boys names = " + boysNames.size());
-		System.out.print("the boys names are = ");
-		for (String i : boysNames) {
-		     System.out.print(i+" ");
-		}
-		System.out.println("");
+		//System.out.println("total births = " + totalBirths);
+		//System.out.println("total girls = " + totalGirls);
+		//System.out.println("total boys = " + totalBoys);
+		//System.out.println("total number of unique girls names = " + girlsNames.size());
+		//System.out.println("the girls names are = " + girlsNames);
+		//System.out.println("total number of unique boys names = " + boysNames.size());
+		//System.out.print("the boys names are = " + boysNames);
+		//for (String i : boysNames) {
+		//     System.out.print(i+" ");
+		//}
+		//System.out.println("");
 		System.out.println("total number of unique names in the file = " + totalNumOfNames);
 	}
 
 /*************************************************************************************************************************************************/
-	//method 1 - was totalBirths
+	//Question 1
 	public void testUniqueNames () {
-		
-		//FileResource fr = new FileResource("resources/course2/week4/us_babynames/us_babynames_test/example-small.csv");
-		
-		//Assignment test files
-		//FileResource fr = new FileResource("resources/course2/week4/us_babynames/us_babynames_test/yob2012short.csv");
-		//FileResource fr = new FileResource("resources/course2/week4/us_babynames/us_babynames_test/yob2013short.csv");
-		FileResource fr = new FileResource("resources/course2/week4/us_babynames/us_babynames_test/yob2014short.csv");
-		
+		FileResource fr = new FileResource("data/yob1900.csv");
 		uniqueNames(fr);
 	}
 	
 /*************************************************************************************************************************************************/
 	//method 2
+	public void uniqueBoysNames (FileResource fr) {
+		Set<String> boysNames = new HashSet<String>();
+		for (CSVRecord rec : fr.getCSVParser(false)) {
+			//int numBorn = Integer.parseInt(rec.get(2));
+			String numName = rec.get(0);
+			//totalBirths += numBorn;
+			if(rec.get(1).equals("M")){
+				//totalBoys += numBorn;
+				boysNames.add(numName);
+			}
+		}
+		System.out.println("total number of unique boys names = " + boysNames.size());
+	}
+	
+/*************************************************************************************************************************************************/
+	//Question 2
+	public void testUniqueNamesAlt () {
+		FileResource fr = new FileResource("data/yob1905.csv");
+		uniqueBoysNames(fr);
+	}
+	
+/*************************************************************************************************************************************************/
+	//method 3
 	public int getRank (FileResource fr, String gender,String name) {
 		
 		int temp = 0;
@@ -107,16 +159,27 @@ public class BabyBirthsQuizAnswers {
 	}
 	
 /*************************************************************************************************************************************************/
-	
+	//Question 3
 	public void testGetRank () {
-		FileResource fr = new FileResource("resources/course2/week4/us_babynames/us_babynames_test/yob2012short.csv");
-		String gender = "M";
-		String name = "Mason";
-		getRank(fr, gender, name);
+		FileResource fr = new FileResource("data/yob1960.csv");
+		String gender = "F";
+		String name = "Emily";
+		int rank = getRank(fr, gender, name);
+		System.out.println("The rank of " + name + " is: " + rank);
 	}
 	
 /*************************************************************************************************************************************************/
-	//method 3
+	//Question 4
+	public void testGetRankAlt () {
+		FileResource fr = new FileResource("data/yob1971.csv");
+		String gender = "M";
+		String name = "Frank";
+		int rank = getRank(fr, gender, name);
+		System.out.println("The rank of " + name + " is: " + rank);
+	}
+	
+/*************************************************************************************************************************************************/
+	//method 4
 	public String getName(FileResource fr, int rankNumber, String gender) {
 		
 /*	
@@ -148,65 +211,69 @@ public class BabyBirthsQuizAnswers {
 	}
 	
 /*************************************************************************************************************************************************/	
-	
+	//Question 5
 	public void testGetName() {
-		FileResource fr = new FileResource("resources/course2/week4/us_babynames/us_babynames_test/yob2012short.csv");
-		int rankNumber = 4;
-		String gender = "M";
-		getName(fr, rankNumber, gender);
-	}
-	
-/*************************************************************************************************************************************************/
-	//method 4
-	public void whatIsNameInYear(String name, int year, int newYear, String gender) {
-		
-/*	
- 	* What would your name be if you were born in a different year? 
- 	* Write the void method named whatIsNameInYear that has four parameters: 
- 	* a string name, an integer named year representing the year that name was born, an integer named newYear and a string named gender (F for female and M for male). 
- 	* This method determines what name would have been named if they were born in a different year, based on the same popularity. 
- 	* That is, you should determine the rank of name in the year they were born, and then print the name born in newYear that is at the same rank and same gender. 
- 	* For example, using the files "yob2012short.csv" and "yob2014short.csv", notice that in 2012 Isabella is the third most popular girl's name.
- 	* he given gender, where rank 1 is the name with the largest number of births. 
- 	* 
-*/	
-		//System.out.println(name+" "+year+" "+newYear+" "+gender);
-		//System.out.println(" ");
-		String fname = "us_babynames_test/yob" + year + "short.csv";
-		FileResource fr = new FileResource(fname);
-		int rankNumber = getRank(fr, gender, name);
-		//System.out.println(">>"+rankNumber);
-		String newfname = "us_babynames_test/yob" + newYear + "short.csv";
-		FileResource newFr = new FileResource(newfname);
-		String newName = getName(newFr, rankNumber, gender);
-		//System.out.println(">>"+newName);
-		System.out.println(name+" born in "+year+" would be "+newName+" in "+newYear);	
-	}
-	
-/*************************************************************************************************************************************************/
-	
-	public void testWhatIsNameInYear() {
-		String name = "Isabella";
-		int year = 2012;
-		int newYear = 2014;
+		FileResource fr = new FileResource("data/yob1980.csv");
+		int rankNumber = 350;
 		String gender = "F";
-		whatIsNameInYear(name, year, newYear, gender);
-	}	
+		String name = getName(fr, rankNumber, gender);
+		System.out.println("The female name at Rank No: " + rankNumber + " is: "+ name);
+	}
+	
+/*************************************************************************************************************************************************/	
+	//Question 6
+	public void testGetNameAlt() {
+		FileResource fr = new FileResource("data/yob1982.csv");
+		int rankNumber = 450;
+		String gender = "M";
+		String name = getName(fr, rankNumber, gender);
+		System.out.println("The male name at Rank No: " + rankNumber + " is: "+ name);
+	}
 	
 /*************************************************************************************************************************************************/
 	//method 5
+	public String whatIsNameInYear(String name, int year, int newYear, String gender) {
+		
+		//System.out.println(name+" "+year+" "+newYear+" "+gender);
+		//System.out.println(" ");
+		String fname = "data/yob" + year + ".csv";
+		FileResource fr = new FileResource(fname);
+		int rankNumber = getRank(fr, gender, name);
+		//System.out.println(">>"+rankNumber);
+		String newfname = "data/yob" + newYear + ".csv";
+		FileResource newFr = new FileResource(newfname);
+		String newName = getName(newFr, rankNumber, gender);
+		//System.out.println(">>"+newName);
+		//System.out.println(name+" born in "+year+" would be "+newName+" in "+newYear);
+		return newName;
+	}
+	
+/*************************************************************************************************************************************************/
+	//Question 7
+	public void testWhatIsNameInYear() {
+		String name = "Susan";
+		int year = 1972;
+		int newYear = 2014 ;
+		String gender = "F";
+		String newName = whatIsNameInYear(name, year, newYear, gender);
+		System.out.println(name+" born in "+year+" would be "+newName+" in "+newYear);
+	}
+	
+/*************************************************************************************************************************************************/
+	//Question 8
+	public void testWhatIsNameInYearAlt() {
+		String name = "Owen";
+		int year = 1974;
+		int newYear = 2014 ;
+		String gender = "M";
+		String newName = whatIsNameInYear(name, year, newYear, gender);
+		System.out.println(name+" born in "+year+" would be "+newName+" in "+newYear);
+	}
+	
+/*************************************************************************************************************************************************/
+	//method 6
 	public int yearOfHighestRank(String name, String gender) {
 		
-/*	
- 	* Write the method yearOfHighestRank that has two parameters: 
- 	* a string name, and a string named gender (F for female and M for male). 
- 	* This method selects a range of files to process and returns an integer, the year with the highest rank for the name and gender. 
- 	* If the name and gender are not in any of the selected files, it should return -1. 
- 	* For example, calling yearOfHighestRank with name Mason and gender ‘M’ and selecting the three test files above results in returning the year 2012. 
- 	* That is because Mason was ranked the 2nd most popular name in 2012, ranked 4th in 2013 and ranked 3rd in 2014. 
- 	* His highest ranking was in 2012.
- 	* 
-*/	
 		//set the highest ranking year to zero
 		int highestRankingYear = 0;
 		//set the rank -1
@@ -238,7 +305,8 @@ public class BabyBirthsQuizAnswers {
 				if (currentRank <= rank ){
 					rank = currentRank;
 					int currentYearOfFile = Integer.parseInt(yearOfFile);
-					highestRankingYear = currentYearOfFile;		
+					highestRankingYear = currentYearOfFile;
+					
 				}
 			}
 		}
@@ -247,27 +315,27 @@ public class BabyBirthsQuizAnswers {
 	}	
 	
 /*************************************************************************************************************************************************/
-	
+	//Question 9
 	public void testYearOfHighestRank() {
-		String name = "Mason";
-		String gender = "M";
+		String name = "Genevieve";
+		String gender = "F";
 		int highestRankingYear = yearOfHighestRank(name, gender);
-		//should return 2012 with the three test files selected under the test conditions
+		System.out.println(name + " was ranked heighest in "+highestRankingYear+".");
+	}
+	
+/*************************************************************************************************************************************************/
+	//Question 10
+	public void testYearOfHighestRankAlt() {
+		String name = "Mich";
+		String gender = "m";
+		int highestRankingYear = yearOfHighestRank(name, gender);
 		System.out.println(name + " was ranked heighest in "+highestRankingYear+".");
 	}	
 	
 /*************************************************************************************************************************************************/
-	//method 6
+	//method 7
 	public double getAverageRank(String name, String gender) {
 		
-/*	
- 	* Write the method getAverageRank that has two parameters: 
- 	* a string name, and a string named gender (F for female and M for male). 
- 	* This method selects a range of files to process and returns a double representing the average rank of the name and gender over the selected files. 
- 	* It should return -1.0 if the name is not ranked in any of the selected files. 
- 	* For example calling getAverageRank with name Mason and gender ‘M’ and selecting the three test files above results in returning 3.0, as he is rank 2 in the year 2012, rank 4 in 2013 and rank 3 in 2014. As another example, calling getAverageRank with name Jacob and gender ‘M’ and selecting the three test files above results in returning 2.66.
- 	* 
-*/	
 		//set the highest ranking year to zero
 		double averageRank = 0;
 		//set the rank -1
@@ -319,9 +387,19 @@ public class BabyBirthsQuizAnswers {
 	}		
 	
 /*************************************************************************************************************************************************/
-	
+	//Question 11
 	public void testGetAverageRank() {
-		String name = "Jacob";
+		String name = "Susan";
+		String gender = "F";
+		Double averageRank = getAverageRank(name, gender);
+		//should return 2012 with the three test files selected under the test conditions
+		System.out.println(name + " has an average rank of "+averageRank+".");
+	}
+	
+/*************************************************************************************************************************************************/
+	//Question 12
+	public void testGetAverageRankAlt() {
+		String name = "Robert";
 		String gender = "M";
 		Double averageRank = getAverageRank(name, gender);
 		//should return 2012 with the three test files selected under the test conditions
@@ -329,18 +407,18 @@ public class BabyBirthsQuizAnswers {
 	}	
 	
 /*************************************************************************************************************************************************/
-	//method 7
-	public int getTotalBithsRankedHigher(int year, String name, String gender) {
+	//method 8
+	public float getTotalBithsRankedHigher(int year, String name, String gender) {
 		
-		//String fname = "data/yob" + year + ".csv";
-		String fname = "us_babynames_test/yob" + year + "short.csv";
+		String fname = "data/yob" + year + ".csv";
 		FileResource fr = new FileResource(fname);
-		int numOfBirthsTotal = 0;
+		float numOfBirthsTotal = 0;
 		//Get the rank of the input name
 		int rankOfName = getRank (fr, gender, name);
 		//System.out.println(" >> "+ rankOfName);
 		CSVParser parser = fr.getCSVParser(false);
 		for (CSVRecord rec : parser){
+			//System.out.println(rec.getRecordNumber());
 			String currentName =rec.get(0);
 			String currentGender =rec.get(1);
 			int currentNumOfBirths = Integer.parseInt(rec.get(2));
@@ -359,12 +437,24 @@ public class BabyBirthsQuizAnswers {
 	}	
 	
 /*************************************************************************************************************************************************/
-	
+	//Question 13
 	public void testGetTotalBithsRankedHigher() {
-		int year = 2012;
-		String name = "Ethan";
+		//This method takes a long time to calculate!!!
+		int year = 1990;
+		String name = "Emily";
+		String gender = "F";
+		float totalNumOfBirths = getTotalBithsRankedHigher(year, name, gender);
+		System.out.println("The total number of births ranked higher than "+name+" is "+ totalNumOfBirths +".");
+	}	
+	
+/*************************************************************************************************************************************************/
+	//Question 14
+	public void testGetTotalBithsRankedHigherAlt() {
+		//This method takes a long time to calculate!!!
+		int year = 1990;
+		String name = "Drew";
 		String gender = "M";
-		int totalNumOfBirths = getTotalBithsRankedHigher(year, name, gender);
+		float totalNumOfBirths = getTotalBithsRankedHigher(year, name, gender);
 		System.out.println("The total number of births ranked higher than "+name+" is "+ totalNumOfBirths +".");
 	}	
 	
