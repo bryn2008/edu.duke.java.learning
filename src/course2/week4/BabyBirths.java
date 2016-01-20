@@ -143,27 +143,23 @@ public class BabyBirths {
 /*************************************************************************************************************************************************/
 	//method 2
 	public void getRank (FileResource fr) {
-
+		
+		int temp = 0;
+		int rank = -1;
 		CSVParser parser = fr.getCSVParser(false);
 		for (CSVRecord rec : parser){
-			int numBorn = Integer.parseInt(rec.get(2));
-						
-			System.out.print(numBorn + " ");
-			
+			//Can call a method here to set the name in the if loop
 			String name = rec.get(0);
 			String gender =rec.get(1);
-			
-			
-			//Print all the names and genders
-			System.out.print(name + " ");
-			System.out.println(gender + " ");
-			
-			//	itterate through the numborn to fin rank???
-			
-			
-			//use this to get the rank of a name 
-			//int rankNum = 0;
+			if (gender.equals("M")){
+				//then for loop through the numBorn for the highest
+				temp++;
+				if (name.equals("Ethan")){
+					rank=temp;
+				}
+			}
 		}
+		System.out.println("The rank of Mason is: " + rank);
 	}
 	
 /*************************************************************************************************************************************************/
