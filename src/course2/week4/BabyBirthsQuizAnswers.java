@@ -44,36 +44,36 @@ public class BabyBirthsQuizAnswers {
 		//Question 8
 		System.out.println("Question 8");
 		myObj.testWhatIsNameInYearAlt();
-		//Question 9
+*/		//Question 9
 		System.out.println("Question 9");
 		myObj.testYearOfHighestRank();
 		//Question 10
 		System.out.println("Question 10");
 		myObj.testYearOfHighestRankAlt();
-		//Question 11
+/*		//Question 11
 		System.out.println("Question 11");
 		myObj.testGetAverageRank();
 		//Question 12
 		System.out.println("Question 12");
 		myObj.testGetAverageRankAlt();
-*/		//Question 13
+		//Question 13
 		System.out.println("Question 13");
 		myObj.testGetTotalBithsRankedHigher();
-/*		//Question 14
+		//Question 14
 		System.out.println("Question 14");
-		myObj.testGetTotalBithsRankedHigherAlt();
-*/		
+		myObj.testGetTotalBithsRankedHigherAlt();*/
+		
 	}
 		
 /*************************************************************************************************************************************************/
-	//method 1
+
 	public void uniqueNames (FileResource fr) {
 		//int totalBirths = 0;
 		//int totalBoys = 0;
 		//int totalGirls = 0;
 		Set<String> boysNames = new HashSet<String>();
 		Set<String> girlsNames = new HashSet<String>();
-		int totalNumOfNames = 0;
+		//int totalNumOfNames = 0;
 		for (CSVRecord rec : fr.getCSVParser(false)) {
 			//int numBorn = Integer.parseInt(rec.get(2));
 			String numName = rec.get(0);
@@ -87,23 +87,21 @@ public class BabyBirthsQuizAnswers {
 				girlsNames.add(numName);
 			}
 		}
-		totalNumOfNames = boysNames.size()+girlsNames.size();
+		//totalNumOfNames = boysNames.size()+girlsNames.size();
 		//System.out.println("total births = " + totalBirths);
 		//System.out.println("total girls = " + totalGirls);
 		//System.out.println("total boys = " + totalBoys);
-		//System.out.println("total number of unique girls names = " + girlsNames.size());
+		System.out.println("total number of unique girls names = " + girlsNames.size());
 		//System.out.println("the girls names are = " + girlsNames);
 		//System.out.println("total number of unique boys names = " + boysNames.size());
 		//System.out.print("the boys names are = " + boysNames);
-		//for (String i : boysNames) {
-		//     System.out.print(i+" ");
-		//}
+		for (String i : boysNames) {
+		     System.out.print(i+" ");
+		}
 		//System.out.println("");
-		System.out.println("total number of unique names in the file = " + totalNumOfNames);
+		//System.out.println("total number of unique names in the file = " + totalNumOfNames);
 	}
 
-/*************************************************************************************************************************************************/
-	//Question 1
 	public void testUniqueNames () {
 		FileResource fr = new FileResource("data/yob1900.csv");
 		uniqueNames(fr);
@@ -275,7 +273,7 @@ public class BabyBirthsQuizAnswers {
 	public int yearOfHighestRank(String name, String gender) {
 		
 		//set the highest ranking year to zero
-		int highestRankingYear = 0;
+		int highestRankingYear = 1800;
 		//set the rank -1
 		int rank = -1;
 		//Use a boolean to check if it is the first pass
@@ -284,29 +282,34 @@ public class BabyBirthsQuizAnswers {
 		//iterate over files
 		for (File f : dr.selectedFiles()){
 			FileResource fr = new FileResource(f);
+			//Get the year from the file name and use the substring method to determine the year
+			String yearOfFile = f.getName().substring(3, 7);
+			//Convert the tear from a string to an integer
+			int currentYearOfFile = Integer.parseInt(yearOfFile);
+			//Get the current rank for the year
+			int currentRank = getRank (fr, gender, name);
 			//A check to see if both the name and gender are in the file
 			if (name.equals(null) || gender.equals(null)){
-				return -1;
+				//return -1;
+				System.out.println(">>!! " + currentYearOfFile);
 			}
 			//If both the name and gender are in the file then do this...
 			else
 			{
-				int currentRank = getRank (fr, gender, name);
-				//Get the year from the file name and use the substring method to determine the year
-				String yearOfFile = f.getName().substring(3, 7);
+				
 				//A check to show the rank of the name in each year
 				//System.out.println("The current rank for "+ name + " is " + currentRank + " in " + yearOfFile);
 				//A check to make sure there is a value in the rank when checking the first file
-				if (firstPass) {
-					rank = currentRank;
+				if (firstPass == true) {
+					rank =+ currentRank;
+					highestRankingYear =+ currentYearOfFile;
 					firstPass = false;
 				}
 				//Compares the two ranks to see if the current rank is higher than the previously set rank
-				if (currentRank <= rank ){
-					rank = currentRank;
-					int currentYearOfFile = Integer.parseInt(yearOfFile);
-					highestRankingYear = currentYearOfFile;
-					
+				else if (currentRank <= rank ){
+					System.out.println(currentYearOfFile);
+					rank =+ currentRank;
+					highestRankingYear =+ currentYearOfFile;
 				}
 			}
 		}
