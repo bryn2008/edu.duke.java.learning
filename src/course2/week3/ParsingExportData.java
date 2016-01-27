@@ -11,8 +11,8 @@ public class ParsingExportData {
 	public static void main (String [] args){
 		
 		ParsingExportData myObj = new ParsingExportData();
-		myObj.tester();
-		//myObj.quizAnswers();
+		//myObj.tester();
+		myObj.quizAnswers();
 	}
 	
 /********************************************************************************************************/
