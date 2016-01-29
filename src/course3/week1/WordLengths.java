@@ -1,6 +1,5 @@
 package course3.week1;
 
-import java.util.Arrays;
 import edu.duke.FileResource;
 
 public class WordLengths {
