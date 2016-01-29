@@ -14,10 +14,11 @@ public class DiceRolling {
 	public static void main (String [] args){
 		
 		DiceRolling myObj = new DiceRolling();
-		myObj.simulate(1);
+		myObj.simulate(10);
 	}
 
 	public void simulate(int rolls){
+		
 		Random rand = new Random();
 		int [] counts = new int [13];
 	
@@ -25,7 +26,7 @@ public class DiceRolling {
 		for(int k=0; k < rolls; k++){
 			int d1 = rand.nextInt(6) + 1;
 			int d2 = rand.nextInt(6) + 1;
-			System.out.println("roll is " + d1 + "+" + d2 + "=" + (d1+d2));
+			System.out.println("roll is " + d1 + "+" + d2 + " = " + (d1+d2));
 			counts[d1+d2] += 1;
 		}
 		

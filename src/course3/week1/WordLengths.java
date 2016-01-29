@@ -1,12 +1,6 @@
 package course3.week1;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-
-import javax.jws.Oneway;
-
 import edu.duke.FileResource;
 
 public class WordLengths {
@@ -19,8 +13,6 @@ public class WordLengths {
 	
 	public void countWordLength (FileResource fr){
 		
-		//TO DO CODE
-		
 		String resource = fr.asString();
 		System.out.println("resource: " + resource);
 		
@@ -28,22 +20,23 @@ public class WordLengths {
 		for (int i = 0; i < words.length; i++) {
 		    words[i] = words[i].replaceAll("[+.^:,]","");
 		}
-		System.out.println("The word Array contins: "+ Arrays.toString(words));
+		System.out.println("The 'words' Array contins: "+ Arrays.toString(words));
 		
 		int [] counts;
 		int maxWordLength = 0;
 		System.out.println(" ");
-		System.out.println("The words are: ");
 		for(String word : words) {
+			int index = indexOf(words,word);
+			System.out.print(index +"\t");
 			System.out.print(word.length()+"\t");		
 			System.out.println(word);
 			if (maxWordLength < word.length()){
 				maxWordLength = word.length();
 			}
 		}
-		
-		System.out.println("The max word length is: "+maxWordLength);
 		System.out.println(" ");
+		System.out.println("The max word length is: "+maxWordLength);
+		
 		//allocate count to maxWordLength
 		
 		counts = new int[maxWordLength+1];
@@ -63,73 +56,44 @@ public class WordLengths {
 		System.out.println(" ");
 		System.out.println("The indexOfMax is: "+indexOfMax);
 		
-		//get the index of max in counts
+		System.out.println();
 		
-		
-		//Arrays.asList(words).indexOf(indexOfMax)
-		
-		System.out.println("The  is: "+ Arrays.asList(words).indexOf(indexOfMax));
-		System.out.println(" ");
-		
-		//int indexNum = getArrayIndex(counts,indexOfMax);
-		
-		//System.out.println("The array of words are is: "+ Arrays.asList(words));
-		
-		for (int c : counts) {
-			int indexNum = getArrayIndex(counts,c);
-			//System.out.println(indexNum);
+		//Target counts and word length/s of the g value
+		for (int g=0; g<maxWordLength+1; g++){
 			
-			//show only the relevant counts
-			if (indexNum > 0){
-				// this narrows it down to only the array indexs that contain values
-				//show these values 
-				System.out.print(c+ " words of length " );
-				//next show the length of the words at "c" words
-				
-				
+			if (counts[g] == 0){
 				
 			}
-			System.out.println(">>");
+			else if (counts[g] == 1){
+				System.out.print(counts[g] + " word of length "+ g +": ");
+				//get words of a certain length
+				for(String word : words) {
+					int wordLength = letterCount(word);
+					//System.out.println("The length of '"+word+"' is " + wordLength);
+					
+					//could amend this == x
+					
+					if (wordLength == g){
+						System.out.print(" "+word);
+					}
+				}
+				System.out.println();
+			}
+			else{
+				System.out.print(counts[g] + " words of length "+ g +": ");
+				//get words of a certain length
+				for(String word : words) {
+					int wordLength = letterCount(word);
+					//System.out.println("The length of '"+word+"' is " + wordLength);
+						if (wordLength == g){
+							System.out.print(" "+word);
+						}
+					}
+					System.out.println();
+			}
 		}
-		
-		
-		
-		
-		/*for(String word : words) {
-			
-			System.out.print(">>"+word );
-			
-			if(word.length() == indexNum)
-				
-				System.out.print(word+" ");
-				
-//				int lengthOfCurrentWord;
-//				lengthOfCurrentWord = words[c].length();
-//				System.out.println(c+ " words of length " + lengthOfCurrentWord);
-		}
-		System.out.println(" ");*/
-		
-		
-		
-		
-		
-		//and then look at the words with the .length() == mostFreqLength
-		
 	}
-	
-	public void testCountWordLength (){
 		
-		FileResource fr = new FileResource("ProgrammingBreakingCaesarData/smallHamlet.txt");
-		//System.out.println(fr.asString());
-		//CALL THE METHOD
-		countWordLength(fr);
-		
-		//created an array
-		/*int [] counts = new int[fr.toString().length()+1];
-		System.out.println(">>"+(fr.toString().length()+1));
-		System.out.println("Length of counts array: " + counts.length);*/
-	}
-	
 	public int  indexOfMax(int [ ] counts){ 
 		//find the max in the counts array
 		//System.out.print("The count is: ");
@@ -141,7 +105,7 @@ public class WordLengths {
 			}
 			//System.out.println("max: " + max);
 		}
-		System.out.println("The max value in the counts array is: "+max);
+		//System.out.println("The max value in the counts array is: "+max);
 		//find the index of the max value in the counts array
 		int cIndex = 0;
 		for (int i=0; i<counts.length; i++ ) {
@@ -149,7 +113,7 @@ public class WordLengths {
 				cIndex=i;
 			}
 		}
-		System.out.println("The index of value of " + max + " is at " + cIndex);
+		//System.out.println("The index of value of " + max + " is at " + cIndex);
 		return cIndex;
 	}
 	
@@ -166,4 +130,39 @@ public class WordLengths {
     return k;
 	}
 	
+	public int indexOf(String[] list, String word){
+		for (int k=0; k<list.length; k++){
+			if (list[k].equals(word)){
+				return k;
+			}
+		}
+		return -1;
+	}
+	
+	public int letterCount(String word){
+	    int count = 0;
+	    for (int i = 0; i < word.length(); i++) {
+	        if (word.charAt(i) == ' ') {
+	            System.out.println("count is " + count);
+	            count = 0;
+	        } else {
+	            count++;
+	        }
+	    }
+	    //System.out.println("count is " + count);
+	    return count;
+	}
+	
+	public void testCountWordLength (){
+		
+		FileResource fr = new FileResource("ProgrammingBreakingCaesarData/smallHamlet.txt");
+		//System.out.println(fr.asString());
+		//CALL THE METHOD
+		countWordLength(fr);
+		
+		//created an array
+		/*int [] counts = new int[fr.toString().length()+1];
+		System.out.println(">>"+(fr.toString().length()+1));
+		System.out.println("Length of counts array: " + counts.length);*/
+	}
 }
