@@ -20,22 +20,22 @@ public class WordLengths {
 		for (int i = 0; i < words.length; i++) {
 		    words[i] = words[i].replaceAll("[+.^:,]","");
 		}
-		System.out.println("The 'words' Array contins: "+ Arrays.toString(words));
+		//System.out.println("The 'words' Array contins: "+ Arrays.toString(words));
 		
 		int [] counts;
 		int maxWordLength = 0;
-		System.out.println(" ");
+		//System.out.println(" ");
 		for(String word : words) {
-			int index = indexOf(words,word);
-			System.out.print(index +"\t");
-			System.out.print(word.length()+"\t");		
-			System.out.println(word);
+			//int index = indexOf(words,word);
+			//System.out.print(index +"\t");
+			//System.out.print(word.length()+"\t");		
+			//System.out.println(word);
 			if (maxWordLength < word.length()){
 				maxWordLength = word.length();
 			}
 		}
-		System.out.println(" ");
-		System.out.println("The max word length is: "+maxWordLength);
+		//System.out.println(" ");
+		//System.out.println("The max word length is: "+maxWordLength);
 		
 		//allocate count to maxWordLength
 		
@@ -44,19 +44,19 @@ public class WordLengths {
 		for(String word : words) {
 			counts[word.length()] += 1;
 		}
-		System.out.println(" ");
-		System.out.print("The count is: ");
-		for (int c : counts) {
-			System.out.print(c+", ");
-		}
-		System.out.println(" ");
+		//System.out.println(" ");
+		//System.out.print("The count is: ");
+		//for (int c : counts) {
+			//System.out.print(c+", ");
+		//}
+		//System.out.println(" ");
 		//find the max in the counts array 
-		int indexOfMax = indexOfMax(counts); 
+		//int indexOfMax = indexOfMax(counts); 
 		
-		System.out.println(" ");
-		System.out.println("The indexOfMax is: "+indexOfMax);
+		//System.out.println(" ");
+		//System.out.println("The indexOfMax is: "+indexOfMax);
 		
-		System.out.println();
+		//System.out.println();
 		
 		//Target counts and word length/s of the g value
 		for (int g=0; g<maxWordLength+1; g++){
@@ -143,7 +143,7 @@ public class WordLengths {
 	    int count = 0;
 	    for (int i = 0; i < word.length(); i++) {
 	        if (word.charAt(i) == ' ') {
-	            System.out.println("count is " + count);
+	            //System.out.println("count is " + count);
 	            count = 0;
 	        } else {
 	            count++;
@@ -155,7 +155,8 @@ public class WordLengths {
 	
 	public void testCountWordLength (){
 		
-		FileResource fr = new FileResource("ProgrammingBreakingCaesarData/smallHamlet.txt");
+		//FileResource fr = new FileResource("ProgrammingBreakingCaesarData/smallHamlet.txt");
+		FileResource fr = new FileResource("resources/course3/week1/data/hamlet.txt");
 		//System.out.println(fr.asString());
 		//CALL THE METHOD
 		countWordLength(fr);
