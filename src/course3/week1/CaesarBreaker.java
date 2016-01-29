@@ -11,8 +11,46 @@ public class CaesarBreaker {
 	}
 	
 	
-	public void testDecrypt(){
+	public void countLetters(){
 		
 	}
+
+	public void maxIndex(){
+		
+	}
+	
+	public void decrypt(){
+		
+		String input = "Hello"; 
+		int key = 15;
+		
+		//The input must be in upper case
+		input = input.toUpperCase();
+		
+		CaesarCipher cc = new CaesarCipher();
+		String message = cc.encrypt(input, key);
+		
+		System.out.println(message);
+		
+	}
+	
+	public void testDecrypt(){
+		
+		decrypt();
+		
+	}
+	
+	public void halfOfString(){
+		
+	}
+	
+	public void getKey(){
+		
+	}
+	
+	public void decryptTwoKeys(){
+		
+	}
+	
 	
 }
