@@ -13,9 +13,13 @@ public class CaesarBreaker {
 	
 	public void countLetters(){
 		
+		//simular method created in the WordLengths Class
+		
 	}
 
 	public void maxIndex(){
+		
+		//simular method created in the WordLengths Class
 		
 	}
 	
@@ -42,13 +46,20 @@ public class CaesarBreaker {
 	
 	public void halfOfString(){
 		
+		//Two perameters String message and int start
+		
 	}
 	
 	public void getKey(){
 		
+		//One perameter String s
+		//Method should call countLetters
+	
 	}
 	
 	public void decryptTwoKeys(){
+		
+		//Sting encrypted
 		
 	}
 	
