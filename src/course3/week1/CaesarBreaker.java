@@ -1,5 +1,6 @@
 package course3.week1;
 
+import edu.duke.*;
 
 public class CaesarBreaker {
     
@@ -13,13 +14,49 @@ public class CaesarBreaker {
 	
 	public void countLetters(){
 		
-		//simular method created in the WordLengths Class
+		//Similar method created in the WordLengths Class
 		
+		String word = "The input?";
+		
+	    int count = 0;
+	    for (int i = 0; i < word.length(); i++) {
+	        if (word.charAt(i) == ' ') {
+	            //System.out.println("count is " + count);
+	            count = 0;
+	        } else {
+	            count++;
+	        }
+	    }
+	    System.out.println("count is " + count);
+	    
 	}
 
 	public void maxIndex(){
 		
-		//simular method created in the WordLengths Class
+		//Similar method created in the WordLengths Class
+		
+//		public int  indexOfMax(int [ ] counts){ 
+//		//find the max in the counts array
+//		//System.out.print("The count is: ");
+//		int max = 0;
+//		for (int c : counts) {
+//			//System.out.print(c+", ");
+//			if (c > max){
+//				max = c;
+//			}
+//			//System.out.println("max: " + max);
+//		}
+//		//System.out.println("The max value in the counts array is: "+max);
+//		//find the index of the max value in the counts array
+//		int cIndex = 0;
+//		for (int i=0; i<counts.length; i++ ) {
+//			if (counts[i]==max) {
+//				cIndex=i;
+//			}
+//		}
+//		//System.out.println("The index of value of " + max + " is at " + cIndex);
+//		return cIndex;
+//		}
 		
 	}
 	
@@ -40,7 +77,13 @@ public class CaesarBreaker {
 	
 	public void testDecrypt(){
 		
+		FileResource fr = new FileResource();
+		
+		
+		
 		decrypt();
+		//Need to figure out how to use the two key decrypt method?
+		System.out.println("Print the decrypted string "+fr);
 		
 	}
 	
@@ -62,6 +105,5 @@ public class CaesarBreaker {
 		//Sting encrypted
 		
 	}
-	
 	
 }
