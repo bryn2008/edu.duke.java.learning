@@ -83,7 +83,7 @@ public class CaesarBreaker {
 		
 		decrypt();
 		//Need to figure out how to use the two key decrypt method?
-		System.out.println("Print the decrypted string "+fr);
+		System.out.println("Print the decrypted string from the file resource "+fr.asString());
 		
 	}
 	
