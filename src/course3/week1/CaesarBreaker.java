@@ -7,28 +7,31 @@ public class CaesarBreaker {
 	public static void main (String [] args){
 		
 		CaesarBreaker myObj = new CaesarBreaker();
-		myObj.testDecrypt();
-		
+		//myObj.testDecrypt();
+		//myObj.testHalfOfString();
+		myObj.testcountLetters();
 	}
 	
 	
-	public void countLetters(){
-		
-		//Similar method created in the WordLengths Class
-		
-		String word = "The input?";
-		
+	public int countLetters(String word){
 	    int count = 0;
 	    for (int i = 0; i < word.length(); i++) {
 	        if (word.charAt(i) == ' ') {
 	            //System.out.println("count is " + count);
-	            count = 0;
+	            //count = 0;
 	        } else {
 	            count++;
 	        }
 	    }
 	    System.out.println("count is " + count);
-	    
+	    return count;
+	}
+	
+	public void testcountLetters(){
+		
+		String word = "Hello can you hear me? There's is a, thunder in the air!";
+		int letterCount = countLetters(word);
+		System.out.println("The letter count is " + letterCount + ". The original word length is " + word.length() + ". This dose not exclude special char's.");
 	}
 
 	public void maxIndex(){
@@ -87,10 +90,15 @@ public class CaesarBreaker {
 		
 	}
 	
-	public void halfOfString(){
+	public static String halfOfString(String message, int start){
 		
-		//Two perameters String message and int start
-		
+		message = message.substring(start);
+		String newString = "";
+		for (int i = 0; i < message.length(); i += 2)
+			{
+				newString += message.charAt(i);
+			}
+		return newString;
 	}
 	
 	public void getKey(){
@@ -105,5 +113,13 @@ public class CaesarBreaker {
 		//Sting encrypted
 		
 	}
+	
+/*	public void testHalfOfString(){
+		
+		String message = "Qbkm Zgis";
+		int start = 0;
+		String newString = halfOfString(message, start);
+		System.out.println("The returned String is: " + newString);
+	}*/
 	
 }
