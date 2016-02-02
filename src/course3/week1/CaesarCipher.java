@@ -13,8 +13,10 @@ public class CaesarCipher {
 	}
 	
     public String encrypt(String input, int key) {
-        //Make a StringBuilder with message (encrypted)
-        StringBuilder encrypted = new StringBuilder(input);        
+        //Preserve the original input of the String
+    	String originalIO = input;
+    	//Make a StringBuilder with message (encrypted)
+        StringBuilder encrypted = new StringBuilder(input.toUpperCase());        
         //Write down the alphabet
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         //Compute the shifted alphabet
@@ -35,6 +37,18 @@ public class CaesarCipher {
             }
             //Otherwise: do nothing
         }
+        
+        //check the previous input against the output and amend the case of characters where needed
+        for (int j = 0; j < encrypted.length(); j++){
+        	char originalChar = originalIO.charAt(j);
+        	char newEncryptedChar = encrypted.charAt(j);
+        	if (Character.isLowerCase(originalChar) && Character.isUpperCase(newEncryptedChar)){
+        		//do nothing
+        		char x = Character.toLowerCase(newEncryptedChar);
+        		encrypted.setCharAt(j, x);
+        	}
+        }
+
         //Your answer is the String inside of encrypted
         return encrypted.toString();
     }
@@ -177,7 +191,7 @@ public class CaesarCipher {
                 encrypted = input;
             }
             
-            //Check the case of the input char to see if it is an upper or lowwer case char
+            //Check the case of the input char to see if it is an upper or lower case char
             if(Character.isUpperCase(originalIO) != true ){
                 //if tie original input char is lower case then change the encrypted to lower case
                 encrypted = Character.toLowerCase(encrypted);

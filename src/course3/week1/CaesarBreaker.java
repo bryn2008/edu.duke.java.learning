@@ -9,9 +9,23 @@ public class CaesarBreaker {
 		CaesarBreaker myObj = new CaesarBreaker();
 		//myObj.testDecrypt();
 		//myObj.testHalfOfString();
-		myObj.testcountLetters();
+		//myObj.testcountLetters();
+		myObj.testEyeballDecrypt();
 	}
 	
+	public void eyeballDecrypt(String encrypted){
+		CaesarCipher cipher = new CaesarCipher();
+		for (int k=0; k<26; k++){
+			String s = cipher.encrypt(encrypted, k);
+			System.out.println(k+"\t"+s);
+		}
+	}
+	
+	public void testEyeballDecrypt(){
+		FileResource fr = new FileResource("ProgrammingBreakingCaesarData/encrypted1.txt");
+		String encrypted = fr.asString();
+		eyeballDecrypt(encrypted);
+	}
 	
 	public int countLetters(String word){
 	    int count = 0;
