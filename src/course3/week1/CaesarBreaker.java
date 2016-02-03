@@ -19,11 +19,13 @@ public class CaesarBreaker {
 
 		// call half of string
 		//int key = getKey(encrypted);
+		//Concatenate the stings back together
 		
 		CaesarCipher cc = new CaesarCipher();
 		int[] freqs = countLetters(encrypted);
 		int maxDex = maxIndex(freqs);
-		int dKey = maxDex - 4;
+		System.out.println("The maxDex is set to: "+maxDex);
+		int dKey = maxDex;
 		if (maxDex < 4){
 			dKey = 26 - (4-maxDex);
 		}
@@ -31,8 +33,13 @@ public class CaesarBreaker {
 		System.out.println("The key is set to: "+(26 - dKey));
 		int key = 26 - dKey;
 		
-		//Key is not quite right and needs further testing
+		/*for (int k = 0; k < 26; k++) {
+			String s = cc.encrypt(encrypted, k);
+			System.out.println(k + "\t" + s);
+		}*/
 		
+		//Key is not quite right and needs further testing
+		System.out.println("The key passed is set to: "+key);
 		return cc.encrypt(encrypted, key);
 	}
 
