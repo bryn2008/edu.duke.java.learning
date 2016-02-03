@@ -13,8 +13,9 @@ public class CaesarCipher {
 	}
 	
     public String encrypt(String input, int key) {
+    	
         //Preserve the original input of the String
-    	String originalIO = input;
+    	String inputIO = input;
     	//Make a StringBuilder with message (encrypted)
         StringBuilder encrypted = new StringBuilder(input.toUpperCase());        
         //Write down the alphabet
@@ -38,9 +39,9 @@ public class CaesarCipher {
             //Otherwise: do nothing
         }
         
-        //check the previous input against the output and amend the case of characters where needed
-        for (int j = 0; j < encrypted.length(); j++){
-        	char originalChar = originalIO.charAt(j);
+        //Revert String case to original format
+        for (int j = 0; j <  encrypted.length(); j++){
+        	char originalChar = inputIO.charAt(j);
         	char newEncryptedChar = encrypted.charAt(j);
         	if (Character.isLowerCase(originalChar) && Character.isUpperCase(newEncryptedChar)){
         		//do nothing
@@ -48,7 +49,6 @@ public class CaesarCipher {
         		encrypted.setCharAt(j, x);
         	}
         }
-
         //Your answer is the String inside of encrypted
         return encrypted.toString();
     }
@@ -59,7 +59,7 @@ public class CaesarCipher {
         String messageInput = fr.asString();
         //makes the message upper case
         String message = messageInput.toUpperCase();
-        //make the input String all in capitials
+        //make the input String all in capitals
         System.out.println("This is the messageInput: " + messageInput);
         System.out.println("This is the message in capials: " + message);        
         //call the encrypt method
@@ -112,7 +112,7 @@ public class CaesarCipher {
     }
     
     public void encryptTwoKeys() {
-        //part 2 of the Caesar Cipher is to encrypte a message with two Keys
+        //part 2 of the Caesar Cipher is to encrypt a message with two Keys
         //int key = 15          //Pi cddc qt xc iwt rdcutgtcrt gddb lxiw ndjg wpi dc udg p hjgegxht epgin. NTAA ADJS!
         int key1 = 8;           //two keys = k1-8 & k2-21
         int key2 = 21;          //Io iwjv jz dv bcm kjvammmikz mwju edbc twpz pvb wi awm v ncmxmqnm xvzog. TMGT TJCY!
