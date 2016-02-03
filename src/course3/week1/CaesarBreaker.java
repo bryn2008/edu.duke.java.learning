@@ -7,22 +7,33 @@ public class CaesarBreaker {
 	public static void main(String[] args) {
 
 		CaesarBreaker myObj = new CaesarBreaker();
-		// yObj.testDecrypt();
+		myObj.testDecrypt();
 		// myObj.testHalfOfString();
 		// myObj.testcountLetters();
 		// myObj.testEyeballDecrypt();
 		// myObj.testMaxIndex();
-		myObj.testgetKey();
+		// myObj.testgetKey();
 	}
 
 	public String decrypt(String encrypted) {
 
 		// call half of string
-
-		int key = 19;
+		//int key = getKey(encrypted);
+		
 		CaesarCipher cc = new CaesarCipher();
-		String message = cc.encrypt(encrypted, key);
-		return message;
+		int[] freqs = countLetters(encrypted);
+		int maxDex = maxIndex(freqs);
+		int dKey = maxDex - 4;
+		if (maxDex < 4){
+			dKey = 26 - (4-maxDex);
+		}
+		System.out.println("The decrypt key is set to: "+dKey);
+		System.out.println("The key is set to: "+(26 - dKey));
+		int key = 26 - dKey;
+		
+		//Key is not quite right and needs further testing
+		
+		return cc.encrypt(encrypted, key);
 	}
 
 	public static String halfOfString(String message, int start) {
@@ -37,29 +48,27 @@ public class CaesarBreaker {
 
 	public int getKey(String s) {
 
-		// Call the method countLetters will return an array of the letter frequency for every char in the alphabet
-		String encrypted = s;
-		int[] letterFrequency = countLetters(encrypted);
-		/*for (int j = 0; j < letterFrequency.length; j++) {
-			System.out.println("The count for the alphabet char index at " + j + " is " + letterFrequency[j]);
-		}*/
-		// Call the method maxIndex will find the index of the letter with the largest frequency
-		int largestLetterFrequency = maxIndex(letterFrequency);
-		System.out.println("The lagest letter freqency index is at index \"" + largestLetterFrequency + "\" in the Array");
+		// Call the method countLetters will return an array of the letter
+		// frequency for every char in the alphabet
+		int[] letterFrequency = countLetters(s);
+		// Call the method maxIndex will find the index of the letter with the
+		// largest frequency
+		int maxDex = maxIndex(letterFrequency);	
+		//Set the key to the correct value
 		
-		//get the key
-		
-		
-		
-		
-		
-		int key = 0;
+		int dkey = maxDex - 5;
+		if (maxDex < 5){
+			dkey = 26 - (5-maxDex);
+		}
+		System.out.println("The key for e is \"" + (26 - dkey) + "\"");
+		//need to some how set the key to 11 if the maxIndex is  
+		int key = 26 - dkey;
 		return key;
 	}
 
 	public void testgetKey() {
-		
-		//This should return a key when the most common letter is e
+
+		// This should return a key when the most common letter is e
 		FileResource fr = new FileResource("ProgrammingBreakingCaesarData/encrypted1.txt");
 		String encrypted = fr.asString();
 		int key = getKey(encrypted);
@@ -71,22 +80,21 @@ public class CaesarBreaker {
 		// an array of the letter frequency in the sting
 		int[] letterFrequency = new int[26];
 		String letters = s.toLowerCase();
-		//System.out.println(letters);
-		char[] alphabet = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
-				's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+		// System.out.println(letters);
+		String alphabet = "abcdefghijklmnopqrstuvwxyz";
 		// loop trough and see if letter matches alphabet at x and if so add
 		// count to index of x in letterFrequency Array
 		for (char c : letters.toCharArray()) {
 			for (int j = 0; j < letterFrequency.length; j++) {
-				if (c == alphabet[j]) {
+				if (c == alphabet.charAt(j)) {
 					letterFrequency[j]++;
 				}
 			}
 		}
 		// all work done by now
-		/*for (int j = 0; j < alphabet.length; j++) {
-			System.out.println("count for " + alphabet[j] + " is " + letterFrequency[j]);
-		}*/
+		/*for (int j = 0; j < alphabet.length; j++) { 
+			System.out.println("count for " + alphabet[j] + " is " + letterFrequency[j]); 
+		} */
 		return letterFrequency;
 	}
 
@@ -107,16 +115,16 @@ public class CaesarBreaker {
 	public int maxIndex(int[] letterFrequency) {
 
 		// find the max in the counts array
-		//System.out.print("The count is: ");
+		// System.out.print("The count is: ");
 		int max = 0;
 		for (int c : letterFrequency) {
-			//System.out.print(c + ", ");
+			// System.out.print(c + ", ");
 			if (c > max) {
 				max = c;
 			}
-			//System.out.println("max: " + max);
+			// System.out.println("max: " + max);
 		}
-		//System.out.println("The max value in the counts array is: " + max);
+		// System.out.println("The max value in the counts array is: " + max);
 		// find the index of the max value in the counts array
 		int cIndex = 0;
 		for (int i = 0; i < letterFrequency.length; i++) {
@@ -124,7 +132,8 @@ public class CaesarBreaker {
 				cIndex = i;
 			}
 		}
-		//System.out.println("The index of value of " + max + " is at " + cIndex);
+		// System.out.println("The index of value of " + max + " is at " +
+		// cIndex);
 		return cIndex;
 	}
 
@@ -137,18 +146,37 @@ public class CaesarBreaker {
 
 		// return the index of the largest letter frequency
 		int largestLetterFrequency = maxIndex(letterFrequency);
-		System.out.println("The lagest letter freqency index is at index \"" + largestLetterFrequency + "\" in the Array");
+		System.out.println(
+				"The lagest letter freqency index is at index \"" + largestLetterFrequency + "\" in the Array");
 	}
 
 	public void testDecrypt() {
 
 		FileResource fr = new FileResource("ProgrammingBreakingCaesarData/encrypted1.txt");
+		//FileResource fr = new FileResource("ProgrammingBreakingCaesarData/encrypted2.txt");
 		String encrypted = fr.asString();
 		System.out.println("The encrypted input is: " + encrypted);
 		String decrypted = decrypt(encrypted);
 		// Need to figure out how to use the two key decrypt method?
 		System.out.println("The dycrypted output is: " + decrypted);
 
+		/*
+		 * Dear Owen, 
+		 * No matter what you may have heard, there is no cake in the
+		 * conference room. The cake is a lie. Please keep working on Coursera
+		 * videos.
+		 * Thanks, Drew
+		 * 
+		 * 
+		 * The key for this is 11
+		 * 
+		 * the most freq used letter is t when encrypted and it has an index of 20 
+		 * 
+		 * there are 26 char's in the alphabet
+		 * 
+		 * index of e in the char alphabet is either 5 or 6 if zero indexed
+		 * 
+		 */
 	}
 
 	public void eyeballDecrypt(String encrypted) {
