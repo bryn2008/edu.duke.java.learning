@@ -9,8 +9,10 @@ public class CaesarBreaker {
 		CaesarBreaker myObj = new CaesarBreaker();
 		// yObj.testDecrypt();
 		// myObj.testHalfOfString();
-		myObj.testcountLetters();
+		// myObj.testcountLetters();
 		// myObj.testEyeballDecrypt();
+		// myObj.testMaxIndex();
+		myObj.testgetKey();
 	}
 
 	public String decrypt(String encrypted) {
@@ -33,18 +35,35 @@ public class CaesarBreaker {
 		return newString;
 	}
 
-	public void getKey(String s) {
+	public int getKey(String s) {
 
-		// Method should call countLetters
-		// this will return an array of the letter frequency
-
-		// Call the method maxIndex
-		// This should find the index of the largest letter frequency
-
+		// Call the method countLetters will return an array of the letter frequency for every char in the alphabet
+		String encrypted = s;
+		int[] letterFrequency = countLetters(encrypted);
+		/*for (int j = 0; j < letterFrequency.length; j++) {
+			System.out.println("The count for the alphabet char index at " + j + " is " + letterFrequency[j]);
+		}*/
+		// Call the method maxIndex will find the index of the letter with the largest frequency
+		int largestLetterFrequency = maxIndex(letterFrequency);
+		System.out.println("The lagest letter freqency index is at index \"" + largestLetterFrequency + "\" in the Array");
+		
+		//get the key
+		
+		
+		
+		
+		
+		int key = 0;
+		return key;
 	}
 
 	public void testgetKey() {
-
+		
+		//This should return a key when the most common letter is e
+		FileResource fr = new FileResource("ProgrammingBreakingCaesarData/encrypted1.txt");
+		String encrypted = fr.asString();
+		int key = getKey(encrypted);
+		System.out.println("The key is: " + key);
 	}
 
 	public int[] countLetters(String s) {
@@ -52,25 +71,22 @@ public class CaesarBreaker {
 		// an array of the letter frequency in the sting
 		int[] letterFrequency = new int[26];
 		String letters = s.toLowerCase();
+		//System.out.println(letters);
 		char[] alphabet = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
 				's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-
-		System.out.println(letters);
-
 		// loop trough and see if letter matches alphabet at x and if so add
 		// count to index of x in letterFrequency Array
-		for (char c : s.toCharArray()) {
+		for (char c : letters.toCharArray()) {
 			for (int j = 0; j < letterFrequency.length; j++) {
 				if (c == alphabet[j]) {
 					letterFrequency[j]++;
 				}
 			}
 		}
-
 		// all work done by now
-		for (int j = 0; j < alphabet.length; j++) {
+		/*for (int j = 0; j < alphabet.length; j++) {
 			System.out.println("count for " + alphabet[j] + " is " + letterFrequency[j]);
-		}
+		}*/
 		return letterFrequency;
 	}
 
@@ -80,11 +96,48 @@ public class CaesarBreaker {
 		FileResource fr = new FileResource("ProgrammingBreakingCaesarData/encrypted1.txt");
 		String encrypted = fr.asString();
 		int[] letterFrequency = countLetters(encrypted);
-		//Show the letter freq in the input string
-		char[] alphabet = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+		// Show the letter freq in the input string
+		char[] alphabet = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+				's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
 		for (int j = 0; j < letterFrequency.length; j++) {
-			System.out.println("The letter frequency for "+ alphabet[j] +" is " + letterFrequency[j]);
+			System.out.println("The letter frequency for " + alphabet[j] + " is " + letterFrequency[j]);
 		}
+	}
+
+	public int maxIndex(int[] letterFrequency) {
+
+		// find the max in the counts array
+		//System.out.print("The count is: ");
+		int max = 0;
+		for (int c : letterFrequency) {
+			//System.out.print(c + ", ");
+			if (c > max) {
+				max = c;
+			}
+			//System.out.println("max: " + max);
+		}
+		//System.out.println("The max value in the counts array is: " + max);
+		// find the index of the max value in the counts array
+		int cIndex = 0;
+		for (int i = 0; i < letterFrequency.length; i++) {
+			if (letterFrequency[i] == max) {
+				cIndex = i;
+			}
+		}
+		//System.out.println("The index of value of " + max + " is at " + cIndex);
+		return cIndex;
+	}
+
+	public void testMaxIndex() {
+
+		// Return an array of the letter frequencies
+		FileResource fr = new FileResource("ProgrammingBreakingCaesarData/encrypted1.txt");
+		String encrypted = fr.asString();
+		int[] letterFrequency = countLetters(encrypted);
+
+		// return the index of the largest letter frequency
+		int largestLetterFrequency = maxIndex(letterFrequency);
+		System.out.println("The lagest letter freqency index is at index \"" + largestLetterFrequency + "\" in the Array");
 	}
 
 	public void testDecrypt() {
@@ -110,36 +163,6 @@ public class CaesarBreaker {
 		FileResource fr = new FileResource("ProgrammingBreakingCaesarData/encrypted1.txt");
 		String encrypted = fr.asString();
 		eyeballDecrypt(encrypted);
-	}
-
-	public void maxIndex() {
-
-		// Similar method created in the WordLengths Class
-
-		// public int indexOfMax(int [ ] counts){
-		// //find the max in the counts array
-		// //System.out.print("The count is: ");
-		// int max = 0;
-		// for (int c : counts) {
-		// //System.out.print(c+", ");
-		// if (c > max){
-		// max = c;
-		// }
-		// //System.out.println("max: " + max);
-		// }
-		// //System.out.println("The max value in the counts array is: "+max);
-		// //find the index of the max value in the counts array
-		// int cIndex = 0;
-		// for (int i=0; i<counts.length; i++ ) {
-		// if (counts[i]==max) {
-		// cIndex=i;
-		// }
-		// }
-		// //System.out.println("The index of value of " + max + " is at " +
-		// cIndex);
-		// return cIndex;
-		// }
-
 	}
 
 	public void decryptTwoKeys() {
