@@ -41,5 +41,14 @@ public class CaesarCipher {
 		CaesarCipher cc = new CaesarCipher(26 - mainKey);
 		input = cc.encrypt(input);
 		return input;
+		/*
+		 * Write a decrypt method that has one String parameter named input. 
+		 * This method returns a String that is the encrypted String decrypted 
+		 * using the key associated with this CaesarCipher object. 
+		 * One way to do this is to create another private field mainKey, 
+		 * which is initialized to be the value of key. 
+		 * Then you can create a CaesarCipher object within 
+		 * decrypt: CaesarCipher cc = new CaesarCipher(26 - mainKey); and call cc.encrypt(input).
+		*/
 	}
 }
