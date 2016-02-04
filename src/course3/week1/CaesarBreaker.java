@@ -7,12 +7,12 @@ public class CaesarBreaker {
 	public static void main(String[] args) {
 
 		CaesarBreaker myObj = new CaesarBreaker();
-		myObj.testDecrypt();
-		// myObj.testHalfOfString();
-		// myObj.testcountLetters();
-		// myObj.testEyeballDecrypt();
-		// myObj.testMaxIndex();
-		// myObj.testgetKey();
+		//myObj.testDecrypt();
+		myObj.testHalfOfString();
+		//myObj.testcountLetters();
+		//myObj.testEyeballDecrypt();
+		//myObj.testMaxIndex();
+		//myObj.testgetKey();
 	}
 
 	public String decrypt(String encrypted) {
@@ -25,9 +25,9 @@ public class CaesarBreaker {
 		int[] freqs = countLetters(encrypted);
 		int maxDex = maxIndex(freqs);
 		System.out.println("The maxDex is set to: "+maxDex);
-		int dKey = maxDex;
+		int dKey = maxDex - 4;
 		if (maxDex < 4){
-			dKey = 26 - (4-maxDex);
+			dKey = 26 - (4 -maxDex);
 		}
 		System.out.println("The decrypt key is set to: "+dKey);
 		System.out.println("The key is set to: "+(26 - dKey));
@@ -51,6 +51,120 @@ public class CaesarBreaker {
 			newString += message.charAt(i);
 		}
 		return newString;
+	}
+	
+	public void testHalfOfString() {
+		
+		//FileResource fr = new FileResource("ProgrammingBreakingCaesarData/encrypted1.txt");
+		//String encrypted = fr.asString();
+		//Question 8
+		//String encrypted = "Top ncmy qkff vi vguv vbg ycpx";
+		//Question 9 key1 = 4 key2 = 7 || dKey1 = 22 and dkey2 = 19 
+		//String encrypted = "akag tjw Xibhr awoa aoee xakex znxag xwko";
+		//Question 10 key1 = 9 key2 = 22 || dKey1 = 11 and dkey2 = 4 
+		String encrypted = "Xifqvximt tsdtlxzrx iijirvtl ek Uybi afvbw yehvv xyi gfqdse iekmfrrpzdrxzse fj xyi jzich sw tsdtlxrxzseec xifqvxic, fjkie xmmie zr xyi trwk, xyek klv nsipu rvfyeh yj zw xyvvi-hzqvrjmfrrp eeh ulijxzsew lfa xymekj zr xymj nsipu iiceki xf vetl sklvv eii melvvvrkpp xifqvximt. Xrov dsmmek e tzees xyvfyxl e hfsi-wvrqv rru gprremek e jcmxlk-gekl xyek rzfmuw gfpcmjmfrj nmkl sklvv ezvgprrvw ej kaf vbrqgpvw. Zx wyslpu klvvvjfvv esk jyitimji xyek tsdtlxzrx gvftvvkmvw esslx xyiji kvsdikvzg xymekj rru klvmi zrkiietxzse rvv tsdqfr-tceti eeh mdtfvkeex. Nlzpv klzw mj jxzpc r mecmu rvxydiex, ni afych pzov ks edieh xyek dsjx sw klv xifqvximt hyvwkmfrj giftci gfrtiir xyidwvpmij nmkl lrzv ks hf nmkl lfa xymekj rvv tservgkiu. Mk zw mdtfvkeex xyek ymxlnepw eii wljwmtmvrkpp jxiezkyx eeh wdsfxy ks wltgsix xyi himmmek sw wejx grvj, flx eesklvv ijwvrkmrp tisgiixp, aymtl av lwlecpp kebi jfv kieexvh, zw xyek ymxlnepw eii gfrkmeyfyj, mehviu tservgkmek E xf S, eeh rfx nlwk rtgvfbzqrxvpp. Xyi gfviijtfrumek wlfwmvpu fj gfqgykekmfrrp kvsdikvp zw swxvr vvjvviiu ks ej tsdtlxrxzseec ksgscsxc. R xsfh tfvkmfr sw fyi vjwsixj dep si gcejwzjziu ks fvpfrx ks xymj jysjzich eeh eii himmie sc egtcmtekmfrj zr e zrvzikc sw fxyii wmvpuw, klv gvvhzgkmfr sw klv jxiytxlvv fj jfpuiu gvfxvmew eeh xyi vvgfrjxiytxzse fj llqrr sikrrj sizrx kaf. Xyi lrpcqrvb fj slv afvb zw jrwk rpxsimkldw xyek zqgpvqvrk deklvqrxzgrp qfhvpj ks swjvv mewzkyxj zrks eeh eewniiw xf jytl ulijxzsew.";
+		
+		System.out.println(encrypted);
+		
+		int firstHalf = 0;
+		int secondHalf = 1;
+		
+		String halfone = halfOfString(encrypted, firstHalf);
+		String halftwo = halfOfString(encrypted, secondHalf);
+		
+		//eventually use a for loop and chatAt(i) to concatinate them both
+		
+		//System.out.println(halfone);
+		//System.out.println(halftwo);
+		
+		//System.out.println("First Decoded half:  "+firstDec);
+		//System.out.println("Second Decoded half: "+secondDec);		
+		
+		CaesarCipher cc = new CaesarCipher();
+		
+		
+		//Metod for when the decrypt works automaticlly
+/*		String halfOneDecrpted = decrypt(halfone);
+		System.out.println("half one decrypted is "+halfOneDecrpted);
+		String halfTwoDecrpted = decrypt(halfone);
+		System.out.println("half one decrypted is "+halfTwoDecrpted);
+		
+		String theDecryptedString = "";
+		for (int i = 0; i < (encrypted.length()-halfOneDecrpted.length()); i ++) {
+			char tempone = halfOneDecrpted.charAt(i);
+			char temptwo = halfTwoDecrpted.charAt(i);
+			String temp = "" + tempone + temptwo;
+			theDecryptedString += temp; 
+		}
+		System.out.println("The new Decrypted String is: " + theDecryptedString);*/
+		
+		
+/*		for (int j = 0; j < 26; j++){
+			int keyOne = 26 - j;
+			for (int i = 0; i < 26; i++){
+				int keyTwo = 26 - i;
+				
+				String firstDec = cc.encrypt(halfone, keyOne);
+				String secondDec = cc.encrypt(halftwo, keyTwo);
+				
+				String newString = "";
+				for (int k = 0; k < (encrypted.length()-firstDec.length()); k ++) {
+					char tempone = firstDec.charAt(k);
+					char temptwo = secondDec.charAt(k);
+					String temp = "" + tempone + temptwo;
+					newString += temp; 
+					
+					//newString += secondDec.charAt(i);
+				}
+			
+				
+			System.out.println("If key1 is "+keyOne+" and key2 is: "+keyTwo+" . The new string is: " + newString);
+			}
+			
+			
+		}*/
+		
+		//Key1 = 9 || dkey1 = 17
+		int[] freqsOne = countLetters(halfone);
+		int maxDex = maxIndex(freqsOne);
+		int dKeyOne = maxDex-1;
+		if (dKeyOne < 1){
+			dKeyOne *= -1;
+		}
+		//System.out.println("The maxDexOne is set to: "+maxDex);
+		System.out.println("The decrypt Key1 is "+dKeyOne+". ");
+		
+		//Key2 = 22 || dkey2 = 4
+		int[] freqsTwo = countLetters(halftwo);
+		int maxDexTwo = maxIndex(freqsTwo);
+		int dKeyTwo = maxDexTwo-1;
+		if (dKeyTwo < 1){
+			dKeyTwo *= -1;
+		}
+		//System.out.println("The maxDexTwo is set to: "+maxDexTwo);
+		System.out.println("The decrypt Key2 is "+dKeyTwo+". ");
+		
+		//originaly encrypted with these keys
+/*		int keyOne = 26 - dKeyOne;
+		System.out.println("The original encrypt for Key1 is "+keyOne+". ");
+		int keyTwo = 26 - dKeyTwo;
+		System.out.println("The original encrypt for Key2 is "+keyTwo+". ");*/
+		
+		String firstDec = cc.encrypt(halfone, dKeyOne);
+		String secondDec = cc.encrypt(halftwo, dKeyTwo);
+		
+		String newString = "";
+		for (int i = 0; i < (encrypted.length()-firstDec.length()); i ++) {
+			char tempone = firstDec.charAt(i);
+			char temptwo = secondDec.charAt(i);
+			String temp = "" + tempone + temptwo;
+			newString += temp; 
+			
+			//newString += secondDec.charAt(i);
+		}
+		
+		System.out.println("The new string is: " + newString);
+
 	}
 
 	public int getKey(String s) {
@@ -159,8 +273,8 @@ public class CaesarBreaker {
 
 	public void testDecrypt() {
 
-		FileResource fr = new FileResource("ProgrammingBreakingCaesarData/encrypted1.txt");
-		//FileResource fr = new FileResource("ProgrammingBreakingCaesarData/encrypted2.txt");
+		//FileResource fr = new FileResource("ProgrammingBreakingCaesarData/encrypted1.txt");
+		FileResource fr = new FileResource("ProgrammingBreakingCaesarData/encrypted2.txt");
 		String encrypted = fr.asString();
 		System.out.println("The encrypted input is: " + encrypted);
 		String decrypted = decrypt(encrypted);
