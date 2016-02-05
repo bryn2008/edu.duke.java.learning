@@ -156,7 +156,10 @@ public class WordLengths {
 		
 		//FileResource fr = new FileResource("ProgrammingBreakingCaesarData/smallHamlet.txt");
 		//FileResource fr = new FileResource("resources/course3/week1/data/hamlet.txt");
-		FileResource fr = new FileResource();
+		//FileResource fr = new FileResource();
+		//FileResource fr = new FileResource("QuizCryptographyData/errors.txt");
+		FileResource fr = new FileResource("QuizCryptographyData/manywords.txt");
+		
 		//System.out.println(fr.asString());
 		//CALL THE METHOD
 		countWordLength(fr);

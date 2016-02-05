@@ -12,7 +12,11 @@ public class TestCaesarCipherTwo {
 
 	public void simpleTests() {
 		
-		FileResource fr = new FileResource("ProgrammingBreakingCaesarData/smallHamlet.txt");
+		//FileResource fr = new FileResource("ProgrammingBreakingCaesarData/smallHamlet.txt");
+		//FileResource fr = new FileResource("QuizCryptographyData/errors.txt");
+		//FileResource fr = new FileResource("QuizCryptographyData/manywords.txt");
+		FileResource fr = new FileResource("QuizCryptographyData/mysteryTwoKeysQuiz.txt");
+		
 		String message = fr.asString();
 		System.out.println("The meesage is: " + message);
 		
