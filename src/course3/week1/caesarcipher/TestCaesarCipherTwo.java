@@ -1,4 +1,4 @@
-package course3.week1.TheCaesarCipher;
+package course3.week1.caesarcipher;
 
 import edu.duke.FileResource;
 

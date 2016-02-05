@@ -1,23 +1,18 @@
-package course3.week1.TheCaesarCipher;
+package course3.week1.caesarcipher;
 
-public class CaesarCipherTwo {
-	
+public class CaesarCipher {
+
 	private String alphabet;
-	private String shiftedAlphabet1;
-	private String shiftedAlphabet2;
-	private int mainKey1;
-	private int mainKey2;
-	
-	public CaesarCipherTwo(int key1, int key2){
-		
-		mainKey1 = key1;
-		mainKey2 = key2;
+	private String shiftedAlphabet;
+	private int mainKey;
+
+	public CaesarCipher(int key) {
+
+		mainKey = key;
 		alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		shiftedAlphabet1 = alphabet.substring(key1) + alphabet.substring(0, key1);
-		shiftedAlphabet2 = alphabet.substring(key2) + alphabet.substring(0, key2);
-		
+		shiftedAlphabet = alphabet.substring(key) + alphabet.substring(0, key);
 	}
-	
+
 	public String encrypt(String input) {
 
 		String stringInput = input;
@@ -26,15 +21,8 @@ public class CaesarCipherTwo {
 			char currChar = encrypted.charAt(i);
 			int idx = alphabet.indexOf(currChar);
 			if (idx != -1) {
-				if (i%2 == 0){
-					char newChar1 = shiftedAlphabet1.charAt(idx);
-					encrypted.setCharAt(i, newChar1);
-				}
-				else {
-					char newChar2 = shiftedAlphabet2.charAt(idx);
-					encrypted.setCharAt(i, newChar2);
-				}
-				
+				char newChar = shiftedAlphabet.charAt(idx);
+				encrypted.setCharAt(i, newChar);
 			}
 		}
 		for (int j = 0; j < encrypted.length(); j++) {
@@ -47,12 +35,11 @@ public class CaesarCipherTwo {
 		}
 		return encrypted.toString();
 	}
-	
+
 	public String decrypt(String input) {
 
-		CaesarCipherTwo ccTwo = new CaesarCipherTwo(26 - mainKey1, 26 - mainKey2);
-		String decrypted = ccTwo.encrypt(input);
+		CaesarCipher cc = new CaesarCipher(26 - mainKey);
+		String decrypted = cc.encrypt(input);
 		return decrypted;
 	}
-
 }

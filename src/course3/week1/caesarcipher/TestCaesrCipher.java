@@ -1,6 +1,6 @@
-package course3.week1.TheCaesarCipher;
+package course3.week1.caesarcipher;
 
-import course3.week1.TheCaesarCipher.CaesarCipher;
+import course3.week1.caesarcipher.CaesarCipher;
 import edu.duke.FileResource;
 
 public class TestCaesrCipher {
