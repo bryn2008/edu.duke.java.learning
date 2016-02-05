@@ -11,47 +11,35 @@ public class TestCaesrCipher {
 		myObj.simpleTests();
 	}
 	
-	/*
-	 * Write the void method simpleTests that has no parameters. This method
-	 * should read in a file as a String, create a CaesarCipher object with key
-	 * 18, encrypt the String read in using the CaesarCipher object, print the
-	 * encrypted String, and decrypt the encrypted String using the decrypt
-	 * method.
-	 */
+
 	public void simpleTests() {
 
 		FileResource fr = new FileResource("ProgrammingBreakingCaesarData/smallHamlet.txt");
 		String message = fr.asString();
 		System.out.println("The meesage is: " + message);
-		String encrypt = message;
 		
-		CaesarCipher cc = new CaesarCipher(18);
+		CaesarCipher cc = new CaesarCipher(17);
 		String enncrypted = cc.encrypt(message);
 		System.out.println("The enncrypted meesage is: " + enncrypted);
-
-		String decrypted = breakCaesarCipher(encrypt);
+		
+		String manDecrypt = breakCaesarCipher(enncrypted);
+		System.out.println("\nUsing the breakCaesarCipher method, the decrypted meesage is: " + manDecrypt);
+		
+		String decrypted = cc.decrypt(enncrypted);
 		System.out.println("The decrypted meesage is: " + decrypted);
-		/*
-		 * In the simpleTests method, add a call to breakCaesarCipher on the
-		 * encrypted String to decrypt it automatically by determining the key,
-		 * and print the decrypted String.
-		 */
+
 	}
 
-	/*
-	 * This method should figure out which key was used to encrypt this message
-	 * (in a similar manner as the previous lesson), then create a CaesarCipher
-	 * object with that key and decrypt the message.
-	 */
 	public String breakCaesarCipher(String input) {
-
+		
 		int[] freqs = countLetters(input);
 		int maxDex = maxIndex(freqs);
-		int dKey = maxDex - 1;
+		int dKey = maxDex - 4;
 		if (dKey < 1) {
 			dKey *= -1;
 		}
-		CaesarCipher cc = new CaesarCipher(dKey);
+		System.out.println("The decrypt key is "+(26 - dKey));
+		CaesarCipher cc = new CaesarCipher((26 - dKey));
 		String decrypted = cc.encrypt(input);
 		return decrypted;
 	}
@@ -85,5 +73,4 @@ public class TestCaesrCipher {
 		}
 		return letterFrequency;
 	}
-
 }
