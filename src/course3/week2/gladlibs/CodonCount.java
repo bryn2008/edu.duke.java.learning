@@ -6,11 +6,11 @@ import edu.duke.FileResource;
 
 public class CodonCount {
 	
-	private HashMap dnaCodons;
+	private HashMap<String, Integer> dnaCodons;
 	
 	public CodonCount(){
 		
-		dnaCodons = new HashMap();
+		dnaCodons = new HashMap<>();
 		
 	}
 	
@@ -23,7 +23,9 @@ public class CodonCount {
 	
 	public void buildCodonMap(int start, String dna){
 		
-		//Build new map
+		dnaCodons.clear();
+		
+		//Build new map of codons mapped to their counts
 		
 	}
 	
@@ -43,6 +45,8 @@ public class CodonCount {
 		
 		FileResource fr = new FileResource("ProgrammingImprovingGladLibsData/smalldna.txt");
 		String dna = fr.asString().toUpperCase();
+		int start = 0;
+		buildCodonMap(start, dna);
 		
 	}
 	
