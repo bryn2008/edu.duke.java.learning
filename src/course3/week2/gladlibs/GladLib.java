@@ -164,6 +164,8 @@ public class GladLib {
 	}
 	
 	public void makeStory(){
+		//should make sure array list is cleared out before each run in make story
+		usedWords.clear();
 	    System.out.println("\n");
 		String story = fromTemplate("resources/course3/week2/GladLib/data/madtemplate2.txt");
 		printOut(story, 60);
