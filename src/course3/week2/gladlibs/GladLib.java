@@ -105,7 +105,7 @@ public class GladLib {
 		
 			if(usedWords.contains(sub)){
 				//get a new word and check it is not in the usedWords already
-				
+				sub = getSubstitute(w.substring(first+1,last));
 				//then add the new word to the used words list
 				usedWords.add(sub);
 			}
