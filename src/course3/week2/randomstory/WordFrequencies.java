@@ -6,12 +6,31 @@ import edu.duke.FileResource;
 
 public class WordFrequencies {
 
-	private ArrayList<String> myWords = new ArrayList<String>();
-	private ArrayList<Integer> myFraqs = new ArrayList<Integer>();
+	private ArrayList<String> myWords;
+	private ArrayList<Integer> myFraqs;
 
-	public WordFrequencies(String input) {
+	public WordFrequencies() {
 		
-		String[] tempWords = input.split("\\s+");
+		myWords = new ArrayList<String>();
+		myFraqs = new ArrayList<Integer>();
+		
+	}
+		
+	public static void main(String[] args) {
+		
+		WordFrequencies myObj = new WordFrequencies();
+		myObj.tester();
+	}
+
+	public void findUnique() {
+
+		myFraqs.clear();
+		myWords.clear();
+		
+		FileResource fr = new FileResource("ProgrammingRandomStoryData/likeit.txt");
+		String input = fr.asString().toLowerCase();
+		
+		String[] tempWords = input.toLowerCase().split("\\s+");
 		for (String tempWord: tempWords) {
 			if (! myWords.contains(tempWord)){
 				myWords.add(tempWord);
@@ -24,37 +43,28 @@ public class WordFrequencies {
 			currVal++;
 			myFraqs.set(wordDex, currVal);
 		}
-	}
-		
-	public static void main(String[] args) {
-		
-		FileResource fr = new FileResource("ProgrammingRandomStoryData/testwordfreqs.txt");
-		WordFrequencies myObj = new WordFrequencies(fr.asString());
-		myObj.tester();
-	}
-
-	public void findUnique() {
-
-		//myFraqs.clear();
-		//myWords.clear();
 
 	}
 
 	public int findIndexOfMax() {
 
-		int max = 0;
+		int maxCount = 0;
 		for (int c : myFraqs) {
-			if (c > max) {
-				max = c;
+			if (c > maxCount) {
+				maxCount = c;
 			}
 		}
-		int cIndex = 0;
+		int maxDex = 0;
 		for (int i = 0; i < myFraqs.size(); i++) {
-			if (myFraqs.get(i) == max) {
-				cIndex = i;
+			int tempDex = maxDex;
+			if (myFraqs.get(i) == maxCount) {
+				maxDex = i;
+				if (!(maxCount > myFraqs.get(i))){
+					maxCount = tempDex;
+				}
 			}
 		}
-		return cIndex;
+		return maxDex;
 	}
 
 	public void tester() {
@@ -64,9 +74,10 @@ public class WordFrequencies {
 		for (int i =0; i<myWords.size();i++){
 			System.out.println(myFraqs.get(i)+" "+myWords.get(i));
 		}
-
+		
+		//first word should be "a"
 		int maxDex = findIndexOfMax();
-		System.out.println("The word that occurs most offten and its count are: "+myWords.get(maxDex)+" "+maxDex);
+		System.out.println("The word that occurs most offten and its count are: "+myWords.get(maxDex)+" "+myFraqs.get(maxDex));
 	}
 
 }
