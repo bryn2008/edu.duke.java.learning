@@ -1,16 +1,16 @@
 package course3.week2.gladlibs;
 
-import java.util.HashMap;
+//mport java.util.HashMap;
 
-import edu.duke.FileResource;
+//import edu.duke.FileResource;
 
 public class MapsVersionOfGladLibs {
 	
-	private HashMap dnaCodons;
+	//private HashMap dnaCodons;
 	
 	public MapsVersionOfGladLibs(){
 		
-		dnaCodons = new HashMap();
+		//dnaCodons = new HashMap();
 		
 	}
 	
@@ -41,8 +41,8 @@ public class MapsVersionOfGladLibs {
 	
 	public void tester(){
 		
-		FileResource fr = new FileResource("ProgrammingImprovingGladLibsData/smalldna.txt");
-		String dna = fr.asString().toUpperCase();
+		//FileResource fr = new FileResource("ProgrammingImprovingGladLibsData/smalldna.txt");
+		//String dna = fr.asString().toUpperCase();
 		
 	}
 	

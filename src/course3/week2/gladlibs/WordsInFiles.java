@@ -1,24 +1,24 @@
 package course3.week2.gladlibs;
 
-import java.util.HashMap;
+//import java.util.HashMap;
 
 public class WordsInFiles {
 	
-	private HashMap words;
+	//private HashMap words;
 	
 	public WordsInFiles(){
 		
-		words = new HashMap();
+		//words = new HashMap();
 		
 	}
 	
 	public static void main(String[] args){
 		
 		WordsInFiles myObj = new WordsInFiles();
-		//myObj.tester();
+		myObj.tester();
 	}
 	
-	private void addWordsFromFile(){		//filetyoe f to be passed into this method
+/*	private void addWordsFromFile(){		//file type f to be passed into this method
 		
 	}
 	
@@ -31,6 +31,14 @@ public class WordsInFiles {
 	}
 	
 	private void wordsInNumFile(){
+		
+	}
+	
+	private void printFile(){
+		
+	}
+	*/
+	private void tester(){
 		
 	}
 
