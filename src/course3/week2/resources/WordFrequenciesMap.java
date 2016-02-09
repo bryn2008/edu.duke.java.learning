@@ -62,8 +62,8 @@ public class WordFrequenciesMap {
 	}
 	
 	public void tester(){
-		String filename = "resources/course3/week2/WordFrequenciesMap/kjv10.txt";
-		//String filename = "resources/course3/week2/WordFrequenciesMap/caesar.txt";
+		//String filename = "resources/course3/week2/WordFrequenciesMap/kjv10.txt";
+		String filename = "resources/course3/week2/WordFrequenciesMap/caesar.txt";
 		double start = System.currentTimeMillis();
 		countWords(filename);
 		double end = System.currentTimeMillis();

@@ -53,7 +53,24 @@ public class GladLib {
 	}
 	
 	private String randomFrom(ArrayList<String> source){
-		int index = myRandom.nextInt(source.size());
+		
+		//this is where the word is selected
+		//loop through to pick a new word every time
+		int index = 0;
+		for (int i=0; i< source.size();i++){
+			
+			index = myRandom.nextInt(source.size());
+			//System.out.println(" >> "+source.get(index));
+			if(usedWords.contains(source.get(index))){
+				source.get(index);
+				usedWords.add(source.get(index));
+				i++;
+			}
+			else if (! usedWords.contains(source.get(index))){
+				usedWords.add(source.get(index));
+				i = source.size();
+			}	
+		}
 		return source.get(index);
 	}
 	
@@ -100,19 +117,8 @@ public class GladLib {
 		String prefix = w.substring(0,first);
 		String suffix = w.substring(last+1);
 		String sub = getSubstitute(w.substring(first+1,last));
-		System.out.println(" ");
-		//write this code into a for loop until an unused word is used
-		
-			if(usedWords.contains(sub)){
-				//get a new word and check it is not in the usedWords already
-				sub = getSubstitute(w.substring(first+1,last));
-				//then add the new word to the used words list
-				usedWords.add(sub);
-			}
-			else{
-				usedWords.add(sub);
-			}
-			System.out.println(sub);
+		//System.out.println(" ");
+		//System.out.println(sub);
 		return prefix+sub+suffix;
 	}
 	
