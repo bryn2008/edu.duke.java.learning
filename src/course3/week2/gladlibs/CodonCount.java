@@ -23,10 +23,6 @@ public class CodonCount {
 		
 	}
 	
-	/* Write a void method named buildCodonMap that has two parameters, an int named start and a String named dna. 
-	 * This method will build a new map of codons mapped to their counts from the string dna with the reading frame with the position start (a value of 0, 1, or 2). 
-	 * You will call this method several times, so be sure to make your map is empty before building it.
-	*/
 	public void buildCodonMap(int start, String dna){
 		
 		dnaCodons.clear();
@@ -49,11 +45,14 @@ public class CodonCount {
 	public String getMostCommonCodon(){
 		
 		String mostCommonCodon = null;
-        int maxValueInMap=(Collections.max(dnaCodons.values()));  // This will return max value in the HashMap
-        for (Entry<String, Integer> entry : dnaCodons.entrySet()) {  // Iterate through hashMap
+		boolean firstTime = false;
+        int maxValueInMap=(Collections.max(dnaCodons.values()));
+        for (Entry<String, Integer> entry : dnaCodons.entrySet()) {
             if (entry.getValue()==maxValueInMap) {
-                //System.out.println(entry.getKey());     // Print the key with max value
-                mostCommonCodon = entry.getKey();
+            	if(firstTime == false){
+            		mostCommonCodon = entry.getKey();
+            		firstTime = true;
+            	}
             }
         }
 		return mostCommonCodon;
