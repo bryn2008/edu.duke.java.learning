@@ -2,10 +2,10 @@ package course3.week2.gladlibs;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
+//import java.util.Collections;
 import java.util.HashMap;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+//import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
 
 import edu.duke.DirectoryResource;
 import edu.duke.FileResource;
@@ -13,11 +13,11 @@ import edu.duke.FileResource;
 public class WordsInFiles {
 	
 	private HashMap<String, ArrayList<String>> myMap = new HashMap<>();
-	private HashMap<String, Integer> words = new HashMap<>();
+	//private HashMap<String, Integer> words = new HashMap<>();
 	
 	public WordsInFiles(){
 		
-		words = new HashMap<>();
+		//ßwords = new HashMap<>();
 		
 	}
 	
@@ -57,7 +57,11 @@ public class WordsInFiles {
 		System.out.println("The maximum number of files that any word appears in, is: "+maxNumberOfFiles);
 		
 		int number = 3;
-		wordsInNumFile(number);
+		ArrayList<String> words = wordsInNumFile(number);
+		System.out.print("The words in "+ number +" files  is: ");
+		for(int i=0;i<words.size();i++){
+			System.out.print(words.get(i)+" ");
+		}
 		
 		printFileIn("cats");
 		printMap();
@@ -75,7 +79,7 @@ public class WordsInFiles {
 		return maxValueInWords;
 	}
 	
-	public void wordsInNumFile(int number){
+	public ArrayList<String> wordsInNumFile(int number){
 		
 		//this method returns the words that appear in a number of files. 
 		// i.e. 3 would return "cats" + "and"
@@ -84,13 +88,11 @@ public class WordsInFiles {
 		for (String key : myMap.keySet()){
 			int currentSize = myMap.get(key).size();
 			if (currentSize == number){
-				System.out.print("CerrKey is: "+key);
-				String currentWord = myMap.get(key).toString();
-				System.out.print("CW is: "+currentWord);
-				tempArrayList.add(currentWord);
+				tempArrayList.add(key);
 			}
 		}
-		System.out.print("The temp arraylist is: "+tempArrayList);
+		//System.out.print("The temp arraylist is: "+tempArrayList);
+		return tempArrayList;
 	}
 	
 	public void printFileIn(String word){
@@ -121,12 +123,6 @@ public class WordsInFiles {
 	public void tester(){
 		
 		buildWordFileMap();
-		
-		
-		
-		
-		//FileResource fr = new FileResource("ProgrammingImprovingGladLibsData/"+ variable );
-		
 		
 	}
 
