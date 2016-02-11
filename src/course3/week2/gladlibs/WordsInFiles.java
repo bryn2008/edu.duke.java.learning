@@ -2,8 +2,21 @@ package course3.week2.gladlibs;
 
 import java.io.File;
 import java.util.ArrayList;
+<<<<<<< Updated upstream
 import java.util.HashMap;
 
+=======
+<<<<<<< HEAD
+//import java.util.Collections;
+import java.util.HashMap;
+
+//import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+
+=======
+import java.util.HashMap;
+
+>>>>>>> 78dd35d5aba9c9041b5b64050efa6a8c35b2b8ab
+>>>>>>> Stashed changes
 import edu.duke.DirectoryResource;
 import edu.duke.FileResource;
 
@@ -54,6 +67,26 @@ public class WordsInFiles {
 		
 		int number = 3;
 		ArrayList<String> words = wordsInNumFile(number);
+<<<<<<< Updated upstream
+
+		System.out.print("The words in "+ number +" files  is: ");
+=======
+<<<<<<< HEAD
+		System.out.print("\nThe words in "+ number +" files  is: ");
+>>>>>>> Stashed changes
+		for(int i=0;i<words.size();i++){
+			System.out.print(words.get(i)+" ");
+		}
+		System.out.println(" ");
+		
+		String word = "cats";
+		System.out.println("The \"printFileIn\" method, for \"" + word + "\"");
+		printFileIn(word);
+<<<<<<< Updated upstream
+=======
+		
+		System.out.println("\nThe complete map is:");
+=======
 
 		System.out.print("The words in "+ number +" files  is: ");
 		for(int i=0;i<words.size();i++){
@@ -64,6 +97,7 @@ public class WordsInFiles {
 		String word = "cats";
 		System.out.println("The \"printFileIn\" method, for \"" + word + "\"");
 		printFileIn(word);
+>>>>>>> Stashed changes
 
 		System.out.print("The words in "+ number +" files  is: ");
 		for(int i=0;i<words.size();i++){
@@ -72,6 +106,10 @@ public class WordsInFiles {
 		System.out.println(" ");
 
 		System.out.print("The complete map is:");
+<<<<<<< Updated upstream
+=======
+>>>>>>> 78dd35d5aba9c9041b5b64050efa6a8c35b2b8ab
+>>>>>>> Stashed changes
 		printMap();
 	}
 	
