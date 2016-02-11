@@ -2,22 +2,18 @@ package course3.week2.gladlibs;
 
 import java.io.File;
 import java.util.ArrayList;
-//import java.util.Collections;
 import java.util.HashMap;
-
-//import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
 
 import edu.duke.DirectoryResource;
 import edu.duke.FileResource;
 
 public class WordsInFiles {
 	
-	private HashMap<String, ArrayList<String>> myMap = new HashMap<>();
-	//private HashMap<String, Integer> words = new HashMap<>();
+	private HashMap<String, ArrayList<String>> myMap;
 	
 	public WordsInFiles(){
 		
-		//ßwords = new HashMap<>();
+		myMap = new HashMap<>();
 		
 	}
 	
@@ -58,12 +54,24 @@ public class WordsInFiles {
 		
 		int number = 3;
 		ArrayList<String> words = wordsInNumFile(number);
+
 		System.out.print("The words in "+ number +" files  is: ");
 		for(int i=0;i<words.size();i++){
 			System.out.print(words.get(i)+" ");
 		}
+		System.out.println(" ");
 		
-		printFileIn("cats");
+		String word = "cats";
+		System.out.println("The \"printFileIn\" method, for \"" + word + "\"");
+		printFileIn(word);
+
+		System.out.print("The words in "+ number +" files  is: ");
+		for(int i=0;i<words.size();i++){
+			System.out.print(words.get(i)+" ");
+		}
+		System.out.println(" ");
+
+		System.out.print("The complete map is:");
 		printMap();
 	}
 	
@@ -81,9 +89,6 @@ public class WordsInFiles {
 	
 	public ArrayList<String> wordsInNumFile(int number){
 		
-		//this method returns the words that appear in a number of files. 
-		// i.e. 3 would return "cats" + "and"
-		
 		ArrayList<String> tempArrayList = new ArrayList<>();
 		for (String key : myMap.keySet()){
 			int currentSize = myMap.get(key).size();
@@ -91,13 +96,11 @@ public class WordsInFiles {
 				tempArrayList.add(key);
 			}
 		}
-		//System.out.print("The temp arraylist is: "+tempArrayList);
 		return tempArrayList;
 	}
 	
 	public void printFileIn(String word){
 		
-		System.out.println("\nThe \"printFileIn\" method, for \"" + word + "\"");
 		for (String key: myMap.keySet()) {
 			if (key.equals(word)){
 				for (String elem: myMap.get(key)){
