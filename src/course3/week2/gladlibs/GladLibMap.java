@@ -7,6 +7,7 @@ public class GladLibMap {
 	
 	private HashMap<String, ArrayList<String>> myMap;
 	private ArrayList<String> usedWords;
+	private ArrayList<String> usedCategories;
 	
 	private Random myRandom;
 	
@@ -21,25 +22,27 @@ public class GladLibMap {
 	}
 	
 	public GladLibMap(){
+		myMap = new HashMap<String, ArrayList<String>>();
 		initializeFromSource(dataSourceDirectory);
 		myRandom = new Random();
 		usedWords = new ArrayList<>();
-		myMap = new HashMap<String, ArrayList<String>>();
+		usedCategories = new ArrayList<>();
 	}
 	
 	public GladLibMap(String source){
+		myMap = new HashMap<String, ArrayList<String>>();
 		initializeFromSource(source);
 		myRandom = new Random();
 		usedWords = new ArrayList<>();
-		myMap = new HashMap<String, ArrayList<String>>();
+		usedCategories = new ArrayList<>();
 	}
 	
 	private void initializeFromSource(String source) {
 		
 		String[] lables = {"adjective","noun", "color", "country", "name", "animal", "timeframe", "verb", "fruit"};
-		for (String s: lables){
-			ArrayList<String> list = readIt(source+"/"+s+".txt");
-			myMap.put(s, list);
+		for (String categorie: lables){
+			ArrayList<String> list = readIt(source+"/"+categorie+".txt");
+			myMap.put(categorie, list);
 		}
 	}
 	
@@ -62,10 +65,14 @@ public class GladLibMap {
 	}
 	
 	private String getSubstitute(String label) {
+		
 		if (label.equals("number")){
 			return ""+myRandom.nextInt(50)+5;
 		}
 		else if (myMap.containsKey(label)){
+			if(!usedCategories.contains(label)){
+				usedCategories.add(label);
+			}
 			return randomFrom(myMap.get(label));
 		}else{
 			return "**UNKNOWN**";
@@ -131,20 +138,47 @@ public class GladLibMap {
 		return list;
 	}
 	
+	public int totalWordsInMap(){
+		
+		int totalWords = 0;
+		for(String key : myMap.keySet()){
+			ArrayList<String> temp = myMap.get(key);
+			int alTotal = temp.size();
+			totalWords += alTotal;
+		}
+		return totalWords;
+	}
+	
+	public void totalWordsConsidered(){
+		
+		System.out.print("These categorie were used: ");
+		for (String str: usedCategories){
+			System.out.print(str+" ");
+		}
+		System.out.println("\n");
+	}
+	
 	public void makeStory(){
-		//should make sure array list is cleared out before each run in make story
+		
 		usedWords.clear();
 	    System.out.println("\n");
 		String story = fromTemplate("resources/course3/week2/GladLib/data/madtemplate2.txt");
 		printOut(story, 60);
 		System.out.println("");
 		System.out.println("");
+		
+		int totalNumOfWordsInMap = totalWordsInMap();
+		System.out.println("Total number of words that could have been used is "+totalNumOfWordsInMap+". ");
+		System.out.println("");
+		
+		
+		totalWordsConsidered();
+		
+		
 		System.out.println("Total number of words used is "+usedWords.size()+". ");
 		for (int i=0; i<usedWords.size();i++){
 			System.out.print(usedWords.get(i)+", ");
 		}
 	}
-	
-
 
 }
