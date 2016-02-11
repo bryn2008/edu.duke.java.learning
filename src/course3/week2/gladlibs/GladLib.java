@@ -14,6 +14,9 @@ public class GladLib {
 	private ArrayList<String> timeList;
 	private ArrayList<String> verb;
 	private ArrayList<String> fruit;
+	
+	//private HashMap<String, ArrayList<String>> myMap;
+	
 	private ArrayList<String> usedWords;
 	
 	private Random myRandom;
@@ -32,15 +35,21 @@ public class GladLib {
 		initializeFromSource(dataSourceDirectory);
 		myRandom = new Random();
 		usedWords = new ArrayList<>();
+		//myMap = new HashMap<String, ArrayList<String>>();
 	}
 	
 	public GladLib(String source){
 		initializeFromSource(source);
 		myRandom = new Random();
 		usedWords = new ArrayList<>();
+		//myMap = new HashMap<String, ArrayList<String>>();
 	}
 	
 	private void initializeFromSource(String source) {
+		
+		//modify to...
+		
+		
 		adjectiveList= readIt(source+"/adjective.txt");	
 		nounList = readIt(source+"/noun.txt");
 		colorList = readIt(source+"/color.txt");
