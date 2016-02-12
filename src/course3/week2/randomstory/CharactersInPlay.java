@@ -45,7 +45,7 @@ public class CharactersInPlay {
 		charecterNames.clear();
 		charecterNameCount.clear();
 		
-		FileResource fr = new FileResource("ProgrammingRandomStoryData/likeit.txt");
+		FileResource fr = new FileResource("QuizGladLibsData/errors.txt");
 		
 		for (String line : fr.lines()){
 			if(line.contains(".")){
@@ -67,9 +67,10 @@ public class CharactersInPlay {
 		
 		System.out.println(" ");
 		
-		int num1 = 40;
-		int num2 = 1150;
+		int num1 = 55;
+		int num2 = 100;
 		charactersWithNumParts(num1, num2);
+
 	}
 	
 	public void charactersWithNumParts(int num1, int num2){

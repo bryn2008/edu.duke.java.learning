@@ -47,9 +47,6 @@ public class GladLib {
 	
 	private void initializeFromSource(String source) {
 		
-		//modify to...
-		
-		
 		adjectiveList= readIt(source+"/adjective.txt");	
 		nounList = readIt(source+"/noun.txt");
 		colorList = readIt(source+"/color.txt");

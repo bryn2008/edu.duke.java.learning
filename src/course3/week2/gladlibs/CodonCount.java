@@ -71,7 +71,7 @@ public class CodonCount {
 	
 	public void tester(){
 		
-		FileResource fr = new FileResource("ProgrammingImprovingGladLibsData/smalldna.txt");
+		FileResource fr = new FileResource("QuizGladLibsData/dnaMystery2");
 		String dna = fr.asString().toUpperCase();
 		
 		int startFrame = 3;
@@ -81,8 +81,8 @@ public class CodonCount {
 			System.out.println("Reading frame starting with " + i + " results in " + dnaCodons.size() + " unique codons");
 			String mostCommonCodon = getMostCommonCodon();
 			System.out.println("  and most common codon is " + mostCommonCodon + " with " + "count " + dnaCodons.get(mostCommonCodon).intValue());
-			int start = 1; 
-			int end = 5;
+			int start = 6; 
+			int end = 8;
 			System.out.println("Counts of codons between " + start + " and " + end + " inclusive are:");
 			printCodonCounts(start, end);
 			System.out.println(" ");

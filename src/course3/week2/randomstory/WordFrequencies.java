@@ -27,7 +27,7 @@ public class WordFrequencies {
 		myFraqs.clear();
 		myWords.clear();
 		
-		FileResource fr = new FileResource("ProgrammingRandomStoryData/likeit.txt");
+		FileResource fr = new FileResource("QuizGladLibsData/errors.txt");
 		String input = fr.asString().toLowerCase();
 		
 		String[] tempWords = input.toLowerCase().split("\\s+");

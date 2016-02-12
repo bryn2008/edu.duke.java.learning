@@ -52,20 +52,29 @@ public class WordsInFiles {
 		int maxNumberOfFiles = maxNumber();
 		System.out.println("The maximum number of files that any word appears in, is: "+maxNumberOfFiles);
 		
-		int number = 3;
+		int number = 4;
+		int totalNumOfWords = 0;
 		ArrayList<String> words = wordsInNumFile(number);
 		
 		System.out.println(" ");
 		System.out.print("The words in "+ number +" files  is: ");
 		for(int i=0;i<words.size();i++){
 			System.out.print(words.get(i)+" ");
+			totalNumOfWords++;
 		}
 		System.out.println(" ");
+		System.out.println("The total number of wors that appear in "+number+" of the selected files is "+ totalNumOfWords+". ");
 		
 		System.out.println(" ");
-		String word = "cats";
+		String word = "laid";
 		System.out.println("The \"printFileIn\" method, for \"" + word + "\"");
 		printFileIn(word);
+		
+		System.out.println(" ");
+		String wordTwo = "tree";
+		System.out.println("The \"printFileIn\" method, for \"" + wordTwo + "\"");
+		printFileIn(wordTwo);
+		
 		
 		System.out.println(" ");
 		System.out.print("The words in "+ number +" files  is: ");
