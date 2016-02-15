@@ -8,8 +8,14 @@ package course3.week3.resources;
 
 import java.util.*;
 
-public class Tester
-{
+public class Tester {
+	
+	public static void main(String[] args){
+		
+		Tester myObj = new Tester(); 
+		myObj.testLogAnalyzer();
+	}
+	
     public void testLogEntry() {
         LogEntry le = new LogEntry("1.2.3.4", new Date(), "example request", 200, 500);
         System.out.println(le);
@@ -18,6 +24,9 @@ public class Tester
     }
     
     public void testLogAnalyzer() {
-        // complete method
+    	
+    	testLogEntry();
+    	
+    	// complete method
     }
 }

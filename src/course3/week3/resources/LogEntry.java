@@ -27,8 +27,8 @@ public class LogEntry
    
    public String getIpAddress() {
          return ipAddress;
-    }
-    public Date getAccessTime() {
+   }
+   public Date getAccessTime() {
          return accessTime;
    }   
    public String getRequest() {
@@ -42,7 +42,7 @@ public class LogEntry
    }
    
    public String toString() {
-       return ipAddress + " " + accessTime + " " + request 
+	   return ipAddress + " " + accessTime + " " + request 
            + " " + statusCode + " " + bytesReturned;
-    }
+   }
 }
