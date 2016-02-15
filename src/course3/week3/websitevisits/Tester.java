@@ -16,9 +16,11 @@ public class Tester {
 		Tester myObj = new Tester(); 
 		//myObj.testLogAnalyzer();
 		//myObj.testUniqueIPs();
-		myObj.testPrintAllHigherThanNum();
-		myObj.testUniqueIPVisitsOnDay();
-		myObj.testCountUniqueIPsInRange();
+		//myObj.testPrintAllHigherThanNum();
+		//myObj.testUniqueIPVisitsOnDay();
+		//myObj.testCountUniqueIPsInRange();
+		myObj.testCountVisitsPerIP();
+		myObj.testMostNumberVisitsByIP();
 	}
 	
     public void testLogEntry() {
@@ -97,6 +99,26 @@ public class Tester {
     	int highTwo = 399;
     	int totalTwo = la.countUniqueIPsInRange(lowTwo, highTwo);
     	System.out.println("The total number of unique IP Addresses with a status code between " + lowTwo + " and " + highTwo + " is " + totalTwo);*/
-    } 
+    }
+    
+    public void testCountVisitsPerIP(){
+    	
+    	LogAnalyzer la = new LogAnalyzer();
+    	String filename = "ProgrammingWebServerLogs/weblog1_log";
+    	//String filename = "ProgrammingWebServerLogs/short-test_log";
+    	//String filename = "ProgrammingWebServerLogs/weblog-short_log";
+    	//String filename = "ProgrammingWebServerLogs/weblog2-short_log";
+    	//String filename = "ProgrammingWebServerLogs/weblog2-short_log";
+    	la.readFile(filename);
+    	
+    	HashMap<String, Integer> counts = la.countVisitsPerIP();
+    	System.out.println("The HashMap is: "+counts);
+    	
+    }
+    
+    public void testMostNumberVisitsByIP(){
+    	
+    	
+    }
 
 }

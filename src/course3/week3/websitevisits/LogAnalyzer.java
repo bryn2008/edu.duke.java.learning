@@ -88,5 +88,26 @@ public class LogAnalyzer {
 			System.out.println(le);
 		}
 	}
+	
+	public HashMap<String, Integer> countVisitsPerIP(){
+		
+		//an IP address to the number of times that IP address appears in records,
+		
+		HashMap<String, Integer> counts = new HashMap<String, Integer>();
+		for (LogEntry le : records) {
+			String ipAddress = le.getIpAddress();
+			if (!counts.containsKey(ipAddress)) {
+					counts.put(ipAddress, 1);
+			}else{
+				counts.put(ipAddress, counts.get(ipAddress)+1);
+			}
+		}
+		return counts;
+	}
+	
+	public void mostNumberVisitsByIP(){
+		
+		
+	}
 
 }
