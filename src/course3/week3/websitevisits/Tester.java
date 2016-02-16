@@ -19,8 +19,13 @@ public class Tester {
 		//myObj.testPrintAllHigherThanNum();
 		//myObj.testUniqueIPVisitsOnDay();
 		//myObj.testCountUniqueIPsInRange();
-		myObj.testCountVisitsPerIP();
-		myObj.testMostNumberVisitsByIP();
+		//myObj.testCountVisitsPerIP();
+		//myObj.testMostNumberVisitsByIP();
+		//myObj.testIPsMostVisits();
+		//myObj.testIPsForDays();
+		//myObj.dayWithMostIPVisits();
+		myObj.testIPsWithMostVisitsOnDay();
+		
 	}
 	
     public void testLogEntry() {
@@ -104,21 +109,70 @@ public class Tester {
     public void testCountVisitsPerIP(){
     	
     	LogAnalyzer la = new LogAnalyzer();
-    	String filename = "ProgrammingWebServerLogs/weblog1_log";
-    	//String filename = "ProgrammingWebServerLogs/short-test_log";
-    	//String filename = "ProgrammingWebServerLogs/weblog-short_log";
-    	//String filename = "ProgrammingWebServerLogs/weblog2-short_log";
-    	//String filename = "ProgrammingWebServerLogs/weblog2-short_log";
+    	String filename = "ProgrammingWebServerLogs/weblog3-short_log";
     	la.readFile(filename);
-    	
+    	la.printAll();
     	HashMap<String, Integer> counts = la.countVisitsPerIP();
     	System.out.println("The HashMap is: "+counts);
     	
     }
     
-    public void testMostNumberVisitsByIP(){
-    	
-    	
-    }
+	public void testMostNumberVisitsByIP(){
+		
+		LogAnalyzer la = new LogAnalyzer();
+		String filename = "ProgrammingWebServerLogs/weblog3-short_log";
+    	la.readFile(filename);
+    	HashMap<String, Integer> counts = la.countVisitsPerIP();
+		int highestIPCount = la.mostNumberVisitsByIP(counts);
+		System.out.println("The heighest number of visits from an IP Address is: "+highestIPCount);
+	}
+	
+	public void testIPsMostVisits(){
+		
+		LogAnalyzer la = new LogAnalyzer();
+    	String filename = "ProgrammingWebServerLogs/weblog3-short_log";
+    	la.readFile(filename);
+    	HashMap<String, Integer> counts = la.countVisitsPerIP();
+    	ArrayList<String> iPsWithMostVists = la.iPsMostVisits(counts);
+    	System.out.println("The IPs that have all have the max number of visits are: "+iPsWithMostVists);
+		
+	}
+	
+	public void testIPsForDays(){
+		
+		LogAnalyzer la = new LogAnalyzer();
+    	String filename = "ProgrammingWebServerLogs/weblog3-short_log";
+    	la.readFile(filename);
+    	la.printAll();
+		HashMap<String, ArrayList<String>> iPsOnDays = la.iPsForDays();
+		System.out.println("The HashMap IPsForDays is: ");
+		for(String key : iPsOnDays.keySet()) {
+			   System.out.println(key + iPsOnDays.get(key));
+		}
+	}
+	
+	public void dayWithMostIPVisits(){
+		
+		LogAnalyzer la = new LogAnalyzer();
+    	String filename = "ProgrammingWebServerLogs/weblog3-short_log";
+    	la.readFile(filename);
+    	HashMap<String, ArrayList<String>> iPsOnDays = la.iPsForDays();
+    	String day = la.dayWithMostIPVisits(iPsOnDays);
+    	System.out.println("The day with the most visits is \"" + day + "\" ");
+		
+	}
+	
+	public void testIPsWithMostVisitsOnDay(){
+		
+		LogAnalyzer la = new LogAnalyzer();
+    	String filename = "ProgrammingWebServerLogs/weblog3-short_log";
+    	la.readFile(filename);
+		HashMap<String, ArrayList<String>> iPsOnDays = la.iPsForDays();
+		String day = la.dayWithMostIPVisits(iPsOnDays);
+		ArrayList<String> highestAccessed = la.iPsWithMostVisitsOnDay(iPsOnDays, day);
+		System.out.println("The IP addresses that accessed the server the most on \"" + day + "\" were: " +highestAccessed);
+		
+	}
+    
 
 }
