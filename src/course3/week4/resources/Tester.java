@@ -27,9 +27,11 @@ public class Tester {
 		public static void main(String[] args){
 			
 			Tester myObj = new Tester();
-			myObj.testCaesarCipher();
-			myObj.testCaesarCracker();
-			myObj.testCaesarCrackerTwo();
+			//myObj.testCaesarCipher();
+			//myObj.testCaesarCracker();
+			//myObj.testCaesarCrackerTwo();
+			//myObj.testVigenereCipher();
+			myObj.testVigenereBreaker();
 			
 		}
 		
@@ -67,6 +69,34 @@ public class Tester {
 			System.out.println(message3);
 			System.out.println(">>>>>The cracked message<<<<<<<");
 			System.out.println(encryptedMessage);
+			
+		}
+		
+		public void testVigenereCipher(){
+			
+			int[] key = {17, 14, 12, 4};
+			VigenereCipher newCipher = new VigenereCipher(key);
+			FileResource newFR = new FileResource("VigenereTestData/titus-small.txt");
+			String newMessage = newFR.asString();
+			System.out.println(">>>>>The original message<<<<<<<");
+			System.out.println(newMessage);
+			String encryptedMessage = newCipher.encrypt(newMessage);
+			System.out.println(">>>>>The encrypted message<<<<<<<");
+			System.out.println(encryptedMessage);
+			String decryptedMethod = newCipher.decrypt(encryptedMessage);
+			System.out.println(">>>>>The decrypted message<<<<<<<");
+			System.out.println(decryptedMethod);
+			
+		}
+		
+		public void testVigenereBreaker(){
+			
+			int whichSlice = 0;
+			int totalSlices = 3;
+			String message = "abcdefghijklm";
+			VigenereBreaker vBreaker = new VigenereBreaker();
+			String newSlice = vBreaker.sliceString(message, whichSlice, totalSlices);
+			System.out.println(newSlice);
 			
 		}
 		
