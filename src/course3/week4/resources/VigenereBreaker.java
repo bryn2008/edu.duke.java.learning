@@ -82,7 +82,7 @@ public class VigenereBreaker {
 		
 		int dKey = 0;
 		int highestWordCount = 0;
-		for (int i =1; i<10; i++){
+		for (int i =1; i<100; i++){
 			int[] key = tryKeyLength(encrypted, i, mostCommon);
 			VigenereCipher vc = new VigenereCipher(key);
 			String decrypted = vc.decrypt(encrypted);
