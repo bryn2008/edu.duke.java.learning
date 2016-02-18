@@ -1,83 +1,120 @@
 package course3.week4.resources;
 
-//import java.util.*;
-//import edu.duke.*;
+import java.util.*;
+import edu.duke.*;
 
 public class VigenereBreaker {
+
+	char mostCommon;
     
+    public VigenereBreaker() {
+        mostCommon = 'e';
+    }
+    
+    public VigenereBreaker(char c) {
+        mostCommon = c;
+    }	
+	
+	
 	public String sliceString(String message, int whichSlice, int totalSlices) {
-        
-		 StringBuilder sb = new StringBuilder(message);
-		 String newMessage = "";
-		 int totalSliceInput = totalSlices;
-		 for (int i = 0; i < totalSliceInput; i++) {
-			System.out.println("11 " + totalSlices +sb.charAt(i));
-			
-			
-			for (int j=0; j<totalSlices; j++){
-				char c = message.charAt(totalSlices);
-				System.out.println(c+">>>>The Second loop input<<<< " + j + " " + (totalSlices+j) );
-				int end = j + totalSlices;
-				String newMessage2 = message.substring(j, j+1) + " " +message.substring(end, end+j);
-				System.out.println("The output >> " + newMessage2);
-				
-				
-				
+
+		String slicedString = "";
+		for (int i = whichSlice; i < message.length(); i += totalSlices) {
+			char character = message.charAt(i);
+			slicedString +=  character;
+		}
+		return slicedString;
+	}
+
+	public int[] tryKeyLength(String encrypted, int klength, char mostCommon) {
+		
+		int[] key = new int[klength];
+		CaesarCracker cc = new CaesarCracker();
+		for(int i=0; i<key.length; i++){
+			String sliced = sliceString(encrypted, i, key.length);
+			int tempKey = cc.getKey(sliced);
+			key[i] = tempKey;
+		}
+		return key;
+	}
+	
+	public HashSet<String> readDictionary(FileResource fr){
+		
+		HashSet<String> dictionary = new HashSet<>();
+		for(String word : fr.lines()){
+			word = word.toLowerCase();
+			if(!dictionary.contains(word)){
+				dictionary.add(word);
 			}
-			
-			if (message.indexOf(i) == totalSlices){
-            	char c = sb.charAt(i);
-            	newMessage += c;
-            }
-            
-            System.out.println(newMessage);
-            totalSlices+=1;
-	    }
+		}
+		return dictionary;
+	}
+	
+	public int countWords(String message, HashSet<String>dictionary){
 		
-		 
-	    /*private String transform(String input, String from, String to){
-	        StringBuilder sb = new StringBuilder(input);
-	        for (int i = 0; i < sb.length(); i++) {
-	            char c = sb.charAt(i);
-	            c = transformLetter(c, from, to);
-	            sb.setCharAt(i, c);
-	        }
-	        return sb.toString();
-	    }*/
+		int count;
+		HashSet<String> words = new HashSet<String>();
+		for(String word : message.split("\\W")){
+			//System.out.println(word);
+			if(!words.contains(word)){
+				words.add(word);
+			}
+		}
+		//System.out.println(words.size());
 		
-		/*int totalSliceInput = totalSlices;
-		for (int i=whichSlice; i<totalSliceInput; i++){
-			System.out.println(">>>>The First loop input<<<<< " + i + "  " + message + "  " + whichSlice + " " + totalSlices);
-				for (int j=0; j<totalSlices; j++){
-					char c = message.charAt(totalSlices);
-					System.out.println(c+">>>>The Second loop input<<<< " + j + " " + (totalSlices+j) );
-					int end = j + totalSlices;
-					String newMessage = message.substring(j, j+1) + " " +message.substring(end, end+j);
-					System.out.println("The output >> " + newMessage);
-					
-					
-					
+		ArrayList<String> wordMatch = new ArrayList<>();
+		for(String str: words){
+			//System.out.println(">>"+str);
+			for(String dic: dictionary){
+				if(dic.equals(str)){
+					//System.out.println("="+str);
+					wordMatch.add(str);
 				}
-				totalSlices+=1;
-				
-		}	
-			
-		String newMessage = message.substring(message.indexOf(whichSlice), message.indexOf(i));
-		whichSlice += totalSlices;
-		System.out.println(">>>>The output<<<< " + newMessage + whichSlice);*/
+			}
+		}
+		//System.out.println(wordMatch);
+		count = wordMatch.size();
+		return count;
 		
-		//REPLACE WITH YOUR CODE
-        return "WRITE ME!";
-    }
+	}
+	
+	public String breakForLanguage(String encrypted, HashSet<String>dictionary){
+		
+		int dKey = 0;
+		int highestWordCount = 0;
+		for (int i =1; i<100; i++){
+			int[] key = tryKeyLength(encrypted, i, mostCommon);
+			VigenereCipher vc = new VigenereCipher(key);
+			String decrypted = vc.decrypt(encrypted);
+			int wordCount = countWords(decrypted, dictionary);
+			if (wordCount > highestWordCount){
+				highestWordCount=wordCount;
+				dKey=i;
+			}
+		}
+		int[] key = tryKeyLength(encrypted, dKey, mostCommon);
+		VigenereCipher vc = new VigenereCipher(key);
+		String decrypted = vc.decrypt(encrypted);
+		return decrypted;
+	}
+	
+	public void breakVigenere() {
+		
+		FileResource fr = new FileResource("SecretData/secretmessage1.txt");
+		String encrypted = fr.asString();
+		int klength = 4 ;
+		int[] key = tryKeyLength(encrypted, klength, mostCommon);
+		System.out.print("The key is: ");
+		for(int i=1; i<key.length; i++){
+			System.out.print(key[i]+", ");
+		}
+		System.out.print(key[0]+".\n\n");
+		//call the VigenereCipher with the key[] to decrypt the message
+		VigenereCipher vc = new VigenereCipher(key);
+		String decrypted = vc.decrypt(encrypted);
+		System.out.println(decrypted);
+		// WRITE YOUR CODE HERE
+		
+	}
 
-    public int[] tryKeyLength(String encrypted, int klength, char mostCommon) {
-        int[] key = new int[klength];
-        //WRITE YOUR CODE HERE
-        return key;
-    }
-
-    public void breakVigenere () {
-        //WRITE YOUR CODE HERE
-    }
-    
 }

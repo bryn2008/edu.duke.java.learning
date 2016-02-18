@@ -1,5 +1,7 @@
 package course3.week4.resources;
 
+import java.util.HashSet;
+
 import edu.duke.FileResource;
 
 public class Tester {
@@ -31,7 +33,12 @@ public class Tester {
 			//myObj.testCaesarCracker();
 			//myObj.testCaesarCrackerTwo();
 			//myObj.testVigenereCipher();
-			myObj.testVigenereBreaker();
+			//myObj.testSliceString();
+			//myObj.testTryKeyLength();
+			//myObj.testReadDictionary();
+			//myObj.testCountWords();
+			myObj.testBreakForLanguage();
+			//myObj.testBreakVigenere();
 			
 		}
 		
@@ -89,14 +96,71 @@ public class Tester {
 			
 		}
 		
-		public void testVigenereBreaker(){
+		public void testSliceString(){
 			
-			int whichSlice = 0;
-			int totalSlices = 3;
+			int whichSlice = 4;
+			int totalSlices = 5;
 			String message = "abcdefghijklm";
 			VigenereBreaker vBreaker = new VigenereBreaker();
 			String newSlice = vBreaker.sliceString(message, whichSlice, totalSlices);
 			System.out.println(newSlice);
+			
+		}
+		
+		public void testTryKeyLength(){
+			
+			FileResource fr = new FileResource("SecretData/secretmessage1.txt");
+			String encrypted = fr.asString();
+			int klength = 4;
+			char mostCommon = 'e';
+			VigenereBreaker vBreaker = new VigenereBreaker();
+			int[] key = vBreaker.tryKeyLength(encrypted, klength, mostCommon);
+			for(int i=0; i<key.length; i++){
+				System.out.print(key[i]+" ");
+			}
+						
+		}
+		
+		public void testReadDictionary(){
+			
+			VigenereBreaker vBreaker = new VigenereBreaker();
+			FileResource fr = new FileResource("dictionaries/English"); 
+			HashSet<String> dictionary = vBreaker.readDictionary(fr);
+			for(String word: dictionary){
+				System.out.println(word);
+			}
+			
+		}
+		
+		public void testCountWords(){
+			
+			VigenereBreaker vBreaker = new VigenereBreaker();
+			FileResource fr = new FileResource("dictionaries/English"); 
+			HashSet<String> dictionary = vBreaker.readDictionary(fr);
+			//FileResource message = new FileResource("VigenereTestData/athens_keyflute.txt");
+			FileResource message = new FileResource("VigenereTestData/titus-small.txt");
+			String encrypted = message.asString();
+			int count = vBreaker.countWords(encrypted, dictionary);
+			System.out.println("The count of real words in the dictionary is "+count+".");
+			
+		}
+		
+		public void testBreakForLanguage(){
+			
+			VigenereBreaker vBreaker = new VigenereBreaker();
+			FileResource fr = new FileResource("dictionaries/English"); 
+			HashSet<String> dictionary = vBreaker.readDictionary(fr);
+			FileResource message = new FileResource("VigenereTestData/athens_keyflute.txt");
+			String encrypted = message.asString();
+			String decrypted = vBreaker.breakForLanguage(encrypted, dictionary);
+			System.out.println(decrypted);
+			
+		}
+		
+		public void testBreakVigenere(){
+			
+			VigenereBreaker vBreaker = new VigenereBreaker();
+			vBreaker.breakVigenere();
 			
 		}
 		
