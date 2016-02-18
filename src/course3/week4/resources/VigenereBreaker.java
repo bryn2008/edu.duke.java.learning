@@ -82,7 +82,7 @@ public class VigenereBreaker {
 		
 		int dKey = 0;
 		int highestWordCount = 0;
-		for (int i =1; i<100; i++){
+		for (int i =1; i<10; i++){
 			int[] key = tryKeyLength(encrypted, i, mostCommon);
 			VigenereCipher vc = new VigenereCipher(key);
 			String decrypted = vc.decrypt(encrypted);
@@ -92,6 +92,8 @@ public class VigenereBreaker {
 				dKey=i;
 			}
 		}
+		System.out.println("The decrypt key length is "+dKey);
+		System.out.println("The highest valid word count found is "+highestWordCount);
 		int[] key = tryKeyLength(encrypted, dKey, mostCommon);
 		VigenereCipher vc = new VigenereCipher(key);
 		String decrypted = vc.decrypt(encrypted);
@@ -100,21 +102,13 @@ public class VigenereBreaker {
 	
 	public void breakVigenere() {
 		
-		FileResource fr = new FileResource("SecretData/secretmessage1.txt");
-		String encrypted = fr.asString();
-		int klength = 4 ;
-		int[] key = tryKeyLength(encrypted, klength, mostCommon);
-		System.out.print("The key is: ");
-		for(int i=1; i<key.length; i++){
-			System.out.print(key[i]+", ");
-		}
-		System.out.print(key[0]+".\n\n");
-		//call the VigenereCipher with the key[] to decrypt the message
-		VigenereCipher vc = new VigenereCipher(key);
-		String decrypted = vc.decrypt(encrypted);
+		FileResource fr = new FileResource("dictionaries/English"); 
+		HashSet<String> dictionary = readDictionary(fr);
+		FileResource message = new FileResource();
+		String encrypted = message.asString();
+		String decrypted = breakForLanguage(encrypted, dictionary);
 		System.out.println(decrypted);
-		// WRITE YOUR CODE HERE
-		
+
 	}
 
 }

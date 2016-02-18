@@ -5,26 +5,6 @@ import java.util.HashSet;
 import edu.duke.FileResource;
 
 public class Tester {
-	
-	private int ccKey;
-	private FileResource fr1;
-	private FileResource fr2;
-	private FileResource fr3;
-	private String message1;
-	private String message2;
-	private String message3;
-	
-	public Tester(){
-		
-		ccKey = 5;
-		fr1 = new FileResource("VigenereTestData/titus-small.txt");
-		fr2 = new FileResource("VigenereTestData/titus-small_key5.txt");
-		fr3 = new FileResource("VigenereTestData/oslusiadas_key17.txt");
-		message1 = fr1.asString();
-		message2 = fr2.asString();
-		message3 = fr3.asString();
-		
-	}
 		
 		public static void main(String[] args){
 			
@@ -37,17 +17,20 @@ public class Tester {
 			//myObj.testTryKeyLength();
 			//myObj.testReadDictionary();
 			//myObj.testCountWords();
-			myObj.testBreakForLanguage();
-			//myObj.testBreakVigenere();
+			//myObj.testBreakForLanguage();
+			myObj.testBreakVigenere();
 			
 		}
 		
 		public void testCaesarCipher(){
 			
+			FileResource fr = new FileResource("VigenereTestData/titus-small.txt");
+			String message = fr.asString();
+			int ccKey = 5;
 			CaesarCipher myCipher = new CaesarCipher(ccKey);
-			String encryptedMessage = myCipher.encrypt(message1);
+			String encryptedMessage = myCipher.encrypt(message);
 			System.out.println(">>>>>The original message<<<<<<<");
-			System.out.println(message1);
+			System.out.println(message);
 			System.out.println(">>>>>The encrypted message<<<<<<<");
 			System.out.println(encryptedMessage);
 			String decryptedMessage = myCipher.decrypt(encryptedMessage);
@@ -58,10 +41,12 @@ public class Tester {
 		
 		public void testCaesarCracker(){
 			
+			FileResource fr = new FileResource("VigenereTestData/titus-small.txt");
+			String message = fr.asString();
 			CaesarCracker myCracker = new CaesarCracker();
-			String encryptedMessage = myCracker.decrypt(message2);
+			String encryptedMessage = myCracker.decrypt(message);
 			System.out.println(">>>>>The original encrypted message<<<<<<<");
-			System.out.println(message2);
+			System.out.println(message);
 			System.out.println(">>>>>The cracked message<<<<<<<");
 			System.out.println(encryptedMessage);
 			
@@ -69,11 +54,13 @@ public class Tester {
 		
 		public void testCaesarCrackerTwo(){
 			
+			FileResource fr = new FileResource("VigenereTestData/titus-small.txt");
+			String message = fr.asString();
 			char mostCommon = 'a';
 			CaesarCracker myCracker = new CaesarCracker(mostCommon);
-			String encryptedMessage = myCracker.decrypt(message3);
+			String encryptedMessage = myCracker.decrypt(message);
 			System.out.println(">>>>>The original encrypted message<<<<<<<");
-			System.out.println(message3);
+			System.out.println(message);
 			System.out.println(">>>>>The cracked message<<<<<<<");
 			System.out.println(encryptedMessage);
 			
@@ -137,8 +124,7 @@ public class Tester {
 			VigenereBreaker vBreaker = new VigenereBreaker();
 			FileResource fr = new FileResource("dictionaries/English"); 
 			HashSet<String> dictionary = vBreaker.readDictionary(fr);
-			//FileResource message = new FileResource("VigenereTestData/athens_keyflute.txt");
-			FileResource message = new FileResource("VigenereTestData/titus-small.txt");
+			FileResource message = new FileResource("SecretData/secretmessage2.txt");
 			String encrypted = message.asString();
 			int count = vBreaker.countWords(encrypted, dictionary);
 			System.out.println("The count of real words in the dictionary is "+count+".");
