@@ -104,7 +104,7 @@ public class VigenereBreaker {
 		
 		FileResource fr = new FileResource("dictionaries/English"); 
 		HashSet<String> dictionary = readDictionary(fr);
-		FileResource message = new FileResource();
+		FileResource message = new FileResource("SecretData/secretmessage2.txt");
 		String encrypted = message.asString();
 		String decrypted = breakForLanguage(encrypted, dictionary);
 		System.out.println(decrypted);
