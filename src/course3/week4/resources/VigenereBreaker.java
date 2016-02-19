@@ -15,7 +15,26 @@ public class VigenereBreaker {
         mostCommon = c;
     }	
 	
-	
+	public void mostCommonCharIn(HashSet<String> dictionaries){
+		
+		String[] letters;
+		for (String dictionary: dictionaries){
+			for (char character: dictionary.toLowerCase().toCharArray()){
+				//Iterates over the chars
+				
+				
+				
+				
+				
+			}
+			
+			/*for (String word: dictionary.split("\\W")){
+				//itterates over 
+			}*/
+		}
+	}
+    
+    
 	public String sliceString(String message, int whichSlice, int totalSlices) {
 
 		String slicedString = "";
@@ -101,6 +120,11 @@ public class VigenereBreaker {
 		VigenereCipher vc = new VigenereCipher(key);
 		String decrypted = vc.decrypt(encrypted);
 		return decrypted;
+	}
+	
+	public void breakForAllLang(){
+		
+		
 	}
 	
 	public void breakVigenere() {
