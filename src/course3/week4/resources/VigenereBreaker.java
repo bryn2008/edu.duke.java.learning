@@ -82,11 +82,14 @@ public class VigenereBreaker {
 		
 		int dKey = 0;
 		int highestWordCount = 0;
-		for (int i =1; i<100; i++){
+		for (int i =57; i<59; i++){
 			int[] key = tryKeyLength(encrypted, i, mostCommon);
 			VigenereCipher vc = new VigenereCipher(key);
 			String decrypted = vc.decrypt(encrypted);
 			int wordCount = countWords(decrypted, dictionary);
+			System.out.println(">>current key lengtj is set to "+i);
+			System.out.println(">>>>The current key length is test a length of "+i+" and there is a possiable corrrect word count of "+wordCount);
+			System.out.println(decrypted.substring(0, 200));
 			if (wordCount > highestWordCount){
 				highestWordCount=wordCount;
 				dKey=i;
@@ -107,7 +110,8 @@ public class VigenereBreaker {
 		FileResource message = new FileResource("SecretData/secretmessage2.txt");
 		String encrypted = message.asString();
 		String decrypted = breakForLanguage(encrypted, dictionary);
-		System.out.println(decrypted);
+		int countOfDecrypted = countWords(decrypted, dictionary);
+		System.out.println("The count of valid words in the decrypted is "+countOfDecrypted);
 
 	}
 
