@@ -15,22 +15,28 @@ public class VigenereBreaker {
         mostCommon = c;
     }	
 	
+/*  In the VigenereBreaker class, write the public method mostCommonCharIn, 
+ *  which has one parameter—a HashSet of Strings dictionary. 
+ *  This method should find out which character, of the letters in the English alphabet, 
+ *  appears most often in the words in dictionary. 
+ *  It should return this most commonly occurring character. 
+ *  Remember that you can iterate over a HashSet of Strings with a for-each style for loop.
+*/    
 	public void mostCommonCharIn(HashSet<String> dictionaries){
 		
-		String[] letters;
+		HashMap<Character, Integer> letterCount = new HashMap<Character, Integer>();
 		for (String dictionary: dictionaries){
 			for (char character: dictionary.toLowerCase().toCharArray()){
 				//Iterates over the chars
-				
-				
-				
-				
-				
+				if(!letterCount.containsKey(character)){
+					letterCount.put(character, 1);
+				}else{
+					letterCount.put(character, letterCount.get(character).intValue()+1);
+				}				
 			}
+			char mostCommon = Collections.max(letterCount.entrySet(),(entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).getKey();
+			System.out.println("The most common char in the "+ dictionary + " is " +mostCommon);
 			
-			/*for (String word: dictionary.split("\\W")){
-				//itterates over 
-			}*/
 		}
 	}
     
