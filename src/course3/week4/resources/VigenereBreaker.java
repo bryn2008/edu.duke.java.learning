@@ -22,7 +22,7 @@ public class VigenereBreaker {
  *  It should return this most commonly occurring character. 
  *  Remember that you can iterate over a HashSet of Strings with a for-each style for loop.
 */    
-	public void mostCommonCharIn(HashSet<String> dictionaries){
+	public HashSet<String> mostCommonCharIn(HashSet<String> dictionaries){
 		
 		//TODO get the dictionaries using a file resource
 		
@@ -41,7 +41,8 @@ public class VigenereBreaker {
 		}
 		
 		//TODO this should return most common char
-		
+		HashSet<String>dic = new HashSet<String>();
+		return dic;
 	}
     
     
@@ -90,7 +91,6 @@ public class VigenereBreaker {
 			}
 		}
 		//System.out.println(words.size());
-		
 		ArrayList<String> wordMatch = new ArrayList<>();
 		for(String str: words){
 			//System.out.println(">>"+str);
@@ -132,8 +132,30 @@ public class VigenereBreaker {
 		return decrypted;
 	}
 	
-	public void breakForAllLang(){
+	/*  In the VigenereBreaker class, write the public method breakForAllLanguages, 
+	 *  which has two parameters—a String encrypted, and a HashMap, called languages, 
+	 *  mapping a String representing the name of a language to a HashSet of Strings 
+	 *  containing the words in that language. 
+	 *  Try breaking the encryption for each language, and see which gives the best results! 
+	 *  Remember that you can iterate over the language.keySet() to get the name of each language, 
+	 *  and then you can use .get() to look up the corresponding dictionary for that language. 
+	 *  You will want to use the breakForLanguage and countWords methods 
+	 *  that you already wrote to do most of the work 
+	 *  (it is slightly inefficient to re-count the words here, but it is simpler, 
+	 *  and the inefficiency is not significant). 
+	 *  You will want to print out the decrypted message as well as the language 
+	 *  that you identified for the message.
+	*/  
+	
+	public void breakForAllLang(String encrypted, HashMap<String, ArrayList<String>> languages){
 		
+		//Try breaking the encryption for each language and see which returns the best result
+		HashSet<String> dictionaries = new HashSet<String>();
+		//add the language to the dictionary
+		
+		
+		HashSet<String>dictionary = mostCommonCharIn(dictionaries);
+		breakForLanguage(encrypted, dictionary);
 		
 	}
 	
