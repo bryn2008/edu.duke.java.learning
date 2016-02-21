@@ -24,6 +24,8 @@ public class VigenereBreaker {
 */    
 	public void mostCommonCharIn(HashSet<String> dictionaries){
 		
+		//TODO get the dictionaries using a file resource
+		
 		HashMap<Character, Integer> letterCount = new HashMap<Character, Integer>();
 		for (String dictionary: dictionaries){
 			for (char character: dictionary.toLowerCase().toCharArray()){
@@ -34,10 +36,12 @@ public class VigenereBreaker {
 					letterCount.put(character, letterCount.get(character).intValue()+1);
 				}				
 			}
-			char mostCommon = Collections.max(letterCount.entrySet(),(entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).getKey();
-			System.out.println("The most common char in the "+ dictionary + " is " +mostCommon);
-			
+			mostCommon = Collections.max(letterCount.entrySet(),(entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).getKey();
+			System.out.println("The most common char in the "+ dictionary + " is " + mostCommon);
 		}
+		
+		//TODO this should return most common char
+		
 	}
     
     
