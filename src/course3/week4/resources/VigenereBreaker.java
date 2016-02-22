@@ -6,6 +6,7 @@ import edu.duke.*;
 public class VigenereBreaker {
 
 	char mostCommon;
+	HashMap<String, ArrayList<String>> languages;
     
     public VigenereBreaker() {
         mostCommon = 'e';
@@ -13,38 +14,35 @@ public class VigenereBreaker {
     
     public VigenereBreaker(char c) {
         mostCommon = c;
+    }
+    
+    public VigenereBreaker(String[] dictionaries) {
+    	
+    	languages.clear();
+    	languages = new HashMap<String, ArrayList<String>>();
+    	for(String lang : languages.keySet()){
+			String dPath = "dictionaries/" + lang ;
+			FileResource fr = new FileResource(dPath); 
+			HashSet<String> dictionary = readDictionary(fr);
+			ArrayList<String> words = new ArrayList<String>(dictionary);
+			languages.put(lang, words);
+		}
     }	
-	
-/*  In the VigenereBreaker class, write the public method mostCommonCharIn, 
- *  which has one parameter—a HashSet of Strings dictionary. 
- *  This method should find out which character, of the letters in the English alphabet, 
- *  appears most often in the words in dictionary. 
- *  It should return this most commonly occurring character. 
- *  Remember that you can iterate over a HashSet of Strings with a for-each style for loop.
-*/    
-	public HashSet<String> mostCommonCharIn(HashSet<String> dictionaries){
-		
-		//TODO get the dictionaries using a file resource
+	  
+	public char mostCommonCharIn(HashSet<String> dictionary){
 		
 		HashMap<Character, Integer> letterCount = new HashMap<Character, Integer>();
-		for (String dictionary: dictionaries){
-			for (char character: dictionary.toLowerCase().toCharArray()){
-				//Iterates over the chars
-				if(!letterCount.containsKey(character)){
-					letterCount.put(character, 1);
-				}else{
-					letterCount.put(character, letterCount.get(character).intValue()+1);
-				}				
-			}
-			mostCommon = Collections.max(letterCount.entrySet(),(entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).getKey();
-			System.out.println("The most common char in the "+ dictionary + " is " + mostCommon);
+		for (char character: dictionary.toString().toLowerCase().toCharArray()){
+			if(!letterCount.containsKey(character)){
+				letterCount.put(character, 1);
+			}else{
+				letterCount.put(character, letterCount.get(character).intValue()+1);
+			}				
 		}
-		
-		//TODO this should return most common char
-		HashSet<String>dic = new HashSet<String>();
-		return dic;
+		char mostCommonChar = Collections.max(letterCount.entrySet(),(entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).getKey();
+		System.out.println("The most common char in the "+ dictionary + " is " + mostCommonChar);
+		return mostCommonChar;
 	}
-    
     
 	public String sliceString(String message, int whichSlice, int totalSlices) {
 
@@ -111,12 +109,12 @@ public class VigenereBreaker {
 		
 		int dKey = 0;
 		int highestWordCount = 0;
-		for (int i =57; i<59; i++){
+		for (int i =1; i<100; i++){
 			int[] key = tryKeyLength(encrypted, i, mostCommon);
 			VigenereCipher vc = new VigenereCipher(key);
 			String decrypted = vc.decrypt(encrypted);
 			int wordCount = countWords(decrypted, dictionary);
-			System.out.println(">>current key lengtj is set to "+i);
+			System.out.println(">>current key length is set to "+i);
 			System.out.println(">>>>The current key length is test a length of "+i+" and there is a possiable corrrect word count of "+wordCount);
 			System.out.println(decrypted.substring(0, 200));
 			if (wordCount > highestWordCount){
@@ -132,31 +130,33 @@ public class VigenereBreaker {
 		return decrypted;
 	}
 	
-	/*  In the VigenereBreaker class, write the public method breakForAllLanguages, 
-	 *  which has two parameters—a String encrypted, and a HashMap, called languages, 
-	 *  mapping a String representing the name of a language to a HashSet of Strings 
-	 *  containing the words in that language. 
-	 *  Try breaking the encryption for each language, and see which gives the best results! 
-	 *  Remember that you can iterate over the language.keySet() to get the name of each language, 
-	 *  and then you can use .get() to look up the corresponding dictionary for that language. 
-	 *  You will want to use the breakForLanguage and countWords methods 
-	 *  that you already wrote to do most of the work 
-	 *  (it is slightly inefficient to re-count the words here, but it is simpler, 
-	 *  and the inefficiency is not significant). 
-	 *  You will want to print out the decrypted message as well as the language 
-	 *  that you identified for the message.
-	*/  
-	
 	public void breakForAllLang(String encrypted, HashMap<String, ArrayList<String>> languages){
 		
-		//Try breaking the encryption for each language and see which returns the best result
-		HashSet<String> dictionaries = new HashSet<String>();
-		//add the language to the dictionary
+		int highestWordCount = 0;
+		String language = null;
+		for(String key : languages.keySet()){
+			ArrayList<String> words = languages.get(key);
+			HashSet<String> dictionary = new HashSet<String>(words);
+			char mostCommonChar = mostCommonCharIn(dictionary);
+			VigenereBreaker tempVB = new VigenereBreaker(mostCommonChar);
+			String decrypted = tempVB.breakForLanguage(encrypted, dictionary);
+			int countOfDecrypted = countWords(decrypted, dictionary);
+			if (countOfDecrypted > highestWordCount){
+				highestWordCount = countOfDecrypted;
+				language = key;
+			}
+			System.out.println("The count of valid words in the decrypted is "+countOfDecrypted);
+		}
 		
-		
-		HashSet<String>dictionary = mostCommonCharIn(dictionaries);
-		breakForLanguage(encrypted, dictionary);
-		
+		//the correct decrypt language and the string decrypted
+		System.out.println("The higest count can be found in the "+ language + "language and has a count of " + highestWordCount);
+		String frPath = "dictionaries/" + language;
+		FileResource fr = new FileResource(frPath);
+		HashSet<String> dictionary = readDictionary(fr);
+		char mostCommonChar = mostCommonCharIn(dictionary);
+		VigenereBreaker finalVB = new VigenereBreaker(mostCommonChar);
+		String decrypted = finalVB.breakForLanguage(encrypted, dictionary);
+		System.out.println(decrypted);
 	}
 	
 	public void breakVigenere() {
@@ -168,7 +168,6 @@ public class VigenereBreaker {
 		String decrypted = breakForLanguage(encrypted, dictionary);
 		int countOfDecrypted = countWords(decrypted, dictionary);
 		System.out.println("The count of valid words in the decrypted is "+countOfDecrypted);
-
 	}
 
 }
