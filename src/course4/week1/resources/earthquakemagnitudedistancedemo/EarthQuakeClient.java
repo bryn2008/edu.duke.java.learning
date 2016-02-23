@@ -2,15 +2,37 @@ package course4.week1.resources.earthquakemagnitudedistancedemo;
 import java.util.*;
 //import edu.duke.*;
 
+import edu.duke.URLResource;
+
 public class EarthQuakeClient {
+	
+	private String filePath = "src/course4/week1/resources/earthquakemagnitudedistancedemo/";
+	private URLResource ur;
+	
+	public EarthQuakeClient(){
+	
+		System.setProperty("http.proxyHost", "webproxy.metoffice.gov.uk" );
+        System.setProperty("http.proxyPort", "8080");
+    	ur = new URLResource("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom");
+		
+	}
+	
+	
+	public static void main(String[] args){
+		
+		EarthQuakeClient eqc = new EarthQuakeClient();
+		eqc.createCSV();
+		eqc.bigQuakes();
+		
+	}
     
     public ArrayList<QuakeEntry> filterByMagnitude(ArrayList<QuakeEntry> quakeData, double magMin) {
         ArrayList<QuakeEntry> answer = new ArrayList<QuakeEntry>();
         //TODO
-        for (QuakeEntry qe : quakeData) {
-            if (qe.getMagnitude() > magMin) {
-                answer.add(qe);
-            }
+        for (QuakeEntry qe : quakeData){
+        	if (qe.getMagnitude() > magMin) {
+        		answer.add(qe);
+        	}
         }
         return answer;              
     }
@@ -41,25 +63,32 @@ public class EarthQuakeClient {
 	public void bigQuakes() {
 	    EarthQuakeParser parser = new EarthQuakeParser();
         //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
-        String source = "data/nov20quakedata.atom";
+        String source = filePath + "data/nov20quakedata.atom";
         ArrayList<QuakeEntry> list = parser.read(source);
         System.out.println("read data for " + list.size() + " quakes");
-        /*
-        for (QuakeEntry qe : list) {
-            if (qe.getMagnitude() > 5.0) {
-                System.out.println(qe);
-            }
-        }
-        */
+        
+        /*for (QuakeEntry qe : list){
+        	if(qe.getMagnitude() > 5.0){
+        		System.out.println(qe);
+        	}
+        	
+        }*/
+        
         ArrayList<QuakeEntry> listBig = filterByMagnitude(list, 5.0);
+        System.out.println("All quakes bigger than 5.0");
+        for (QuakeEntry qe : listBig){
+        	System.out.println(qe);
+        }
+        
+       /* ArrayList<QuakeEntry> listBig = filterByMagnitude(list, 5.0);
         for (QuakeEntry qe : listBig) {
            System.out.println(qe); 
-        }
+        }*/
 	}
 	
     public void createCSV(){
         EarthQuakeParser parser = new EarthQuakeParser();
-        String source = "data/nov20quakedata.atom";
+        String source = filePath + "data/nov20quakedata.atom";
         //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
         ArrayList<QuakeEntry> list = parser.read(source);
         dumpCSV(list);
@@ -69,7 +98,7 @@ public class EarthQuakeClient {
     public void closeToMe() {
         EarthQuakeParser parser = new EarthQuakeParser();
         //String source = "data/nov20quakedata.atom";
-        String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
+        String source = ur.asString();
         ArrayList<QuakeEntry> list = parser.read(source);
         System.out.println("# quakes read: " + list.size());
         
