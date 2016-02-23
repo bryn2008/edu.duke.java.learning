@@ -11,7 +11,7 @@ import java.util.*;
 
 public class ClosestQuakes {
 	
-	private String filePath = "src/course4/week1/earthquakeclient/closestquakesdemo/";
+	private String filePath = "src/course4/week1/earthquakeclient/";
 	
 	public ClosestQuakes(){
 		
