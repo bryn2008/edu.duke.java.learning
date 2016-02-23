@@ -165,7 +165,6 @@ public class Tester {
 			String[] dictionaries = {"Danish", "Dutch", "English", "French", "German", "Italian", "Portuguese", "Spanish"};
 			HashMap<String, ArrayList<String>> languages = new HashMap<String, ArrayList<String>>();
 			VigenereBreaker vBreaker = new VigenereBreaker();
-			//for loop over the selected dictionaries adding the words in each dictionary to an ArrayList 
 			for(String lang : dictionaries){
 				String dPath = "dictionaries/" + lang ;
 				FileResource fr = new FileResource(dPath); 
@@ -173,10 +172,9 @@ public class Tester {
 				ArrayList<String> words = new ArrayList<String>(dictionary);
 				languages.put(lang, words);
 			}
-			
-			FileResource message = new FileResource("SecretData/secretmessage3.txt");
+			//FileResource message = new FileResource("SecretData/secretmessage3.txt");
+			FileResource message = new FileResource("SecretData/secretmessage4.txt");
 			String encrypted = message.asString();
-			
 			vBreaker.breakForAllLang(encrypted, languages);
 			
 		}
