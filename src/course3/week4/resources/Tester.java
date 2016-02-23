@@ -162,7 +162,6 @@ public class Tester {
 		
 		public void testBreakForAllLang(){
 			
-			
 			String[] dictionaries = {"Danish", "Dutch", "English", "French", "German", "Italian", "Portuguese", "Spanish"};
 			HashMap<String, ArrayList<String>> languages = new HashMap<String, ArrayList<String>>();
 			VigenereBreaker vBreaker = new VigenereBreaker();
@@ -175,9 +174,8 @@ public class Tester {
 				languages.put(lang, words);
 			}
 			
-			FileResource message = new FileResource("SecretData/secretmessage4.txt");
+			FileResource message = new FileResource("SecretData/secretmessage3.txt");
 			String encrypted = message.asString();
-			
 			
 			vBreaker.breakForAllLang(encrypted, languages);
 			

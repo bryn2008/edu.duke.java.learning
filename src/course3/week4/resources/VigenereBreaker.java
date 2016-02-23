@@ -40,7 +40,6 @@ public class VigenereBreaker {
 			}				
 		}
 		char mostCommonChar = Collections.max(letterCount.entrySet(),(entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).getKey();
-		System.out.println("The most common char in the "+ dictionary + " is " + mostCommonChar);
 		return mostCommonChar;
 	}
     
@@ -83,23 +82,18 @@ public class VigenereBreaker {
 		int count;
 		HashSet<String> words = new HashSet<String>();
 		for(String word : message.split("\\W")){
-			//System.out.println(word);
 			if(!words.contains(word)){
 				words.add(word);
 			}
 		}
-		//System.out.println(words.size());
 		ArrayList<String> wordMatch = new ArrayList<>();
 		for(String str: words){
-			//System.out.println(">>"+str);
 			for(String dic: dictionary){
 				if(dic.equals(str)){
-					//System.out.println("="+str);
 					wordMatch.add(str);
 				}
 			}
 		}
-		//System.out.println(wordMatch);
 		count = wordMatch.size();
 		return count;
 		
@@ -148,8 +142,8 @@ public class VigenereBreaker {
 			System.out.println("The count of valid words in the decrypted is "+countOfDecrypted);
 		}
 		
-		//the correct decrypt language and the string decrypted
-		System.out.println("The higest count can be found in the "+ language + "language and has a count of " + highestWordCount);
+		//the correct decrypt language and the string decrypted but not the correct key so message needs to be decrypted again
+		System.out.println("The higest count can be found in the "+ language + " language and has a count of " + highestWordCount);
 		String frPath = "dictionaries/" + language;
 		FileResource fr = new FileResource(frPath);
 		HashSet<String> dictionary = readDictionary(fr);
@@ -157,6 +151,7 @@ public class VigenereBreaker {
 		VigenereBreaker finalVB = new VigenereBreaker(mostCommonChar);
 		String decrypted = finalVB.breakForLanguage(encrypted, dictionary);
 		System.out.println(decrypted);
+		System.out.println("The higest count can be found in the "+ language + " language and has a count of " + highestWordCount);
 	}
 	
 	public void breakVigenere() {
