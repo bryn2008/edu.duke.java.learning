@@ -8,10 +8,8 @@ public class EarthQuakeClient {
 	private String url = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
 
 	public EarthQuakeClient() {
-
 		System.setProperty("http.proxyHost", "webproxy.metoffice.gov.uk");
 		System.setProperty("http.proxyPort", "8080");
-
 	}
 
 	public static void main(String[] args) {
