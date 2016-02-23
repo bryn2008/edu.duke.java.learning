@@ -1,20 +1,15 @@
 package course4.week1.earthquakeclient;
-
 import java.util.*;
-//import edu.duke.*;
-
-import edu.duke.URLResource;
 
 public class EarthQuakeClient {
 	
-	private String filePath = "src/course4/week1/earthquakeclient/earthquakemagnitudedistancedemo/";
-	private URLResource ur;
+	private String filePath = "src/course4/week1/earthquakeclient/";
+	private String url = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
 	
 	public EarthQuakeClient(){
 	
 		System.setProperty("http.proxyHost", "webproxy.metoffice.gov.uk" );
         System.setProperty("http.proxyPort", "8080");
-    	ur = new URLResource("http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom");
 		
 	}
 	
@@ -22,14 +17,14 @@ public class EarthQuakeClient {
 	public static void main(String[] args){
 		
 		EarthQuakeClient eqc = new EarthQuakeClient();
-		eqc.createCSV();
-		eqc.bigQuakes();
+		//eqc.createCSV();
+		//eqc.bigQuakes();
+		eqc.closeToMe();
 		
 	}
     
     public ArrayList<QuakeEntry> filterByMagnitude(ArrayList<QuakeEntry> quakeData, double magMin) {
         ArrayList<QuakeEntry> answer = new ArrayList<QuakeEntry>();
-        //TODO
         for (QuakeEntry qe : quakeData){
         	if (qe.getMagnitude() > magMin) {
         		answer.add(qe);
@@ -40,7 +35,6 @@ public class EarthQuakeClient {
     
     public ArrayList<QuakeEntry> filterByDistanceFrom(ArrayList<QuakeEntry> quakeData, double distMax, Location from) {      
         ArrayList<QuakeEntry> answer = new ArrayList<QuakeEntry>();
-        // TODO
         for (QuakeEntry qe : quakeData) {
             if (qe.getLocation().distanceTo(from) < distMax) {
                 answer.add(qe);
@@ -67,24 +61,11 @@ public class EarthQuakeClient {
         String source = filePath + "data/nov20quakedata.atom";
         ArrayList<QuakeEntry> list = parser.read(source);
         System.out.println("read data for " + list.size() + " quakes");
-        
-        /*for (QuakeEntry qe : list){
-        	if(qe.getMagnitude() > 5.0){
-        		System.out.println(qe);
-        	}
-        	
-        }*/
-        
         ArrayList<QuakeEntry> listBig = filterByMagnitude(list, 5.0);
         System.out.println("All quakes bigger than 5.0");
         for (QuakeEntry qe : listBig){
         	System.out.println(qe);
         }
-        
-       /* ArrayList<QuakeEntry> listBig = filterByMagnitude(list, 5.0);
-        for (QuakeEntry qe : listBig) {
-           System.out.println(qe); 
-        }*/
 	}
 	
     public void createCSV(){
@@ -98,10 +79,10 @@ public class EarthQuakeClient {
     
     public void closeToMe() {
         EarthQuakeParser parser = new EarthQuakeParser();
-        //String source = "data/nov20quakedata.atom";
-        String source = ur.asString();
+        //String source = filePath + "data/nov20quakedatasmall.atom";
+        String source = url;
         ArrayList<QuakeEntry> list = parser.read(source);
-        System.out.println("# quakes read: " + list.size());
+        System.out.println("read data for " + list.size() + " quakes.");
         
         //Durham, NC
         //Location city = new Location(35.988, -78.907);
