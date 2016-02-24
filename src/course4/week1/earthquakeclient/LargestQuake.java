@@ -34,17 +34,23 @@ public class LargestQuake {
 	
 	public ArrayList<QuakeEntry> getLargest(ArrayList<QuakeEntry> quakeData, int howMany){
 		
+		ArrayList<QuakeEntry> copy = new ArrayList<QuakeEntry>(quakeData);
 		ArrayList<QuakeEntry> answer = new ArrayList<QuakeEntry>();
-		double mag = 0;
-		for (QuakeEntry qe : quakeData) {
-			if (qe.getMagnitude() > mag) {
-				answer.add(qe);
+		for (int i=0; i<howMany; i++){
+			int maxIndex = 0;
+			double lagestQuake = 0;
+			for (QuakeEntry qe : copy) {
+				if (qe.getMagnitude() > lagestQuake) {
+					lagestQuake = qe.getMagnitude();
+					maxIndex = copy.indexOf(qe);
+				}
 			}
+			//add the quake to the answer array list and remove it from the copy array list
+			answer.add(copy.get(maxIndex));
+			copy.remove(maxIndex);
 		}
-		//get only the top 5
-		System.out.println(howMany);
-		//sort in order of magnitude
-		
+		//sort in order of magnitude and only 5 quakes
+		Collections.sort(answer);
 		return answer;
 	}
 	
@@ -72,6 +78,7 @@ public class LargestQuake {
 		ArrayList<QuakeEntry> list = parser.read(source);
 		int howMany = 5;
 		ArrayList<QuakeEntry> qe = getLargest(list, howMany);
+		System.out.println("The top " + howMany + " largest quakes are: ");
 		for (int k = 0; k < qe.size(); k++) {
 			QuakeEntry entry = qe.get(k);
 			System.out.println(entry.toString());
