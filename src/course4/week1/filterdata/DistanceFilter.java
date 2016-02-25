@@ -12,7 +12,6 @@ public class DistanceFilter implements Filter {
 	
 	@Override
 	public boolean satisfies(QuakeEntry qe) {
-		// TODO Auto-generated method stub
 		return qe.getLocation().distanceTo(loc) <= maxdistance;
 	}
 
