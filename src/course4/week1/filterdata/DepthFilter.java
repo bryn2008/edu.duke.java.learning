@@ -2,10 +2,10 @@ package course4.week1.filterdata;
 
 public class DepthFilter implements Filter {
 	
-	private int minDepth;
-	private int maxDepth;
+	private double minDepth;
+	private double maxDepth;
 	
-	public DepthFilter(int min, int max){
+	public DepthFilter(double min, double max){
 		minDepth = min;
 		maxDepth = max;
 	}

@@ -5,7 +5,7 @@ public class MagnitudeFilter implements Filter {
 	private double minMag;
 	private double maxMag;
 	
-	private MagnitudeFilter(double min, double max){
+	public MagnitudeFilter(double min, double max){
 		minMag = min;
 		maxMag = max;
 	}

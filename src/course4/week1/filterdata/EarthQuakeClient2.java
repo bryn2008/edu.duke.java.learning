@@ -17,7 +17,8 @@ public class EarthQuakeClient2 {
 	public static void main(String[] args){
 		
 		EarthQuakeClient2 quakeClientTwo = new EarthQuakeClient2();
-		quakeClientTwo.createCSV();
+		//quakeClientTwo.createCSV();
+		quakeClientTwo.quakesWithFilter();
 	}
 	
     public ArrayList<QuakeEntry> filter(ArrayList<QuakeEntry> quakeData, Filter f) { 
@@ -31,18 +32,28 @@ public class EarthQuakeClient2 {
         return answer;
     } 
 
+    //TODO: mod to use filter 
     public void quakesWithFilter() { 
         EarthQuakeParser parser = new EarthQuakeParser(); 
         //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
         String source = filePath + "data/nov20quakedatasmall.atom";
         ArrayList<QuakeEntry> list  = parser.read(source);         
         System.out.println("read data for "+list.size()+" quakes");
-
-        Filter f = new MinMagFilter(4.0); 
+        
+        MatchAllFilters maf = new MatchAllFilters();
+        maf.addFilter(new MagnitudeFilter(4.0, 5.0));
+        maf.addFilter(new DepthFilter(-35000.0, -12000.0));
+        
+        ArrayList<QuakeEntry> quakes  = filter(list, maf);
+        for (QuakeEntry qe: quakes) { 
+            System.out.println(qe);
+        }
+        
+        /*Filter f = new MinMagFilter(4.0); 
         ArrayList<QuakeEntry> m7  = filter(list, f); 
         for (QuakeEntry qe: m7) { 
             System.out.println(qe);
-        } 
+        } */
     }
 
     public void createCSV() {
