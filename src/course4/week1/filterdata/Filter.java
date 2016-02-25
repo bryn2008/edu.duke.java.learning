@@ -3,8 +3,8 @@ package course4.week1.filterdata;
 /**
  * Write a description of interface Filter here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Bryn Lloyd 
+ * @version 1
  */
 public interface Filter
 {

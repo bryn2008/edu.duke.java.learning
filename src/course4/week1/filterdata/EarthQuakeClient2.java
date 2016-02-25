@@ -4,10 +4,22 @@ import java.util.*;
 //import edu.duke.*;
 
 public class EarthQuakeClient2 {
-    public EarthQuakeClient2() {
-        // TODO Auto-generated constructor stub
-    }
-
+    
+	private String filePath = "src/course4/week1/earthquakeclient/";
+	
+	public EarthQuakeClient2(){
+		// TODO Auto-generated constructor stub
+		
+		System.setProperty("http.proxyHost", "webproxy.metoffice.gov.uk" );
+        System.setProperty("http.proxyPort", "8080");
+	}
+	
+	public static void main(String[] args){
+		
+		EarthQuakeClient2 quakeClientTwo = new EarthQuakeClient2();
+		quakeClientTwo.createCSV();
+	}
+	
     public ArrayList<QuakeEntry> filter(ArrayList<QuakeEntry> quakeData, Filter f) { 
         ArrayList<QuakeEntry> answer = new ArrayList<QuakeEntry>();
         for(QuakeEntry qe : quakeData) { 
@@ -22,7 +34,7 @@ public class EarthQuakeClient2 {
     public void quakesWithFilter() { 
         EarthQuakeParser parser = new EarthQuakeParser(); 
         //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
-        String source = "data/nov20quakedatasmall.atom";
+        String source = filePath + "data/nov20quakedatasmall.atom";
         ArrayList<QuakeEntry> list  = parser.read(source);         
         System.out.println("read data for "+list.size()+" quakes");
 
@@ -36,7 +48,7 @@ public class EarthQuakeClient2 {
     public void createCSV() {
         EarthQuakeParser parser = new EarthQuakeParser();
         //String source = "../data/nov20quakedata.atom";
-        String source = "data/nov20quakedatasmall.atom";
+        String source = filePath + "data/nov20quakedatasmall.atom";
         //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
         ArrayList<QuakeEntry> list  = parser.read(source);
         dumpCSV(list);
@@ -53,5 +65,5 @@ public class EarthQuakeClient2 {
                 qe.getInfo());
         }
     }
-
+    
 }
