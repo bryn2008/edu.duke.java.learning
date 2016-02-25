@@ -5,8 +5,8 @@ public class DistanceFilter implements Filter {
 	private Location loc;
 	private double maxdistance;
 	
-	public DistanceFilter(Location myloc, double distance) {
-		loc = myloc;
+	public DistanceFilter(Location place, double distance) {
+		loc = place;
 		maxdistance = distance;
 	}
 	

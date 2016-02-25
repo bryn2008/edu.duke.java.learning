@@ -1,7 +1,6 @@
 package course4.week1.filterdata;
 
 import java.util.*;
-//import edu.duke.*;
 
 public class EarthQuakeClient2 {
     
@@ -32,7 +31,6 @@ public class EarthQuakeClient2 {
         return answer;
     } 
 
-    //TODO: mod to use filter 
     public void quakesWithFilter() { 
         EarthQuakeParser parser = new EarthQuakeParser(); 
         //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
@@ -41,13 +39,21 @@ public class EarthQuakeClient2 {
         System.out.println("read data for "+list.size()+" quakes");
         
         MatchAllFilters maf = new MatchAllFilters();
-        maf.addFilter(new MagnitudeFilter(4.0, 5.0));
-        maf.addFilter(new DepthFilter(-35000.0, -12000.0));
-        
+        Location Japan = new Location(35.42, 139.43);
+        maf.addFilter(new DistanceFilter(Japan, 10000000));
+        maf.addFilter(new PharseFilter("end", "Japan"));
         ArrayList<QuakeEntry> quakes  = filter(list, maf);
         for (QuakeEntry qe: quakes) { 
             System.out.println(qe);
         }
+        
+        /*MatchAllFilters maf = new MatchAllFilters();
+        maf.addFilter(new MagnitudeFilter(4.0, 5.0));
+        maf.addFilter(new DepthFilter(-35000.0, -12000.0));
+        ArrayList<QuakeEntry> quakes  = filter(list, maf);
+        for (QuakeEntry qe: quakes) { 
+            System.out.println(qe);
+        }*/
         
         /*Filter f = new MinMagFilter(4.0); 
         ArrayList<QuakeEntry> m7  = filter(list, f); 
