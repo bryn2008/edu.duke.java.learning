@@ -31,7 +31,7 @@ public class QuakeEntry implements Comparable<QuakeEntry>{
 	public double getDepth(){
 		return depth;
 	}
-
+	
 	@Override
 	public int compareTo(QuakeEntry loc) {
 		double difflat = myLocation.getLatitude() - loc.myLocation.getLatitude();

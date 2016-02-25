@@ -49,8 +49,14 @@ public class LargestQuake {
 			answer.add(copy.get(maxIndex));
 			copy.remove(maxIndex);
 		}
-		//sort in order of magnitude and only 5 quakes
-		Collections.sort(answer);
+		//for loop this to return in order of the highest 
+		/*ArrayList<QuakeEntry> rtn = new ArrayList<QuakeEntry>();
+		for (int x=0; x < answer.size(); x++){
+			int dex = indexOfLargest(answer);
+			rtn.add(answer.get(dex));
+			//answer.remove(dex);
+		}
+		System.out.println(rtn);*/
 		return answer;
 	}
 	
