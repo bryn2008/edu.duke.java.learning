@@ -24,6 +24,36 @@ public class QuakeSortInPlace {
 		myObj.testSort();
 	}
 	
+	public int onePassBubbleSort(ArrayList<QuakeEntry> quakes, int numSorted){
+		int minIdx = numSorted;
+        for (int i=numSorted+1; i< quakes.size(); i++) {
+            if (quakes.get(i).getMagnitude() < quakes.get(minIdx).getMagnitude()) {
+                minIdx = i;
+            }
+        }
+        return minIdx;
+	}
+	
+	public void sortByMagnitudeWithBubbleSort(ArrayList<QuakeEntry> in){
+		
+		for (QuakeEntry qe: in) { 
+            System.out.println(qe);
+        } 
+		for (int i=0; i< in.size(); i++) {
+            int minIdx = onePassBubbleSort(in,i);
+            QuakeEntry qi = in.get(i);
+            QuakeEntry qmin = in.get(minIdx);
+            in.set(i,qmin);
+            in.set(minIdx,qi);
+            System.out.println("Printing Quakes after pass" + (i+1));
+            for (QuakeEntry qe: in) { 
+                System.out.println(qe);
+            } 
+        }
+		System.out.println("Earthquakes in sorted order");
+	}
+	
+	
 	public int getLargestDepth(ArrayList<QuakeEntry> quakes, int from ){
 		int minIdx = from;
         for (int i=from+1; i< quakes.size(); i++) {
@@ -71,15 +101,22 @@ public class QuakeSortInPlace {
     public void testSort() {
         EarthQuakeParser parser = new EarthQuakeParser(); 
         //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
-        String source = filePath + "data/nov20quakedatasmall.atom";
+        //String source = filePath + "data/nov20quakedatasmall.atom";
+        String source = filePath + "data/earthquakeDataSampleSix2.atom";
         //String source = "data/nov20quakedata.atom";
         ArrayList<QuakeEntry> list  = parser.read(source);  
-       
+        
         System.out.println("read data for "+list.size()+" quakes");    
+        sortByMagnitudeWithBubbleSort(list);
+        for (QuakeEntry qe: list) { 
+            System.out.println(qe);
+        }
+        
+        /*System.out.println("read data for "+list.size()+" quakes");    
         sortByLargestDepth(list);
         for (QuakeEntry qe: list) { 
             System.out.println(qe);
-        } 
+        } */
         
         /*System.out.println("read data for "+list.size()+" quakes");    
         sortByMagnitude(list);
