@@ -3,6 +3,19 @@ package course4.week2.resources.inplacesortdemo;
 import java.util.*;
 
 public class QuakeSort {
+	
+	private String filePath = "src/course4/week2/resources/selectionsortdemo/";
+	
+	public QuakeSort(){
+		System.setProperty("http.proxyHost", "webproxy.metoffice.gov.uk" );
+        System.setProperty("http.proxyPort", "8080");
+	}
+	
+	public static void main(String[] args){
+		QuakeSort qs = new QuakeSort();
+		qs.testSort();
+	}
+	
     public int getSmallestMagnitude(ArrayList<QuakeEntry> quakes, int from) {
         int minIdx = from;
         for (int i = from +1; i < quakes.size(); i++) {
@@ -14,21 +27,18 @@ public class QuakeSort {
     }
     
     public void sortByMagnitude(ArrayList<QuakeEntry> in) {
-        //count from 0 to < in.size()
-        for(int i = 0; i < in.size(); i++) {
-            /* find the index of the smallest quake*/
-            int minIdx = getSmallestMagnitude(in, i);
-            /* swap the ith quake with the minIdxth quake */
-            QuakeEntry qi = in.get(i);
-            QuakeEntry qmin = in.get(minIdx);
-            in.set(i, qmin);
-            in.set(minIdx, qi);
-        }
+    	for (int i=0; i<in.size(); i++){
+    		int minDex = getSmallestMagnitude(in, i);
+    		QuakeEntry qi = in.get(i);
+    		QuakeEntry qmin = in.get(minDex);
+    		in.set(i, qmin);
+    		in.set(minDex, qi);
+    	}
     }
-    /* tester method to use in BlueJ */
+
     public void testSort(){
         EarthQuakeParser parser = new EarthQuakeParser();
-        String source = "data/nov20quakedata.atom";
+        String source = filePath + "data/nov20quakedata.atom";
         //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
         ArrayList<QuakeEntry> list  = parser.read(source);
         sortByMagnitude(list);

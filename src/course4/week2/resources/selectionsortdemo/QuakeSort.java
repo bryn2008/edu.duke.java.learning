@@ -3,7 +3,21 @@ package course4.week2.resources.selectionsortdemo;
 import java.util.*;
 
 public class QuakeSort {
-    public QuakeEntry getSmallestMagnitude(ArrayList<QuakeEntry> quakes) {
+	
+	private String filePath = "src/course4/week2/resources/selectionsortdemo/";
+	
+	public QuakeSort(){
+		System.setProperty("http.proxyHost", "webproxy.metoffice.gov.uk" );
+        System.setProperty("http.proxyPort", "8080");
+	}
+	
+	public static void main(String[] args){
+		QuakeSort qs = new QuakeSort();
+		qs.testSort();
+	}
+	
+	
+	public QuakeEntry getSmallestMagnitude(ArrayList<QuakeEntry> quakes) {
         QuakeEntry min = quakes.get(0);
         for(QuakeEntry q: quakes) {
             if (q.getMagnitude() < min.getMagnitude()) {
@@ -14,24 +28,19 @@ public class QuakeSort {
     }
     
     public ArrayList<QuakeEntry> sortByMagnitude(ArrayList<QuakeEntry> in) {
-        //out starts as empty ArrayList
-        ArrayList<QuakeEntry> out = new ArrayList<QuakeEntry>();
-        //As long as in is not empty
-        while(!in.isEmpty()) {
-            //Find smallest element in in (minElement)
-            QuakeEntry minElement = getSmallestMagnitude(in); 
-            //Remove minElement from in
-            in.remove(minElement);                            
-            //Add minElement to out
-            out.add(minElement);
+
+        ArrayList<QuakeEntry> out = new ArrayList<>();
+        while(!in.isEmpty()){
+        	QuakeEntry minElement = getSmallestMagnitude(in);
+        	in.remove(minElement);
+        	out.add(minElement);
         }
-        //out is the answer
-        return out;
+    	return out;
     }
     /* tester method to use in BlueJ */
     public void testSort(){
         EarthQuakeParser parser = new EarthQuakeParser();
-        String source = "data/nov20quakedata.atom";
+        String source = filePath + "data/nov20quakedata.atom";
         //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
         ArrayList<QuakeEntry> list  = parser.read(source);
         list = sortByMagnitude(list);

@@ -5,7 +5,7 @@ package course4.week2.resources.quakesortdemo;
  * @author Duke Software 
  * @version 1.0
  */
-import edu.duke.*;
+//import edu.duke.*;
 import java.util.*;
 
 public class QuakeSortDemo {
