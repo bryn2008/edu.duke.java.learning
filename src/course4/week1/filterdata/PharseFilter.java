@@ -10,6 +10,10 @@ public class PharseFilter implements Filter {
 		phrase = str;
 	}
 	
+	public String getName(){
+		return "Pharse";
+	}
+	
 	@Override
 	public boolean satisfies(QuakeEntry qe) {
 		if("start".equalsIgnoreCase(where)){

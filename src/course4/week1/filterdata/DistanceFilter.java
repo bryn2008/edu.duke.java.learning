@@ -10,6 +10,10 @@ public class DistanceFilter implements Filter {
 		maxdistance = distance;
 	}
 	
+	public String getName(){
+		return "Distance";
+	}
+	
 	@Override
 	public boolean satisfies(QuakeEntry qe) {
 		return qe.getLocation().distanceTo(loc) <= maxdistance;

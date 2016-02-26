@@ -18,7 +18,7 @@ public class EarthQuakeClient {
 		// eqc.createCSV();
 		// eqc.bigQuakes();
 		// eqc.closeToMe();
-		// eqc.quakesOfDepth();
+		//eqc.quakesOfDepth();
 		eqc.quakesByPhase();
 
 	}
@@ -110,12 +110,12 @@ public class EarthQuakeClient {
 
 	public void quakesOfDepth() {
 		EarthQuakeParser parser = new EarthQuakeParser();
-		String source = filePath + "data/nov20quakedatasmall.atom";
+		String source = filePath + "data/nov20quakedata.atom";
 		// String source = url;
 		ArrayList<QuakeEntry> list = parser.read(source);
 		System.out.println("read data for " + list.size() + " quakes.");
-		double minDepth = -10000.0;
-		double maxDepth = -5000.0;
+		double minDepth = -4000.0;
+		double maxDepth = -2000.0;
 		System.out.println("Find quakes with depth between " + minDepth + " and " + maxDepth);
 		ArrayList<QuakeEntry> qe = filterByDepth(list, minDepth, maxDepth);
 		for (int k = 0; k < qe.size(); k++) {
@@ -148,12 +148,12 @@ public class EarthQuakeClient {
 
 	public void quakesByPhase() {
 		EarthQuakeParser parser = new EarthQuakeParser();
-		String source = filePath + "data/nov20quakedatasmall.atom";
+		String source = filePath + "data/nov20quakedata.atom";
 		// String source = url;
 		ArrayList<QuakeEntry> list = parser.read(source);
 		System.out.println("read data for " + list.size() + " quakes.");
-		String where = "start";
-		String phrase = "Explosion";
+		String where = "any";
+		String phrase = "Can";
 		ArrayList<QuakeEntry> qe = filterByPhrase(list, where, phrase);
 		for (int k = 0; k < qe.size(); k++) {
 			QuakeEntry entry = qe.get(k);

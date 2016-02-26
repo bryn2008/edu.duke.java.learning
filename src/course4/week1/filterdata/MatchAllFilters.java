@@ -13,6 +13,14 @@ public class MatchAllFilters implements Filter {
 	public void addFilter(Filter f) {
 		filters.add(f);
 	}
+	
+	public String getName(){
+		String filter = "";
+		for (Filter f : filters) {
+			filter += f.getName()+" ";
+			}
+		return filter;
+	}
 
 	@Override
 	public boolean satisfies(QuakeEntry qe) {
