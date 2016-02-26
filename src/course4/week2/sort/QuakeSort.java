@@ -1,4 +1,4 @@
-package course4.week2.selectionsort;
+package course4.week2.sort;
 
 import java.util.*;
 
@@ -40,9 +40,10 @@ public class QuakeSort {
     /* tester method to use in BlueJ */
     public void testSort(){
         EarthQuakeParser parser = new EarthQuakeParser();
-        String source = filePath + "data/nov20quakedata.atom";
+        String source = filePath + "data/nov20quakedatasmall.atom";
         //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
         ArrayList<QuakeEntry> list  = parser.read(source);
+        System.out.println("read data for " + list.size() + " quakes");
         list = sortByMagnitude(list);
         for(QuakeEntry qe: list) {
             System.out.println(qe);

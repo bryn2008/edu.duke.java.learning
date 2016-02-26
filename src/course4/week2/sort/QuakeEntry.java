@@ -1,4 +1,4 @@
-package course4.week2.selectionsort;
+package course4.week2.sort;
 
 public class QuakeEntry implements Comparable<QuakeEntry>{
 	

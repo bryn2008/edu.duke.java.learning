@@ -1,4 +1,4 @@
-package course4.week2.selectionsort;
+package course4.week2.sort;
 
 /*
  * Copyright (C) 2007 The Android Open Source Project

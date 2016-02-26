@@ -1,4 +1,4 @@
-package course4.week2.selectionsort;
+package course4.week2.sort;
 
 import java.io.File;
 import java.io.IOException;
