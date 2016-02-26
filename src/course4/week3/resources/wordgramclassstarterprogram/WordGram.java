@@ -2,7 +2,7 @@ package course4.week3.resources.wordgramclassstarterprogram;
 
 public class WordGram {
     private String[] myWords;
-    private int myHash;
+    //private int myHash;
 
     public WordGram(String[] source, int start, int size) {
         myWords = new String[size];
@@ -29,7 +29,7 @@ public class WordGram {
     }
 
     public boolean equals(Object o) {
-        WordGram other = (WordGram) o;
+        //WordGram other = (WordGram) o;
         // TODO: Complete this method
         return true;
 

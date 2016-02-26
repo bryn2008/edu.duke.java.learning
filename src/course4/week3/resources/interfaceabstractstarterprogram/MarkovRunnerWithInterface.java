@@ -23,7 +23,7 @@ public class MarkovRunnerWithInterface {
         FileResource fr = new FileResource();
 		String st = fr.asString();
 		st = st.replace('\n', ' ');
-		int size = 200;
+		//int size = 200;
 		
 /*        MarkovZero mz = new MarkovZero();
         runModel(mz, st, size);

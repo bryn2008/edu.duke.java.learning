@@ -8,7 +8,7 @@ package course4.week2.resources.earthquakesortstarterprogram;
  */
 
 import java.util.*;
-import edu.duke.*;
+//import edu.duke.*;
 
 public class QuakeSortInPlace {
     public QuakeSortInPlace() {
