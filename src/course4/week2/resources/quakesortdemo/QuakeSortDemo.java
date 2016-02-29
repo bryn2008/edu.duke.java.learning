@@ -9,10 +9,22 @@ package course4.week2.resources.quakesortdemo;
 import java.util.*;
 
 public class QuakeSortDemo {
+	
+	private String filePath = "src/course4/week2/resources/quakesortdemo/";
     
-    public void testSort(){
+	public QuakeSortDemo(){
+		System.setProperty("http.proxyHost", "webproxy.metoffice.gov.uk" );
+        System.setProperty("http.proxyPort", "8080");
+	}
+	
+    public static void main(String[] args){
+    	QuakeSortDemo myObj = new QuakeSortDemo();
+    	myObj.testSort();
+    }
+	
+	public void testSort(){
         EarthQuakeParser parser = new EarthQuakeParser();
-        String source = "data/nov20quakedata.atom";
+        String source = filePath + "data/nov20quakedata.atom";
         //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
         
         ArrayList<QuakeEntry> list  = parser.read(source);

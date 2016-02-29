@@ -5,6 +5,12 @@ import java.util.*;
 public class SortTimings {
 	Random random = new Random();
 	
+	public static void main(String[] args){
+		SortTimings myObj = new SortTimings();
+		//myObj.runSelect();
+		myObj.runner();
+	}
+	
 	private String makeString(int size){
 		StringBuilder sb = new StringBuilder();
 		String alph = "abcdefghijklmnopqrstuvwxyz";
