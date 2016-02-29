@@ -21,7 +21,21 @@ public class DifferentSorters {
 	public static void main(String[] args){
 		DifferentSorters myObj = new DifferentSorters();
 		//myObj.sortWithCompareTo();
-		myObj.sortByTitleAndDepth();
+		//myObj.sortByTitleAndDepth();
+		myObj.sortByLastWordInTitleThenByMagnitude();
+	}
+	
+	public void sortByLastWordInTitleThenByMagnitude(){
+		EarthQuakeParser parser = new EarthQuakeParser();
+        String source = filePath + "data/nov20quakedata.atom";
+        ArrayList<QuakeEntry> list  = parser.read(source);
+        Collections.sort(list, new TitleLastAndMagnitudeComparator());
+        for(QuakeEntry qe: list) {
+            System.out.println(qe);
+        }
+        int quakeNumber = 10;
+        System.out.println("Print quake entry in position " + quakeNumber);
+        System.out.print(list.get(quakeNumber));
 	}
 	
 	public void sortByTitleAndDepth(){
