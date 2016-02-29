@@ -8,7 +8,6 @@ package course4.week2.sort;
  */
 
 import java.util.*;
-//import edu.duke.*;
 
 public class QuakeSortInPlace {
 	
@@ -22,6 +21,60 @@ public class QuakeSortInPlace {
 	public static void main(String[] args){
 		QuakeSortInPlace myObj = new QuakeSortInPlace();
 		myObj.testSort();
+	}
+	
+	public void sortByMagnitudeWithCheck(ArrayList<QuakeEntry> in){
+		
+		//simuler to sort by magnitude
+		int brokeAt = 0;
+		for (int i=0; i< in.size(); i++) {
+            if (checkInSortOrder(in) == false){
+            	int minIdx = getSmallestMagnitude(in,i);
+            	QuakeEntry qi = in.get(i);
+            	QuakeEntry qmin = in.get(minIdx);
+            	in.set(i,qmin);
+            	in.set(minIdx,qi);
+            	brokeAt = i + 1;
+            }else{
+            	break;
+            }
+        }
+		System.out.println("Broke at " + brokeAt + " passes");
+	}
+	
+	public boolean checkInSortOrder(ArrayList<QuakeEntry> quakes){
+		//loops through the array checking the number adjacent to see if it is higher and if so, returns false, else if not it returns true as the list is sorted
+		for(int i=0; i<quakes.size(); i++){
+			if (i == quakes.size()-1){
+				return true;
+			}
+			else{
+				if(quakes.get(i).getMagnitude() > quakes.get(i+1).getMagnitude()){
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+	public void sortByMagnitudeWithBubbleSortCheck(ArrayList<QuakeEntry> in){
+		//sorts the array list of quakes into order and checks 
+		//if array list .size() then onePassBubble() should be called less that .size()-1
+		//this method should call checkInSortOrder() and stop earily if the arraylist is sorted, perhaps a while loop here? or for loop
+		int brokeAt = 0;
+		for (int i=0; i< in.size(); i++) {
+			int minIdx = onePassBubbleSort(in,i);
+			if(checkInSortOrder(in) == false){
+				QuakeEntry qi = in.get(i);
+				QuakeEntry qmin = in.get(minIdx);
+				in.set(i,qmin);
+				in.set(minIdx,qi);
+				brokeAt = i + 1;
+			}else{
+				break;
+			}
+        }
+		System.out.println("Broke at " + brokeAt + " passes");
 	}
 	
 	public int onePassBubbleSort(ArrayList<QuakeEntry> quakes, int numSorted){
@@ -97,20 +150,32 @@ public class QuakeSortInPlace {
         }
         
     }
-
+    
     public void testSort() {
         EarthQuakeParser parser = new EarthQuakeParser(); 
         //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
         //String source = filePath + "data/nov20quakedatasmall.atom";
-        String source = filePath + "data/earthquakeDataSampleSix2.atom";
+        String source = filePath + "data/earthquakeDataSampleSix1 .atom";
         //String source = "data/nov20quakedata.atom";
         ArrayList<QuakeEntry> list  = parser.read(source);  
         
         System.out.println("read data for "+list.size()+" quakes");    
-        sortByMagnitudeWithBubbleSort(list);
+        sortByMagnitudeWithCheck(list);
         for (QuakeEntry qe: list) { 
             System.out.println(qe);
         }
+        
+        /*System.out.println("read data for "+list.size()+" quakes");    
+        sortByMagnitudeWithBubbleSortCheck(list);
+        for (QuakeEntry qe: list) { 
+            System.out.println(qe);
+        }*/
+        
+        /*System.out.println("read data for "+list.size()+" quakes");    
+        sortByMagnitudeWithBubbleSort(list);
+        for (QuakeEntry qe: list) { 
+            System.out.println(qe);
+        }*/
         
         /*System.out.println("read data for "+list.size()+" quakes");    
         sortByLargestDepth(list);
