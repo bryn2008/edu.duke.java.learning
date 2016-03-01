@@ -10,11 +10,34 @@ package course4.week3.generatingrandomtext;
 import edu.duke.*;
 
 public class MarkovRunner {
+	
+	private String filePath = "src/course4/week3/generatingrandomtext/data/";
+	
+	public static void main(String[] args){
+		MarkovRunner myObj = new MarkovRunner();
+		//myObj.runMarkovZero();
+		myObj.runMarkovOne();
+	}
+    
+	public void runMarkovOne() {
+		FileResource fr = new FileResource(filePath + "confucius.txt");
+		String st = fr.asString();
+		st = st.replace('\n', ' ');
+		MarkovOne markov = new MarkovOne();
+		markov.setRandom(42);
+		markov.setTraining(st);
+		for(int k=0; k < 3; k++){
+			String text = markov.getRandomText(100);
+			printOut(text);
+		}
+	}
+	
     public void runMarkovZero() {
-		FileResource fr = new FileResource();
+		FileResource fr = new FileResource(filePath + "alice.txt");
 		String st = fr.asString();
 		st = st.replace('\n', ' ');
 		MarkovZero markov = new MarkovZero();
+		markov.setRandom(101);
 		markov.setTraining(st);
 		for(int k=0; k < 3; k++){
 			String text = markov.getRandomText(500);
