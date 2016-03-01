@@ -10,14 +10,14 @@ public class Tester {
 	
 	public static void main(String[] args){
 		Tester myObj = new Tester();
-		//myObj.testGetFollows();
+//		myObj.testGetFollows();
 		myObj.testGetFollowsWithFile();
 	}
     
 	public void testGetFollows() {
 		
 		MarkovOne markov = new MarkovOne("this is a test yes this is a test.");
-		ArrayList<String> al = markov.getFollows("es");
+		ArrayList<String> al = markov.getFollows("t");
 		System.out.println(al);
 		
 	}
