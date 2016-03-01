@@ -26,8 +26,8 @@ public class MarkovRunner {
 		MarkovOne markov = new MarkovOne();
 		markov.setRandom(42);
 		markov.setTraining(st);
-		for(int k=0; k < 3; k++){
-			String text = markov.getRandomText(100);
+		for(int k=0; k < 2; k++){
+			String text = markov.getRandomText(500);
 			printOut(text);
 		}
 	}
