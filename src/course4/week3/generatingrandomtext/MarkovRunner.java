@@ -16,9 +16,54 @@ public class MarkovRunner {
 	public static void main(String[] args){
 		MarkovRunner myObj = new MarkovRunner();
 		//myObj.runMarkovZero();
-		myObj.runMarkovOne();
+		//myObj.runMarkovOne();
+		myObj.runMarkovTwo();
+		//myObj.runMarkovThree();
+		myObj.runMarkovFour();
+		
 	}
     
+	public void runMarkovFour() {
+		FileResource fr = new FileResource(filePath + "confucius.txt");
+		String st = fr.asString();
+		st = st.replace('\n', ' ');
+		MarkovFour markov = new MarkovFour();
+		//Set N = 6 ???????
+		markov.setRandom(25);
+		markov.setTraining(st);
+		for(int k=0; k < 1; k++){
+			String text = markov.getRandomText(60);
+			printOut(text);
+		}
+	}
+	
+	public void runMarkovThree() {
+		FileResource fr = new FileResource(filePath + "confucius.txt");
+		String st = fr.asString();
+		st = st.replace('\n', ' ');
+		st = "this is a test yes a test";
+		MarkovThree markov = new MarkovThree();
+		markov.setRandom(25);
+		markov.setTraining(st);
+		for(int k=0; k < 1; k++){
+			String text = markov.getRandomText(60);
+			printOut(text);
+		}
+	}
+	
+	public void runMarkovTwo() {
+		FileResource fr = new FileResource(filePath + "confucius.txt");
+		String st = fr.asString();
+		st = st.replace('\n', ' ');
+		MarkovTwo markov = new MarkovTwo();
+		markov.setRandom(38);
+		markov.setTraining(st);
+		for(int k=0; k < 1; k++){
+			String text = markov.getRandomText(60);
+			printOut(text);
+		}
+	}
+	
 	public void runMarkovOne() {
 		FileResource fr = new FileResource(filePath + "confucius.txt");
 		String st = fr.asString();
