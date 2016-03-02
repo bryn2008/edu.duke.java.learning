@@ -3,11 +3,13 @@ package course4.week3.generatingrandomtext;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class MarkovTwo {
+public class MarkovModel {
     private String myText;
 	private Random myRandom;
+	private int numOfChars;
 	
-	public MarkovTwo() {
+	public MarkovModel(int numIn) {
+		numOfChars = numIn;
 		myRandom = new Random();
 	}
 	
@@ -38,12 +40,11 @@ public class MarkovTwo {
 			return "";
 		}
 		StringBuilder sb = new StringBuilder();
-		int index = myRandom.nextInt(myText.length()-2);
-		String key = myText.substring(index, index+2);
+		int index = myRandom.nextInt(myText.length()-numOfChars);
+		String key = myText.substring(index, index+numOfChars);
 		sb.append(key);
-		for(int k=0; k < numChars-2; k++){
+		for(int k=0; k < numChars-numOfChars; k++){
 			ArrayList<String> follows = getFollows(key);
-			//System.out.println("key " + key + " " + follows);
 			if(follows.size() == 0 ){
 				break;
 			}
@@ -53,7 +54,6 @@ public class MarkovTwo {
 			System.out.println(sb);
 			key = key.substring(1) + next;
 		}
-		
 		return sb.toString();
 	}
 	

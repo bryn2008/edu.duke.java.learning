@@ -50,10 +50,8 @@ public class MarkovFour {
 			String next = follows.get(index);
 			sb.append(next);
 			System.out.println(sb);
-			key = next;
-			
+			key = key.substring(1) + next;
 		}
-		
 		return sb.toString();
 	}
 	
