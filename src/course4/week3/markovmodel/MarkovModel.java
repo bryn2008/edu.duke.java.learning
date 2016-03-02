@@ -3,9 +3,8 @@ package course4.week3.markovmodel;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class MarkovModel implements IMarkovModel {
-    private String myText;
-	private Random myRandom;
+public class MarkovModel extends AbstractMarkovModel{
+	
 	private int numOfChars;
 	
 	public MarkovModel(int numIn) {
@@ -19,19 +18,6 @@ public class MarkovModel implements IMarkovModel {
 	
 	public void setTraining(String s){
 		myText = s.trim();
-	}
-	
-	public ArrayList<String> getFollows(String key){
-		
-		ArrayList<String> answer = new ArrayList<String>();
-		for(int i=0; i<myText.length(); i++){	
-			String currentText = myText.substring(i);
-			if(currentText.startsWith(key) && currentText.length() > key.length()){
-				String regEx = myText.substring(i+key.length(), i+key.length()+1);
-				answer.add(regEx);
-			}
-		}	
-		return answer;
 	}
 	
 	public String getRandomText(int numChars){
@@ -57,4 +43,8 @@ public class MarkovModel implements IMarkovModel {
 		return sb.toString();
 	}
 	
+	@Override
+	public String toString(){
+		return "MarkovModel of order "+ numOfChars;
+	}
 }

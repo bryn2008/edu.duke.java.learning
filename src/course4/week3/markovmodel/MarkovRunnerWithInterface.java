@@ -11,7 +11,8 @@ public class MarkovRunnerWithInterface {
 		myObj.runMarkov();
 	}
 	
-	public void runModel(IMarkovModel markov, String text, int size){
+	public void runModel(IMarkovModel markov, String text, int size, int seed){
+		markov.setRandom(seed);
 		markov.setTraining(text);
 		System.out.println("running with " + markov);
 		for (int k=0; k <3; k++){
@@ -24,26 +25,23 @@ public class MarkovRunnerWithInterface {
 		FileResource fr = new FileResource(filePath + "merkel.txt");
 		String st = fr.asString();
 		st = st.replace('\n', ' ');
-		//st = "this is a test yes a test.";
 		
 		int size = 200;
+		int seed = 42;
 		
         MarkovZero mz = new MarkovZero();
-        runModel(mz, st, size);
+        runModel(mz, st, size, seed);
     
         MarkovOne mOne = new MarkovOne();
-        runModel(mOne, st, size);
+        runModel(mOne, st, size, seed);
         
         MarkovModel mThree = new MarkovModel(3);
-        runModel(mThree, st, size);
+        runModel(mThree, st, size, seed);
         
         MarkovFour mFour = new MarkovFour();
-        runModel(mFour, st, size);
+        runModel(mFour, st, size, seed);
 		
 	}
-	
-	
-	
 	
 	private void printOut(String s){
 		String[] words = s.split("\\s+");
