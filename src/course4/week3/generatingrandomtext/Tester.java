@@ -16,7 +16,8 @@ public class Tester {
     
 	public void testGetFollows() {
 		
-		MarkovOne markov = new MarkovOne("this is a test yes this is a test.");
+		MarkovOne markov = new MarkovOne();
+		markov.setTraining("this is a test yes this is a test.");
 		ArrayList<String> al = markov.getFollows("t");
 		System.out.println(al);
 		
@@ -26,7 +27,8 @@ public class Tester {
 		
 		FileResource fr = new FileResource(filePath + "confucius.txt");
 		String st = fr.asString();
-		MarkovOne markov = new MarkovOne(st);
+		MarkovOne markov = new MarkovOne();
+		markov.setTraining(st);
 		ArrayList<String> al = markov.getFollows("t");
 		System.out.println(al.size());
 	}

@@ -11,11 +11,6 @@ public class MarkovOne {
 		myRandom = new Random();
 	}
 	
-	public MarkovOne(String str) {
-		myText = str;
-		myRandom = new Random();
-	}
-	
 	public void setRandom(int seed){
 		myRandom = new Random(seed);
 	}
@@ -38,13 +33,23 @@ public class MarkovOne {
 	}
 	
 	public String getRandomText(int numChars){
+		
 		if (myText == null){
 			return "";
 		}
 		StringBuilder sb = new StringBuilder();
+		int index = myRandom.nextInt(myText.length()-1);
+		String key = myText.substring(index, index+1);
+		sb.append(key);
 		for(int k=0; k < numChars; k++){
-			int index = myRandom.nextInt(myText.length());
-			sb.append(myText.charAt(index));
+			ArrayList<String> follows = getFollows(key);
+			if(follows.size() == 0 ){
+				break;
+			}
+			index = myRandom.nextInt(follows.size());
+			String next = follows.get(index);
+			sb.append(next);
+			key = next;
 		}
 		
 		return sb.toString();

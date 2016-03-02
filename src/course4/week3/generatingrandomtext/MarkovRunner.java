@@ -27,7 +27,7 @@ public class MarkovRunner {
 		markov.setRandom(42);
 		markov.setTraining(st);
 		for(int k=0; k < 1; k++){
-			String text = markov.getRandomText(20);
+			String text = markov.getRandomText(65);
 			printOut(text);
 		}
 	}
