@@ -25,14 +25,14 @@ public class MarkovRunner {
 	}
     
 	public void runMarkovModel() {
-		FileResource fr = new FileResource(filePath + "confucius.txt");
+		FileResource fr = new FileResource(filePath + "merkel.txt");
 		String st = fr.asString();
 		st = st.replace('\n', ' ');
 		MarkovModel markov = new MarkovModel(6);
 		markov.setRandom(38);
 		markov.setTraining(st);
 		for(int k=0; k < 1; k++){
-			String text = markov.getRandomText(60);
+			String text = markov.getRandomText(400);
 			printOut(text);
 		}
 	}
