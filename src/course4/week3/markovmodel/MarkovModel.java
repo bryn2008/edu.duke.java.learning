@@ -3,7 +3,7 @@ package course4.week3.markovmodel;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class MarkovModel {
+public class MarkovModel implements IMarkovModel {
     private String myText;
 	private Random myRandom;
 	private int numOfChars;
@@ -51,7 +51,7 @@ public class MarkovModel {
 			index = myRandom.nextInt(follows.size());
 			String next = follows.get(index);
 			sb.append(next);
-			System.out.println(sb);
+			//System.out.println(sb);
 			key = key.substring(1) + next;
 		}
 		return sb.toString();

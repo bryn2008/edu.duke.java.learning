@@ -4,9 +4,16 @@ import edu.duke.*;
 
 public class MarkovRunnerWithInterface {
 	
+	private String filePath = "src/course4/week3/markovmodel/data/";
+	
+	public static void main(String[] args){
+		MarkovRunnerWithInterface myObj = new MarkovRunnerWithInterface();
+		myObj.runMarkov();
+	}
+	
 	public void runModel(IMarkovModel markov, String text, int size){
 		markov.setTraining(text);
-		System.out.println("running with" + markov);
+		System.out.println("running with " + markov);
 		for (int k=0; k <3; k++){
 			String st = markov.getRandomText(size);
 			printOut(st);
@@ -14,12 +21,14 @@ public class MarkovRunnerWithInterface {
 	}
 	
 	public void runMarkov(){
-		FileResource fr = new FileResource();
+		FileResource fr = new FileResource(filePath + "merkel.txt");
 		String st = fr.asString();
 		st = st.replace('\n', ' ');
-		//int size = 200;
+		//st = "this is a test yes a test.";
 		
-/*        MarkovZero mz = new MarkovZero();
+		int size = 200;
+		
+        MarkovZero mz = new MarkovZero();
         runModel(mz, st, size);
     
         MarkovOne mOne = new MarkovOne();
@@ -30,7 +39,6 @@ public class MarkovRunnerWithInterface {
         
         MarkovFour mFour = new MarkovFour();
         runModel(mFour, st, size);
-*/
 		
 	}
 	

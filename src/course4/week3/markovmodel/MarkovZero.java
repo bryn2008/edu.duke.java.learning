@@ -9,7 +9,7 @@ package course4.week3.markovmodel;
 
 import java.util.Random;
 
-public class MarkovZero {
+public class MarkovZero implements IMarkovModel {
     private String myText;
 	private Random myRandom;
 	
@@ -33,7 +33,7 @@ public class MarkovZero {
 		for(int k=0; k < numChars; k++){
 			int index = myRandom.nextInt(myText.length());
 			sb.append(myText.charAt(index));
-			System.out.println(sb);
+			//System.out.println(sb);
 		}
 		
 		return sb.toString();
