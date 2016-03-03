@@ -4,7 +4,7 @@ import edu.duke.*;
 
 public class MarkovRunnerWithInterface {
 	
-	private String filePath = "src/course4/week3/markovmodel/data/";
+	private String filePath = "src/course4/week3/markovmodel/";
 	
 	public static void main(String[] args){
 		MarkovRunnerWithInterface myObj = new MarkovRunnerWithInterface();
@@ -14,22 +14,23 @@ public class MarkovRunnerWithInterface {
 	public void runModel(IMarkovModel markov, String text, int size, int seed){
 		markov.setRandom(seed);
 		markov.setTraining(text);
+		markov.buildMap();
 		System.out.println("running with " + markov);
-		for (int k=0; k <3; k++){
+		for (int k=0; k <1; k++){
 			String st = markov.getRandomText(size);
 			printOut(st);
 		}
 	}
 	
 	public void runMarkov(){
-		FileResource fr = new FileResource(filePath + "merkel.txt");
+		FileResource fr = new FileResource(filePath + "data/romeo.txt");
 		String st = fr.asString();
 		st = st.replace('\n', ' ');
 		
-		int size = 200;
-		int seed = 42;
+		int size = 100;
+		int seed = 615;
 		
-		EfficientMarkovModel emm = new EfficientMarkovModel(6);
+		EfficientMarkovModel emm = new EfficientMarkovModel(5);
         runModel(emm, st, size, seed);
 		
         /*MarkovZero mz = new MarkovZero();

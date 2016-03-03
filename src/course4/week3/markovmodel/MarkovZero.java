@@ -42,4 +42,8 @@ public class MarkovZero extends AbstractMarkovModel {
 		return "MarkovModel of order 0";
 	}
 	
+	public void buildMap(){
+		
+	}
+	
 }

@@ -7,7 +7,7 @@ import java.util.Random;
 public class EfficientMarkovModel extends AbstractMarkovModel{
 	
 	private int numOfChars;
-	private HashMap<String, ArrayList<String>> followsMap = new HashMap<String, ArrayList<String>>();
+	private HashMap<String, ArrayList<String>> followsMap;
 	
 	public EfficientMarkovModel(int numIn){
 		numOfChars = numIn;
@@ -23,7 +23,7 @@ public class EfficientMarkovModel extends AbstractMarkovModel{
 	}
 	
 	public String getRandomText(int numChars){
-		buildMap();
+		
 		if (myText == null){
 			return "";
 		}
@@ -52,7 +52,11 @@ public class EfficientMarkovModel extends AbstractMarkovModel{
 	
 	public void buildMap(){
 		
-		for(int k=0; k < myText.length(); k+=numOfChars){
+		//build a HashMap of all the keys and ArrayLists values 
+		followsMap = new HashMap<String, ArrayList<String>>();
+		
+		//not sure how to pick the keys and there is a way to obtain them not at random like previously done in the MarkovModel
+		for(int k=0; k < myText.length()-numOfChars; k+=numOfChars){
 			String key = myText.substring(k, k+numOfChars);
 			if(!followsMap.containsKey(key)){
 				ArrayList<String> follows = getFollows(key);
@@ -61,17 +65,20 @@ public class EfficientMarkovModel extends AbstractMarkovModel{
 					followsMap.put(key, emptyTemp);
 				}
 				followsMap.put(key, follows);
+				System.out.println(key + " " + follows);
 			}
 		}
-		printHashMap();
+		System.out.println("The size of all the keys in the HashMap is " + followsMap.size() + " after building the map.");
+		printHashMapInfo();
 	}
 	
-	public void printHashMap(){
+	public void printHashMapInfo(){
+		
 		for (String name: followsMap.keySet()){
             String key = name.toString();
             String value = followsMap.get(name).toString();  
             System.out.println(key + " " + value);  
-		} 	
+		}	
 	}
 	
 }

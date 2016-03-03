@@ -45,4 +45,8 @@ public class MarkovFour extends AbstractMarkovModel {
 		return "MarkovModel of order 4";
 	}
 	
+	public void buildMap(){
+		
+	}
+	
 }

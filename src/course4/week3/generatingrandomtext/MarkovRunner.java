@@ -25,11 +25,11 @@ public class MarkovRunner {
 	}
     
 	public void runMarkovModel() {
-		FileResource fr = new FileResource(filePath + "merkel.txt");
+		FileResource fr = new FileResource(filePath + "confucius.txt");
 		String st = fr.asString();
 		st = st.replace('\n', ' ');
-		MarkovModel markov = new MarkovModel(6);
-		markov.setRandom(38);
+		MarkovModel markov = new MarkovModel(8);
+		markov.setRandom(365);
 		markov.setTraining(st);
 		for(int k=0; k < 1; k++){
 			String text = markov.getRandomText(400);
@@ -42,9 +42,7 @@ public class MarkovRunner {
 		String st = fr.asString();
 		st = st.replace('\n', ' ');
 		MarkovFour markov = new MarkovFour();
-		//generate a MarkovModel?????
-		//Set N = 6 ???????
-		markov.setRandom(25);
+		markov.setRandom(371);
 		markov.setTraining(st);
 		for(int k=0; k < 1; k++){
 			String text = markov.getRandomText(60);
@@ -84,7 +82,7 @@ public class MarkovRunner {
 		String st = fr.asString();
 		st = st.replace('\n', ' ');
 		MarkovOne markov = new MarkovOne();
-		markov.setRandom(42);
+		markov.setRandom(273);
 		markov.setTraining(st);
 		for(int k=0; k < 1; k++){
 			String text = markov.getRandomText(65);
@@ -93,13 +91,13 @@ public class MarkovRunner {
 	}
 	
     public void runMarkovZero() {
-		FileResource fr = new FileResource(filePath + "alice.txt");
+		FileResource fr = new FileResource(filePath + "confucius.txt");
 		String st = fr.asString();
 		st = st.replace('\n', ' ');
 		MarkovZero markov = new MarkovZero();
-		markov.setRandom(42);
+		markov.setRandom(88);
 		markov.setTraining(st);
-		for(int k=0; k < 3; k++){
+		for(int k=0; k < 1; k++){
 			String text = markov.getRandomText(100);
 			printOut(text);
 		}

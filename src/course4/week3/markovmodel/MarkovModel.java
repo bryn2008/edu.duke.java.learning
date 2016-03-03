@@ -47,4 +47,9 @@ public class MarkovModel extends AbstractMarkovModel{
 	public String toString(){
 		return "MarkovModel of order "+ numOfChars;
 	}
+	
+	public void buildMap(){
+		
+	}
+	
 }

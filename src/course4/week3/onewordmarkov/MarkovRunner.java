@@ -1,4 +1,4 @@
-package course4.week3.resources.wordngramstarterprogram;
+package course4.week3.onewordmarkov;
 
 /**
  * Write a description of class MarkovRunner here.
@@ -11,7 +11,7 @@ import edu.duke.*;
 
 public class MarkovRunner {
 	
-	private String filePath = "src/course4/week3/resources/wordngramstarterprogram/data/";
+	private String filePath = "src/course4/week3/onewordmarkov/data/";
 	
 	public static void main(String[] args){
 		MarkovRunner runner = new MarkovRunner();

@@ -5,7 +5,9 @@ public interface IMarkovModel {
 	public void setTraining(String text);
 	
 	public String getRandomText(int numChars);
-
+	
+	public void buildMap();
+	
 	public void setRandom(int seed);
-
+	
 }

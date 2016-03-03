@@ -10,7 +10,7 @@ public class Tester {
 	
 	public static void main(String[] args){
 		Tester myObj = new Tester();
-//		myObj.testGetFollows();
+		//myObj.testGetFollows();
 		myObj.testGetFollowsWithFile();
 	}
     
@@ -25,11 +25,11 @@ public class Tester {
 	
 	public void testGetFollowsWithFile() {
 		
-		FileResource fr = new FileResource(filePath + "confucius.txt");
+		FileResource fr = new FileResource(filePath + "melville.txt");
 		String st = fr.asString();
 		MarkovOne markov = new MarkovOne();
 		markov.setTraining(st);
-		ArrayList<String> al = markov.getFollows("t");
+		ArrayList<String> al = markov.getFollows("th");
 		System.out.println(al.size());
 	}
 	
