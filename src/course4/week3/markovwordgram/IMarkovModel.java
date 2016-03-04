@@ -8,7 +8,8 @@ package course4.week3.markovwordgram;
  */
 
 public interface IMarkovModel {
-    public void setTraining(String text);
+    
+	public void setTraining(String text);
     
     public void setRandom(int seed);
     

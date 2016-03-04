@@ -1,7 +1,8 @@
 package course4.week3.markovwordgram;
 
 public class WordGram {
-    private String[] myWords;
+    
+	private String[] myWords;
     //private int myHash;
 
     public WordGram(String[] source, int start, int size) {
@@ -17,30 +18,40 @@ public class WordGram {
     }
 
     public int length(){
-        // TODO: Complete this method
-        return 0;
+    	return myWords.length;
     }
 
     public String toString(){
         String ret = "";
-        // TODO: Complete this method
-
+        for (int k=0; k < myWords.length; k++){
+        	ret += myWords[k] + " ";
+        }
         return ret.trim();
     }
 
     public boolean equals(Object o) {
-        //WordGram other = (WordGram) o;
-        // TODO: Complete this method
+        WordGram other = (WordGram) o;
+        if (this.length() != other.length()){
+        	return false;
+        }
+        for (int k=0; k< myWords.length; k++){
+        	if (! myWords[k].equals(other.wordAt(k))){
+        		return false;
+        	}
+        }
         return true;
 
     }
 
     public WordGram shiftAdd(String word) {	
-        WordGram out = new WordGram(myWords, 0, myWords.length);
-        // shift all words one towards 0 and add word at the end. 
-        // you lose the first word
-        // TODO: Complete this method
-        return out;
+    	int length = myWords.length;
+    	String[] out = new String[length];
+    	for(int i=0; i<length-1; i++){
+    		out[i] = myWords[i+1];
+    	}
+    	out[length-1] = word;
+    	WordGram ans = new WordGram(out, 0, myWords.length);        
+        return ans;
     }
 
 }
