@@ -29,13 +29,14 @@ public class MarkovWordTwo implements IMarkovModel {
 	public String getRandomText(int numWords) {
 		StringBuilder sb = new StringBuilder();
 		int index = myRandom.nextInt(myText.length - 1); // random word to start with
-		String key = myText[index];
-		sb.append(key);
+		String key1 = myText[index];
+		String key2 = myText[index+1];
+		sb.append(key1);
 		sb.append(" ");
 		for (int k = 0; k < numWords - 1; k++) {
-			ArrayList<String> follows = getFollows(key);
+			ArrayList<String> follows = getFollows(key1, key2);
 			//use the print statement below to test the getfollows method
-			System.out.println(">> " + key + " " + follows);
+			System.out.println(">> " + key1 + " " + key2 + " " + follows);
 			if (follows.size() == 0) {
 				break;
 			}
@@ -43,45 +44,46 @@ public class MarkovWordTwo implements IMarkovModel {
 			String next = follows.get(index);
 			sb.append(next);
 			sb.append(" ");
-			key = next;
+			key1 = next;
 		}
 		
 		return sb.toString().trim();
 	}
 
-	private int indexOf(String[] words, String target, int start) {
+	private int indexOf(String[] words, String target1, String target2, int start) {
 		for (int k = start; k < words.length; k++) {
-			if (words[k].equals(target)) {
+			//might break here if there is no words[k+1]
+			if (words[k].equals(target1) && words[k+1].equals(target2)) {
 				return k;
 			}
 		}
 		return -1;
 	}	
 
-	private ArrayList<String> getFollows(String key) {
+	private ArrayList<String> getFollows(String key1, String key2) {
 		ArrayList<String> follows = new ArrayList<String>();
 		int pos = 0;
 		while (pos < myText.length) {
-			int start = indexOf(myText, key, pos);
+			int start = indexOf(myText, key1, key2, pos);
 			if (start == -1) {
 				break;
 			}
-			if (start + key.length() >= myText.length - 1) {
+			if (start + key1.length() + key2.length() >= myText.length - 1) {
 				break;
 			}
 			String next = myText[start + 1];
 			follows.add(next);
-			pos = start + key.length();
+			pos = start + key1.length();
 		}
 		return follows;
 	}
 	
 	public String toString(){
-		return "MarkovWordOne";
+		return "MarkovWordTwo";
 	}
 	
-	public void testIndexOf(String[] words, String target, int start){
-		int ans = indexOf(words, target , start);
+	public void testIndexOf(String[] words, String target1, String target2, int start){
+		int ans = indexOf(words, target1, target2 , start);
 		System.out.println("The index returned is " + ans);
 	}
 

@@ -35,7 +35,7 @@ public class MarkovWordOne implements IMarkovModel {
 		for (int k = 0; k < numWords - 1; k++) {
 			ArrayList<String> follows = getFollows(key);
 			//use the print statement below to test the getfollows method
-			System.out.println(">> " + key + " " + follows);
+			//System.out.println(">> " + key + " " + follows);
 			if (follows.size() == 0) {
 				break;
 			}
@@ -80,9 +80,9 @@ public class MarkovWordOne implements IMarkovModel {
 		return "MarkovWordOne";
 	}
 	
-	public void testIndexOf(String[] words, String target, int start){
+	/*public void testIndexOf(String[] words, String target, int start){
 		int ans = indexOf(words, target , start);
 		System.out.println("The index returned is " + ans);
-	}
+	}*/
 
 }
