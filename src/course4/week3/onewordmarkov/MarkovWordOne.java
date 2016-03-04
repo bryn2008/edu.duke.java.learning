@@ -28,13 +28,14 @@ public class MarkovWordOne implements IMarkovModel {
 
 	public String getRandomText(int numWords) {
 		StringBuilder sb = new StringBuilder();
-		int index = myRandom.nextInt(myText.length - 1); // random word to start
-															// with
+		int index = myRandom.nextInt(myText.length - 1); // random word to start with
 		String key = myText[index];
 		sb.append(key);
 		sb.append(" ");
 		for (int k = 0; k < numWords - 1; k++) {
 			ArrayList<String> follows = getFollows(key);
+			//use the print statement below to test the getfollows method
+			System.out.println(">> " + key + " " + follows);
 			if (follows.size() == 0) {
 				break;
 			}
@@ -44,6 +45,7 @@ public class MarkovWordOne implements IMarkovModel {
 			sb.append(" ");
 			key = next;
 		}
+		
 		return sb.toString().trim();
 	}
 
@@ -54,7 +56,7 @@ public class MarkovWordOne implements IMarkovModel {
 			}
 		}
 		return -1;
-	}
+	}	
 
 	private ArrayList<String> getFollows(String key) {
 		ArrayList<String> follows = new ArrayList<String>();
@@ -72,6 +74,15 @@ public class MarkovWordOne implements IMarkovModel {
 			pos = start + key.length();
 		}
 		return follows;
+	}
+	
+	public String toString(){
+		return "MarkovWordOne";
+	}
+	
+	public void testIndexOf(String[] words, String target, int start){
+		int ans = indexOf(words, target , start);
+		System.out.println("The index returned is " + ans);
 	}
 
 }

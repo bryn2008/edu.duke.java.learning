@@ -18,14 +18,15 @@ public class MarkovRunner {
 		runner.runMarkov();
 	}
 	
-    public void runModel(IMarkovModel markov, String text, int size){ 
-        markov.setTraining(text); 
+/*    public void runModel(IMarkovModel markov, String text, int size){ 
+        markov.setTraining(text);
+        markov.setRandom(175);
         System.out.println("running with " + markov); 
         for(int k=0; k < 3; k++){ 
             String st = markov.getRandomText(size); 
             printOut(st); 
         } 
-    } 
+    } */
 
     public void runModel(IMarkovModel markov, String text, int size, int seed){ 
         markov.setTraining(text); 
@@ -38,11 +39,11 @@ public class MarkovRunner {
     } 
 
     public void runMarkov() { 
-        FileResource fr = new FileResource(filePath + "romeo.txt"); 
+        FileResource fr = new FileResource(filePath + "confucius.txt"); 
         String st = fr.asString(); 
         st = st.replace('\n', ' '); 
         MarkovWordOne markovWord = new MarkovWordOne(); 
-        runModel(markovWord, st, 200); 
+        runModel(markovWord, st, 120, 175); 
     } 
 
     private void printOut(String s){
