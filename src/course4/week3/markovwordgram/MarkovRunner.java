@@ -10,14 +10,13 @@ package course4.week3.markovwordgram;
 import edu.duke.*;
 
 public class MarkovRunner {
-    public void runModel(IMarkovModel markov, String text, int size){ 
-        markov.setTraining(text); 
-        System.out.println("running with " + markov); 
-        for(int k=0; k < 3; k++){ 
-            String st = markov.getRandomText(size); 
-            printOut(st); 
-        } 
-    } 
+    
+	private String filePath = "src/course4/week3/markovwordgram/data/";
+	
+	public static void main(String[] args){
+		MarkovRunner myObj = new MarkovRunner();
+		myObj.runMarkov();
+	}
 
     public void runModel(IMarkovModel markov, String text, int size, int seed){ 
         markov.setTraining(text); 
@@ -27,14 +26,17 @@ public class MarkovRunner {
             String st = markov.getRandomText(size); 
             printOut(st); 
         } 
-    } 
+    }
 
     public void runMarkov() { 
-        FileResource fr = new FileResource(); 
+        FileResource fr = new FileResource(filePath + "confucius.txt"); 
         String st = fr.asString(); 
         st = st.replace('\n', ' '); 
-        //MarkovWordOne markovWord = new MarkovWordOne(); 
-        //runModel(markovWord, st, 200); 
+        int myOrder = 3;
+        int size = 20/myOrder;
+        int seed = 643;
+        MarkovWord markovWord = new MarkovWord(myOrder);
+        runModel(markovWord, st, size, seed); 
     } 
 
     private void printOut(String s){

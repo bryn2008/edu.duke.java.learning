@@ -5,7 +5,11 @@ public class WordGram {
 	private String[] myWords;
     //private int myHash;
 
-    public WordGram(String[] source, int start, int size) {
+    public String[] getMyWords() {
+		return myWords;
+	}
+
+	public WordGram(String[] source, int start, int size) {
         myWords = new String[size];
         System.arraycopy(source, start, myWords, 0, size);
     }
