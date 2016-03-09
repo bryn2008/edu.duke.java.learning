@@ -15,7 +15,31 @@ public class MarkovRunner {
 	
 	public static void main(String[] args){
 		MarkovRunner myObj = new MarkovRunner();
-		myObj.runMarkov();
+		//myObj.runMarkov();
+		//myObj.testHashMap();
+		myObj.testHashMapTwo();
+	}
+	
+	public void testHashMap(){
+	    String text = "this is a test yes this is really a test"; 
+	    int myOrder = 2;
+	    int size = 50/myOrder;
+	    int seed = 42;
+	    EfficientMarkovWord markovWord = new EfficientMarkovWord(myOrder);
+	    markovWord.setTraining(text); 
+	    markovWord.setRandom(seed);
+        markovWord.getRandomText(size); 
+	}
+	
+	public void testHashMapTwo(){
+	    String text = "this is a test yes this is really a test yes a test this is wow"; 
+	    int myOrder = 2;
+	    int size = 50/myOrder;
+	    int seed = 42;
+	    EfficientMarkovWord markovWord = new EfficientMarkovWord(myOrder);
+	    markovWord.setTraining(text); 
+	    markovWord.setRandom(seed);
+        markovWord.getRandomText(size); 
 	}
 
     public void runModel(IMarkovModel markov, String text, int size, int seed){ 
@@ -25,7 +49,7 @@ public class MarkovRunner {
         for(int k=0; k < 3; k++){ 
             String st = markov.getRandomText(size); 
             printOut(st); 
-        } 
+        }
     }
 
     public void runMarkov() { 
