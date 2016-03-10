@@ -32,16 +32,17 @@ public class MarkovRunner {
 	}
 	
 	public void testHashMapTwo(){
-	    String text = "this is a test yes this is really a test yes a test this is wow"; 
+	    //String text = "this is a test yes this is really a test yes a test this is wow";
+	    String text = "this is a test yes"; 
 	    int myOrder = 2;
 	    int size = 20;
-	    int seed = 42;
+	    int seed = 2;
 	    EfficientMarkovWord markovWord = new EfficientMarkovWord(myOrder);
 	    markovWord.setTraining(text); 
 	    markovWord.setRandom(seed);
         //markovWord.getRandomText(size);
         System.out.println("running with " + markovWord); 
-        for(int k=0; k < 3; k++){ 
+        for(int k=0; k < 1; k++){ 
             String st = markovWord.getRandomText(size); 
             printOut(st); 
         }

@@ -32,6 +32,15 @@ public class WordGram {
 		return ret.trim();
 	}
 
+	public boolean contains(String o) {
+		for (String word : myWords) {
+			if ((o == null && word == null) || word.equals(o)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public boolean equals(Object o) {
 		WordGram other = (WordGram) o;
 		if (this.length() != other.length()) {
