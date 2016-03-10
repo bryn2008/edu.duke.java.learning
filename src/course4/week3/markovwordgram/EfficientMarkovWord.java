@@ -2,6 +2,7 @@ package course4.week3.markovwordgram;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -13,7 +14,7 @@ public class EfficientMarkovWord implements IMarkovModel {
 	private String[] myText;
 	private Random myRandom;
 	private int myOrder;
-	private HashMap<Integer, ArrayList<String[]>> followsMap;
+	private HashMap<Integer, String[]> followsMap;
 
 	public EfficientMarkovWord(int myOrderNum) {
 		myOrder = myOrderNum;
@@ -67,8 +68,7 @@ public class EfficientMarkovWord implements IMarkovModel {
 		return -1;
 	}
 	
-	private ArrayList<String[]> getFollows(WordGram kGram) {
-		ArrayList<String[]> follows = new ArrayList<String[]>();
+	private String[] getFollows(WordGram kGram) {
 		StringBuilder sb = new StringBuilder();
 		int pos = 0;
 		while (pos < myText.length) {
@@ -91,54 +91,54 @@ public class EfficientMarkovWord implements IMarkovModel {
 			pos = start;
 			//System.out.println("The SB contains "+sb.toString());
 		}
-		String[] abc = sb.toString().split(" ");
-		follows.add(abc);
-		return follows;
+		String[] words = sb.toString().split(" ");
+		return words;
 	}
 
 	public String getRandomText(int numWords) {
 		
 		StringBuilder sb = new StringBuilder();
-		
 		int index = myRandom.nextInt(myText.length - myOrder); 
 		WordGram keyWG = new WordGram(myText, index, myOrder);
 		sb.append(keyWG);
 		sb.append(" ");
 		System.out.println(">>"+keyWG);
-		for (int k = 0; k < numWords - 1; k++) {
-			ArrayList<String[]> follows = followsMap.get(keyWG.hashCode());
-			index = myRandom.nextInt(follows.size());
-			String next = follows.get(index);
-			sb.append(next);
-			sb.append(" ");
-			keyWG = keyWG.shiftAdd(next);
+		String next = new String();
+		int key = keyWG.hashCode();
+		for (int k = 0; k < numWords - myOrder; k++) {
+			//get the HashCode for the new word gram
+			System.out.print("The key used is: "+key);
+			
+			//if(followsMap.containsKey(key)){
+				//get the String[] of possible follow words from the HashMap and then set the next random word
+				String[] follows = followsMap.get(keyWG.hashCode());
+				while (follows == null){
+					index = myRandom.nextInt(myText.length - myOrder); 
+					keyWG = new WordGram(myText, index, myOrder);
+					key = keyWG.hashCode();
+					follows = followsMap.get(keyWG.hashCode());
+				}
+				
+				
+				System.out.print("\nThe next possiable words are: ");
+				for (int i = 0; i < follows.length; i++) {
+					System.out.print(follows[i] + ", ");
+				}
+				
+				index = myRandom.nextInt(follows.length);
+				next = follows[index];
+				System.out.print(" and the next word chosen is: " + next + "\n");
+				
+				sb.append(next);
+				sb.append(" ");
+				
+				//shiftAdd the new word for the next key in the for loop
+				keyWG = keyWG.shiftAdd(next);
+				key = keyWG.hashCode();
+				
 		}
-		
+		System.out.println("the sb = "+sb.toString().trim());
 		return sb.toString().trim();
-		
-		/*StringBuilder sb = new StringBuilder();
-		int index = myRandom.nextInt(myText.length - myOrder); 
-		WordGram keyWG = new WordGram(myText, index, myOrder);
-		sb.append(keyWG);
-		sb.append(" ");
-		System.out.println(">>>>>>>>"+keyWG);
-		for (int k = 0; k < numWords - 1; k++) {
-			ArrayList<String[]> follows = getFollows(keyWG);
-			// use the print statement below to test the getfollows method
-			// System.out.println(">> " + keyWG + " " + String.join(" ",
-			// follows.get(0)) );
-			if (follows.size() == 0) {
-				break;
-			}
-			index = myRandom.nextInt(follows.size());
-			WordGram next = new WordGram(follows.get(index), 0, myOrder);
-			sb.append(next);
-			sb.append(" ");
-			keyWG = next;
-			;
-		}
-
-		return sb.toString().trim();*/
 	}
 
 	public String toString() {
@@ -147,7 +147,7 @@ public class EfficientMarkovWord implements IMarkovModel {
 
 	public void buildMap() {
 
-		followsMap = new HashMap<Integer, ArrayList<String[]>>();
+		followsMap = new HashMap<Integer, String[]>();
 		for (int i = 0; i < myText.length - myOrder + 1; i++) {
 			// loop through all words of myOrder in the training text
 			WordGram currentWords = new WordGram(myText, i, myOrder);
@@ -155,44 +155,44 @@ public class EfficientMarkovWord implements IMarkovModel {
 			int hashKey = currentWords.hashCode();
 			// System.out.println(">>"+hashCode);
 			if (!followsMap.containsKey(hashKey)) {
-				ArrayList<String[]> currentFollowes = getFollows(currentWords);
+				String[] currentFollowes = getFollows(currentWords);
 				// System.out.println("currentFollowes size " +
 				// currentFollowes.size());
-				if (currentFollowes.size() == 0) {
+				if (currentFollowes.length == 0) {
 					// System.out.println("NewEntry creates " + hashKey);
-					ArrayList<String[]> alTemp = new ArrayList<String[]>();
+					String[] alTemp = new String[0];
 					followsMap.put(hashKey, alTemp);
 				} else {
 					followsMap.put(hashKey, currentFollowes);
 					// System.out.println("The word gram is: " + currentWords);
-					for (String[] arr : currentFollowes) {
-						//System.out.println("This returns the array: " + Arrays.toString(arr));
-					}
+					/*for (String arr : currentFollowes) {
+						//System.out.println("This returns the array: " + arr);
+					}*/
 				}
 			}
 		}
-		//printHashMapInfo();
+		printHashMapInfo();
 	}
 
 	public void printHashMapInfo() {
 
 		System.out.println("There is " + followsMap.size() + " keys in the HashMap");
 		int heighestValues = 0;
-		for (Entry<Integer, ArrayList<String[]>> ee : followsMap.entrySet()) {
+		for (Entry<Integer, String[]> ee : followsMap.entrySet()) {
 			System.out.print("The key is "+ee.getKey() + " ");
 			// System.out.println("The VAL is "+ee.getValue());
-			for (String[] str : ee.getValue()) {
+			
 				System.out.print("The words in the String[] are: ");
 				int maxValue = 0;
-				for (int i = 0; i < str.length; i++) {
-					System.out.print(str[i] + ", ");
+				for (int i = 0; i < ee.getValue().length; i++) {
+					System.out.print(ee.getValue()[i] + ", ");
 					maxValue++;
 				}
 				System.out.println(" ");
 				if (maxValue > heighestValues) {
 					heighestValues = maxValue;
 				}
-			}
+			
 		}
 		System.out.println("The maximum number of elements following a key is " + heighestValues);
 	}
