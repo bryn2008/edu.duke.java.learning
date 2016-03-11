@@ -1,5 +1,7 @@
 package course4.week3.markovwordgram;
 
+import java.time.LocalDateTime;
+
 /**
  * Write a description of class MarkovRunner here.
  * 
@@ -17,7 +19,24 @@ public class MarkovRunner {
 		MarkovRunner myObj = new MarkovRunner();
 		//myObj.runMarkov();
 		//myObj.testHashMap();
-		myObj.testHashMapTwo();
+		//myObj.testHashMapTwo();
+		myObj.compareMethods();
+	}
+	
+	public void compareMethods(){
+		FileResource fr = new FileResource(filePath + "hawthorne.txt"); 
+        String st = fr.asString(); 
+        st = st.replace('\n', ' '); 
+        int myOrder = 2;
+        int size = 100/myOrder;
+        int seed = 42;
+        System.out.println(">>Strat time: "+LocalDateTime.now());
+        MarkovWord markovWord = new MarkovWord(myOrder);
+        runModel(markovWord, st, size, seed);
+        System.out.println(">>markovWord time: "+LocalDateTime.now());
+        EfficientMarkovWord markovEfficentWord = new EfficientMarkovWord(myOrder);
+        runModel(markovEfficentWord, st, 100, seed);
+        System.out.println(">>EfficientMarkovWord time: "+LocalDateTime.now());
 	}
 	
 	public void testHashMap(){
@@ -54,11 +73,11 @@ public class MarkovRunner {
         System.out.println("running with " + markov); 
         for(int k=0; k < 3; k++){ 
             String st = markov.getRandomText(size); 
-            printOut(st); 
+            printOut(st);
         }
     }
 
-    public void runMarkov() { 
+    /*public void runMarkov() { 
         FileResource fr = new FileResource(filePath + "confucius.txt"); 
         String st = fr.asString(); 
         st = st.replace('\n', ' '); 
@@ -67,7 +86,7 @@ public class MarkovRunner {
         int seed = 643;
         MarkovWord markovWord = new MarkovWord(myOrder);
         runModel(markovWord, st, size, seed); 
-    } 
+    } */
 
     private void printOut(String s){
         String[] words = s.split("\\s+");

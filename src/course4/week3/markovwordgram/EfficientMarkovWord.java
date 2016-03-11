@@ -1,7 +1,5 @@
 package course4.week3.markovwordgram;
 
-import static java.lang.System.out;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map.Entry;
